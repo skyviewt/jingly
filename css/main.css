@@ -94,7 +94,8 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-.svg-container{
+
+.page{
     margin:auto;
     position:absolute;
     top:0;
@@ -105,6 +106,12 @@ textarea {
     max-height: 100%;
     overflow: auto;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.svg-container{
+
 }
 
 #svg{
@@ -119,6 +126,7 @@ textarea {
     justify-content: space-evenly;
     margin: auto;
     padding-left: 0;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -131,11 +139,32 @@ textarea {
     font-weight: 700;
     outline: none;
     position: relative;
-    background-color:rgb(38, 38, 38);
     border-radius:50%;
     -webkit-font-smoothing: antialiased;
+    opacity: 0;
+    flex-shrink: 0;
+  }
+
+  .btn > svg{
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  .art{
+      background-color: #F44336;
+  }
+
+  .programming{
+      background-color: #FFEB3B;
   }
   
+  .resume{
+      background-color: #03A9F4;
+  }
 
 
 

@@ -4,7 +4,7 @@ let COLOR = {
     "BlackStroke": "#1f2c39",
     "BlobFill": "rgb(236, 240, 241)",
     "White": "#fff",
-    "Shadow": 'rgba(87, 101, 115, 0.68)'
+    "Shadow": "rgba(87, 101, 115, 0.68)"
 }
 
 let squareLength = Math.floor(Math.min($( window ).width(), $( window ).height()) / 4);
@@ -12,14 +12,13 @@ let squareLength = Math.floor(Math.min($( window ).width(), $( window ).height()
 s.attr({width:squareLength*2, height: squareLength*2});
 s.attr({viewBox:"0 0 "+ squareLength*2 + " " + squareLength*2 });
 let startingPnt = (squareLength*2 - squareLength) / 2;
-let block = s.rect(startingPnt, startingPnt*2, squareLength, squareLength, squareLength/20, squareLength/20);
-
+let block = s.rect(startingPnt, startingPnt*1.85, squareLength, squareLength, squareLength/20, squareLength/20);
 block.attr({
     fill: COLOR.BlobFill
 });
 
 let leftEyeX = Math.floor(startingPnt + squareLength / 4.25);
-let eyeY = Math.floor(startingPnt*2 + squareLength / 2.5);
+let eyeY = Math.floor(startingPnt*1.85 + squareLength / 2.5);
 let eyeSize = squareLength / 20;
 let leftEye = s.circle(leftEyeX, eyeY, eyeSize).attr({fill: COLOR.BlackStroke});
 
@@ -100,36 +99,45 @@ function animateMouthSmall(delay){
 
 animateMouthBig(Math.random()* 3000);
 
+let squareGroup = s.group(block, rightEye, rightTopEyeLid, rightBottomEyeLid, leftEye, leftTopEyeLid, leftBottomEyeLid, mouth).attr({cursor: "pointer"});
 
-
-let squareGroup = s.group(block, rightEye, rightTopEyeLid, rightBottomEyeLid, leftEye, leftTopEyeLid, leftBottomEyeLid, mouth);
-
-let shadow = s.ellipse((leftEyeX+rightEyeX)/2,squareLength*2 - squareLength/20, squareLength/4, squareLength/20).attr({fill: COLOR.Shadow});
+let shadow = s.ellipse((leftEyeX+rightEyeX)/2,squareLength*2 - squareLength/20, squareLength/4, squareLength/20).attr({fill: COLOR.Shadow, opacity: 0});
 let isMenuShown = false;
 let t2 = new TimelineMax();
 
-$('.nav').css({paddingTop: squareLength+'px'});
-$('.btn').css({width: squareLength/2 +'px', height: squareLength/2+'px', opacity: 0});
-let tween1 = TweenMax.fromTo(squareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: "center bottom"}, { y: -squareLength, scaleX: 1.15, scaleY: 0.85,transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
-()=>{
-    t2.to(squareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: "center bottom", ease: Bounce.easeOut},0.3);
-}});
-let tween2 = TweenMax.fromTo(shadow.node, 0.3,{scaleX: 0, scaleY: 0, transformOrigin: "center bottom"}, {scaleX: 1.5, scaleY: 1.5, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
-()=>{
-    t2.to(shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: "center bottom", ease: Bounce.easeOut}, 0.3);
-}});
-
-t2.add(tween1, 0);
-t2.add(tween2, 0);
+$('.btn').css({width: squareLength/2 +'px', height: squareLength/2+'px'});
 
 squareGroup.click(()=>{
-    t2.progress(0); 
+    if(!isMenuShown){
+        t2.add(TweenMax.fromTo(squareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: "center bottom"}, { y: -squareLength, scaleX: 1.15, scaleY: 0.85,transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
+            ()=>{
+                TweenMax.to(squareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: "center bottom", ease: Bounce.easeOut},0.3);
+            }}), 0);
+        t2.add(TweenMax.fromTo(shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: "center bottom"}, {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
+        ()=>{
+            TweenMax.to(shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: "center bottom", ease: Bounce.easeOut}, 0.3);
+        }}), 0);
+        t2.add(TweenMax.fromTo(".programming", 0.5, {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:squareLength/10}, {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, ease:Back.easeInOut}), 0);
+        t2.add(TweenMax.fromTo(".art",1,{scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: squareLength/2},{scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2);
+        t2.add(TweenMax.fromTo(".resume",1,{scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: -squareLength/2},{scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2);        
+        isMenuShown = true;
+    }else{
+        t2.clear();
+        let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+        let tweenVal = Math.random() * (1.02 - 1) + 1;
+
+        t2.add(TweenMax.fromTo('.btn', 0.4, {scale: 1.05}, {opacity:1, scale: 1, transformOrigin:"center center", ease: Back.easeInOut}),0);
+        t2.add(TweenMax.fromTo(squareGroup.node, 0.2, { scale: tweenVal, rotation: plusOrMinus*tweenVal, transformOrigin:"center bottom"}, { scale: 1, rotation: 0, transformOrigin:"center bottom", ease: Back.easeInOut, repeat: 1 }),0)  
+}
+    t2.pause(0); 
+
     t2.play();
-    if(!isMenuShown)
-    TweenMax.fromTo(".programming", 0.5, {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:squareLength/4+'px'}, {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, delay: 0.3, ease:Back.easeOut}, 0.3);
-    // TweenMax.fromTo(".programming", 0.5, {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:squareLength/4}, {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, delay: 0.3, ease:Back.easeOut}, 0.3);
-    // TweenMax.fromTo(".programming", 0.5, {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:squareLength/4}, {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, delay: 0.3, ease:Back.easeOut}, 0.3);
 });
+
+$('.art').click(()=>{
+
+    TweenMax.fromTo('#palette', 1, {drawSVG:0}, {drawSVG:"102%"}, "-=1" );
+})
 
 
 
