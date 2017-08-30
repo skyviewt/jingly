@@ -136,7 +136,7 @@ squareGroup.click(()=>{
 
 $('.art').click(()=>{
 
-    TweenMax.fromTo('#palette', 1, {drawSVG:0}, {drawSVG:"102%"}, "-=1" );
+    TweenMax.staggerFromTo('.palette', 1, {drawSVG:0}, {drawSVG:"102%", delay: 0.5}, "-=1" );
 })
 
 
