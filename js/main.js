@@ -254,7 +254,8 @@ function toggleArt(toColor){
     }else{
         if(isArtClicked){
             TweenMax.to([paletteOutline.node, paletteColor1.node, paletteColor2.node, paletteColor3.node, paletteColor4.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});    
-        }
+            TweenMax.to([moustacheLeft.node, moustacheRight.node], 0.5, {strokeDashoffset: moustacheLeftlength, ease: Power2.easeInOut});
+    }
         isArtClicked = false;
     }
 
