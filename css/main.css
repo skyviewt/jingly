@@ -144,32 +144,49 @@ textarea {
     -webkit-font-smoothing: antialiased;
     opacity: 0;
     flex-shrink: 0;
-  }
+}
 
-  .btn > svg{
+.btn > svg{
     margin: auto;
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-  }
+}
 
-  .art{
-      background-color: #E71D36;
-  }
+.art{
+    background-color: #E71D36;
+}
 
-  .programming{
-      background-color: #FF9F1C;
-  }
-  
-  .resume{
-      background-color: #2EC4B6;
-  }
+.programming{
+    background-color: #FF9F1C;
+}
 
+.resume{
+    background-color: #2EC4B6;
+}
 
+.drawing-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
+.accessory{
+    position: absolute;
+    height: auto;
+    overflow: visible;
+    align-self: flex-end;
+    margin-left: auto;
+    margin-right: auto;
+    right:0;
+    left:0;
+}
 
+.accessory .group{
+    opacity: 0;
+}
 
 
 

@@ -29,6 +29,12 @@ let leftEye = s.circle(leftEyeX, eyeY, eyeSize).attr({fill: COLOR.BlackStroke});
 let rightEyeX = Math.floor(startingPnt + squareLength - squareLength / 4.25);
 let rightEye = s.circle(rightEyeX, eyeY, eyeSize).attr({fill: COLOR.BlackStroke});
 
+let middleX = (leftEyeX + rightEyeX)/2;
+
+
+
+$(".accessory").css({width:squareLength/2+"px", left:squareLength*0.85+'px'});
+
 let blockLength = block.getTotalLength();
 block.attr({
     fill: "none",
@@ -38,7 +44,7 @@ block.attr({
     "stroke-dashoffset": 0
 });
 
-TweenMax.fromTo(block.node, 1, {strokeDashoffset: blockLength}, {fill: COLOR.BlobFill, strokeDashoffset: 0, ease: Power2.easeInOut});
+TweenMax.fromTo(block.node, 1, {strokeDashoffset: blockLength, opacity: 0}, {fill: COLOR.BlobFill, strokeDashoffset: 0, opacity: 1, ease: Power2.easeInOut});
 
 
 // add some eye lids
@@ -86,29 +92,69 @@ t1.play();
 let mouthLeftX = leftEyeX + (eyeSize * 2);
 let mouthY = eyeY + (eyeSize * 2);
 let mouthRightX = rightEyeX - (eyeSize * 2);
-let middleX = (leftEyeX + rightEyeX)/2;
 
 let moustacheLeft = s.path("M"+middleX+","+(eyeY+eyeSize)+
-    "c-20 40 -80 40 -80 15").attr({ fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 1.25, strokeLinecap:"round", strokeMiterlimit:eyeSize / 1.25})
+    "c-" +(eyeSize)+","+(eyeSize*2)+" -"+(eyeSize*4)+","+(eyeSize*2)+" -"+(eyeSize*4)+","+(eyeSize*0.5)).attr({ fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 1.25, strokeLinecap:"round", strokeMiterlimit:eyeSize / 1.25})
 let moustacheLeftlength = moustacheLeft.getTotalLength();
 moustacheLeft.attr({
     "stroke-dasharray": moustacheLeftlength+" "+moustacheLeftlength,
     "stroke-dashoffset": moustacheLeftlength
 
 });
+
 let moustacheRight = s.path("M"+middleX+","+(eyeY+eyeSize)+
-    "c20 40 80 40 80 15").attr({ fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 1.25, strokeLinecap:"round", strokeMiterlimit:eyeSize / 1.25})
+    "c" +(eyeSize)+","+(eyeSize*2)+" "+(eyeSize*4)+","+(eyeSize*2)+" "+(eyeSize*4)+","+(eyeSize*0.5)).attr({ fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 1.25, strokeLinecap:"round", strokeMiterlimit:eyeSize / 1.25})
 moustacheRight.attr({
     "stroke-dasharray": moustacheLeftlength+" "+moustacheLeftlength,
     "stroke-dashoffset": moustacheLeftlength
-
 });
 
-// let beretBody = s.ellipse(middleX, startingPnt*1.85, squareLength*0.6, squareLength/5);
-// let beret = s.path(d="M262.809,146.572c13.473-9.5,29.707-14.421,46.622-16.832c16.595-2.362,11.649-27.901-4.925-25.537"+
-// "c-29.282,4.166-56.333,15.843-75.388,38.54C107.466,133.672,5.155,177.126,0.176,240.228"+
-// "c-2.376,30.119,19.468,39.152,56.152,41.368v58.288H379.93v-32.829c37.657,3.928,61.405-1.218,63.813-31.847"+
-// "C448.312,217.381,369.559,163.05,262.809,146.572z")
+let tiePnts = {
+    startX: middleX-eyeSize*0.75,
+    startY: mouthY+(eyeSize*5.5),
+    endX: middleX+eyeSize*0.85,
+    middleY: mouthY+(eyeSize*6.5), 
+    endY: startingPnt*1.85+squareLength-eyeSize/2,
+};
+
+let tie = s.path("M"+tiePnts.startX+","+tiePnts.startY+
+            " "+tiePnts.endX+","+tiePnts.startY+" "+(tiePnts.endX-eyeSize/2)+","+tiePnts.middleY+" "+
+            (tiePnts.startX+eyeSize/2)+","+tiePnts.middleY+"z M"+(tiePnts.startX+eyeSize/2)+","+tiePnts.middleY+" "+
+            tiePnts.startX+","+(tiePnts.endY-eyeSize)+" "+middleX+","+tiePnts.endY+" "+tiePnts.endX+","+(tiePnts.endY-eyeSize)+" "+
+            (tiePnts.endX-eyeSize/2)+","+tiePnts.middleY
+).attr({fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2})
+
+let tieLength = tie.getTotalLength();
+tie.attr({
+    "stroke-dasharray": tieLength+" "+tieLength,
+    "stroke-dashoffset": tieLength
+});
+
+let leftGlass=s.circle(leftEyeX, eyeY, eyeSize*3.5)
+.attr({fill:"none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2});
+let leftGlassLength = leftGlass.getTotalLength();
+leftGlass.attr({
+    "stroke-dasharray": leftGlassLength+" "+leftGlassLength,
+    "stroke-dashoffset": leftGlassLength
+});
+
+
+let rightGlass=s.circle(rightEyeX, eyeY, eyeSize*3.5)
+.attr({fill:"none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2});
+let rightGlassLength = rightGlass.getTotalLength();
+rightGlass.attr({
+    "stroke-dasharray": rightGlassLength+" "+rightGlassLength,
+    "stroke-dashoffset": rightGlassLength
+});
+
+let glassHinge = s.path("M"+(leftEyeX+eyeSize*4)+","+eyeY+"Q"+middleX+","+(eyeY-eyeSize)+" "+(rightEyeX-eyeSize*4)+","+eyeY)
+.attr({fill:"none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2});
+let glassHingeLength = glassHinge.getTotalLength();
+glassHinge.attr({
+    "stroke-dasharray": glassHingeLength+" "+glassHingeLength,
+    "stroke-dashoffset": glassHingeLength
+});
+
 
 let mouth = s.path('M'+(mouthLeftX)+','+(mouthY)+' C'+(mouthLeftX+(eyeSize*2))+','+(mouthY+(eyeSize*3))+' '+(mouthRightX-(eyeSize*2)) +','+(mouthY+(eyeSize*3))+' '+(mouthRightX) +','+(mouthY)+' '+
 'Q'+ (middleX) +',' +(eyeY+eyeSize*2)+' '+(mouthLeftX)+','+(mouthY)).attr({fill: COLOR.White});
@@ -138,7 +184,7 @@ function animateMouthSmall(delay){
 animateMouthBig(Math.random()* 3000);
 
 
-let squareGroup = s.group(block, rightEye, rightTopEyeLid, rightBottomEyeLid, leftEye, leftTopEyeLid, leftBottomEyeLid, mouth, moustacheLeft, moustacheRight).attr({cursor: "pointer"});
+let squareGroup = s.group(block, rightEye, rightTopEyeLid, rightBottomEyeLid, leftEye, leftTopEyeLid, leftBottomEyeLid, mouth, moustacheLeft, moustacheRight, tie, leftGlass, rightGlass, glassHinge).attr({cursor: "pointer"});
 
 let shadow = s.ellipse((leftEyeX+rightEyeX)/2,squareLength*2 - squareLength/20, squareLength/4, squareLength/20).attr({fill: COLOR.Blue, opacity: 0});
 
@@ -242,6 +288,11 @@ $('.resume').click(()=>{
     toggleExperience(true);
 });
 
+let accSvg = Snap("#acc-svg");
+let artAcc = accSvg.select("#art-acc");
+let codingAcc = accSvg.select("#coding-acc");
+let experienceAcc = accSvg.select("#experience-acc");
+
 function toggleArt(toColor){
     if(toColor){
         TweenMax.fromTo(paletteOutline.node, 1, {strokeDashoffset: paletteOutlineLength}, {fill: COLOR.White, strokeDashoffset: 0, ease: Power2.easeInOut});
@@ -249,13 +300,17 @@ function toggleArt(toColor){
         TweenMax.to(paletteColor2.node, 1, {fill: COLOR.Yellow, stroke:COLOR.Yellow, ease:Power4.easeInOut});
         TweenMax.to(paletteColor3.node, 1, {fill: COLOR.Blue, stroke:COLOR.Blue, ease:Power4.easeInOut});
         TweenMax.to(paletteColor4.node, 1, {fill: COLOR.Green, stroke: COLOR.Green, ease:Power4.easeInOut});
-        TweenMax.to([moustacheLeft.node, moustacheRight.node], 1, {strokeDashoffset: 0, ease: Power2.easeInOut});
+        TweenMax.to([moustacheLeft.node, moustacheRight.node], 1, {strokeDashoffset: 0, ease: Power2.easeInOut, delay: 0.8});
+        if(!isArtClicked){
+            TweenMax.fromTo(artAcc.node, 0.8, {x:-squareLength/6, y:0, scaleX: 1.2}, {x: 0, opacity: 1, scaleX: 0.95, ease: Back.easeOut, delay: 0.5}); 
+        }
         isArtClicked = true;
     }else{
         if(isArtClicked){
             TweenMax.to([paletteOutline.node, paletteColor1.node, paletteColor2.node, paletteColor3.node, paletteColor4.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});    
             TweenMax.to([moustacheLeft.node, moustacheRight.node], 0.5, {strokeDashoffset: moustacheLeftlength, ease: Power2.easeInOut});
-    }
+            TweenMax.to(artAcc.node, 0.5, {x:squareLength/6, opacity:0, scaleX: 1.2, ease: Back.easeInOut});
+        }
         isArtClicked = false;
     }
 
@@ -267,10 +322,17 @@ function toggleCoding(toColor){
         TweenMax.to(browserButton1.node, 1, {fill: COLOR.Red, stroke: COLOR.Red, ease:Power4.easeInOut});
         TweenMax.to(browserButton2.node, 1, {fill: COLOR.Yellow, stroke:COLOR.Yellow, ease:Power4.easeInOut});
         TweenMax.to(browserButton3.node, 1, {fill: COLOR.Green, stroke:COLOR.Green, ease:Power4.easeInOut});
+        TweenMax.to([leftGlass.node, rightGlass.node, glassHinge.node], 1, {strokeDashoffset: 0, ease: Power2.easeInOut, delay: 0.8});
+        if(!isCodingClicked){
+            TweenMax.fromTo(codingAcc.node, 0.8, {y:squareLength/4, scaleX: 0.8, scaleY: 1.2}, {y: 0, opacity: 1, scale: 1, ease: Back.easeOut, delay: 0.5});
+        }
         isCodingClicked = true;
     }else{
         if(isCodingClicked){
             TweenMax.to([browserOutline.node, browserButton1.node, browserButton2.node, browserButton3.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});
+            TweenMax.to([leftGlass.node, rightGlass.node], 0.5, {strokeDashoffset: leftGlassLength, ease: Power2.easeInOut});
+            TweenMax.to(glassHinge.node, 0.5, {strokeDashoffset: glassHingeLength, ease: Power2.easeInOut});
+            TweenMax.to(codingAcc.node, 0.5, {y:squareLength/4, scaleX: 0.8, opacity: 0, scaleY: 1.2, ease: Back.easeInOut});
         }
         isCodingClicked = false;
     }
@@ -282,10 +344,16 @@ function toggleExperience(toColor){
         TweenMax.fromTo(experienceRectangle.node, 1, {strokeDashoffset: experienceRectangleLength}, {strokeDashoffset: 0, fill: COLOR.Yellow, ease: Power2.easeInOut});
         TweenMax.fromTo(experienceOutline.node, 1, {strokeDashoffset: experienceOutlineLength}, {strokeDashoffset: 0, fill: COLOR.White, ease: Power2.easeInOut});       
         TweenMax.to(experienceCenter.node, 1, {fill: COLOR.Red, stroke:COLOR.Red, ease:Power4.easeInOut});
+        TweenMax.to(tie.node,1, {strokeDashoffset: 0, ease: Power2.easeInOut, delay: 0.8});
+        if(!isResumeClicked){
+            TweenMax.fromTo(experienceAcc.node, 0.8, {x:squareLength/6, y:0, scaleX: 1.2}, {x: 0, opacity: 1, scale: 1, ease: Back.easeOut, delay: 0.5});
+        }
         isResumeClicked = true;
     }else{
         if(isResumeClicked){
             TweenMax.to([experienceCenter.node, experienceOutline.node, experienceDashes.node, experienceRectangle.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});
+            TweenMax.to(tie.node, 0.5, {strokeDashoffset: tieLength, ease: Power2.easeInOut});
+            TweenMax.to(experienceAcc.node, 0.5, {x:-squareLength/6, opacity:0, scaleX: 1.2, ease: Back.easeInOut});
         }
         isResumeClicked = false;
     }
