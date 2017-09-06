@@ -1,5 +1,4 @@
-let s = Snap('#svg');
-
+/*-----------------------------GLOBAL VARS-------------------------------------*/
 let COLOR = {
     "BlackStroke": "#1f2c39",
     "BlobFill": "rgb(236, 240, 241)",
@@ -9,356 +8,585 @@ let COLOR = {
     "Blue": "#005499",
     "White": "#FDFFFC",
     "Moustache": "#77818C"
-}
+};
+
 let isMenuShown = false;
 let isArtClicked = false;
 let isCodingClicked = false;
 let isResumeClicked = false;
-let squareLength = Math.floor(Math.min($( window ).width(), $( window ).height()) / 4);
+let DIMENSION = {};
+let PARTS = {};
 
-s.attr({width:squareLength*2, height: squareLength*2});
-s.attr({viewBox:"0 0 "+ squareLength*2 + " " + squareLength*2 });
-let startingPnt = (squareLength*2 - squareLength) / 2;
-let block = s.rect(startingPnt, startingPnt*1.85, squareLength, squareLength, squareLength/20, squareLength/20);
+let timelineJump = new TimelineMax({paused:true});
+let timelineButtons = new TimelineMax({paused:true});
 
-let leftEyeX = Math.floor(startingPnt + squareLength / 4.25);
-let eyeY = Math.floor(startingPnt*1.85 + squareLength / 2.5);
-let eyeSize = squareLength / 20;
-let leftEye = s.circle(leftEyeX, eyeY, eyeSize).attr({fill: COLOR.BlackStroke});
-
-let rightEyeX = Math.floor(startingPnt + squareLength - squareLength / 4.25);
-let rightEye = s.circle(rightEyeX, eyeY, eyeSize).attr({fill: COLOR.BlackStroke});
-
-let middleX = (leftEyeX + rightEyeX)/2;
-
-
-
-$(".accessory").css({width:squareLength/2+"px", left:squareLength*0.85+'px'});
-
-let blockLength = block.getTotalLength();
-block.attr({
-    fill: "none",
-    stroke: COLOR.BlackStroke,
-    strokeWidth: eyeSize / 2,
-    "stroke-dasharray": blockLength+" "+blockLength,
-    "stroke-dashoffset": 0
-});
-
-TweenMax.fromTo(block.node, 1, {strokeDashoffset: blockLength, opacity: 0}, {fill: COLOR.BlobFill, strokeDashoffset: 0, opacity: 1, ease: Power2.easeInOut});
-
-
-// add some eye lids
-let leftTopEyeLid = s.polygon([leftEyeX-eyeSize*0.75, eyeY-eyeSize, leftEyeX+eyeSize*0.75, eyeY-eyeSize, 
-leftEyeX+eyeSize*1.25, eyeY+eyeSize/4, leftEyeX-eyeSize*1.25, eyeY + eyeSize/4]).attr({
-    fill: COLOR.BlobFill
-});
-
-let rightTopEyeLid = s.polygon([rightEyeX-eyeSize*0.75, eyeY-eyeSize, rightEyeX+eyeSize*0.75, eyeY-eyeSize, 
-rightEyeX+eyeSize*1.25, eyeY+eyeSize/4, rightEyeX-eyeSize*1.25, eyeY + eyeSize/4]).attr({
-    fill: COLOR.BlobFill
-})
-
-let leftBottomEyeLid = s.polygon([leftEyeX+eyeSize*1.25, eyeY+eyeSize/4, leftEyeX-eyeSize*1.25, eyeY + eyeSize/4, 
-leftEyeX-eyeSize*0.75, eyeY+eyeSize*1.5, leftEyeX+eyeSize*0.75, eyeY + eyeSize*1.5]).attr({
-    fill: COLOR.BlobFill
-});
-
-let rightBottomEyeLid = s.polygon([rightEyeX+eyeSize*1.25, eyeY+eyeSize/4, rightEyeX-eyeSize*1.25, eyeY + eyeSize/4, 
-rightEyeX-eyeSize*0.75, eyeY+eyeSize*1.5, rightEyeX+eyeSize*0.75, eyeY + eyeSize*1.5]).attr({
-    fill: COLOR.BlobFill
-});
-
-// add some blinking
-let topLidTween = TweenMax.from([leftTopEyeLid.node, rightTopEyeLid.node] , 0.3, {scaleY: 0,
-transformOrigin: "center top", ease:Cubic.easeInOut});
-
-let bottomLidTween = TweenMax.from([leftBottomEyeLid.node, rightBottomEyeLid.node] , 0.3, {scaleY: 0,
-transformOrigin: "center bottom", ease:Cubic.easeInOut});
-
-let t1 = new TimelineMax({
-    paused: true,
-    repeat: 1,
-    yoyo: true,
-    onCompleteParams: ["{self}"],
-    onComplete: function() {
-        TweenLite.delayedCall((3 * Math.random() + 0.6), t1.restart, [], t1);
+let TEXT = {
+    Title: {
+        beforeClick: "Hello!",
+        toClick: "Click me",
+        afterClick: "Welcome!"
+    },
+    body: {
+        afterClick:"My name is Jing, I am a programmer and illustrator.",
+        art: ""
     }
-});
+}
 
-t1.add([topLidTween, bottomLidTween]);
-t1.progress(1).progress(0);
-t1.play();
+/*-----------------------------READY FUNCTION-------------------------------------*/
+function readyFn( jQuery ) {
+    // Code to run when the document is ready.
+    let s = Snap('#svg');
+    DIMENSION.SquareLength = Math.floor(Math.min($( window ).width(), $( window ).height()) / 4);
+    DIMENSION.StartingPnt = (DIMENSION.SquareLength*2 - DIMENSION.SquareLength) / 2;
 
-let mouthLeftX = leftEyeX + (eyeSize * 2);
-let mouthY = eyeY + (eyeSize * 2);
-let mouthRightX = rightEyeX - (eyeSize * 2);
+    // change svg sttributes
+    s.attr({
+        width:DIMENSION.SquareLength*2,
+        height: DIMENSION.SquareLength*2
+    });
+    s.attr({
+        viewBox:"0 0 "+ DIMENSION.SquareLength*2 + " " + DIMENSION.SquareLength*2 
+    });
 
-let moustacheLeft = s.path("M"+middleX+","+(eyeY+eyeSize)+
-    "c-" +(eyeSize)+","+(eyeSize*2)+" -"+(eyeSize*4)+","+(eyeSize*2)+" -"+(eyeSize*4)+","+(eyeSize*0.5)).attr({ fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 1.25, strokeLinecap:"round", strokeMiterlimit:eyeSize / 1.25})
-let moustacheLeftlength = moustacheLeft.getTotalLength();
-moustacheLeft.attr({
-    "stroke-dasharray": moustacheLeftlength+" "+moustacheLeftlength,
-    "stroke-dashoffset": moustacheLeftlength
+    // change menu attributes
+    $(".accessory").css({
+        width:DIMENSION.SquareLength/2+"px", 
+        left:DIMENSION.SquareLength*0.85+'px'
+    });
+    $('.btn').css({
+        width: DIMENSION.SquareLength/1.5 +'px',
+        height: DIMENSION.SquareLength/1.5 +'px'
+    });
+    
+    //making parts
+    makeEyes(s);
+    makeBlockBody(s);
 
-});
+    // animate blob
+    TweenMax.fromTo(PARTS.Block.node, 1, {strokeDashoffset: DIMENSION.BlockLength, opacity: 0}, {fill: COLOR.BlobFill, strokeDashoffset: 0, opacity: 1, ease: Power2.easeInOut, onStar: ()=>{
+        $(".message-title").fadeOut(function() {
+            $(this).text("Hello!").fadeIn();
+        });
+    }});
 
-let moustacheRight = s.path("M"+middleX+","+(eyeY+eyeSize)+
-    "c" +(eyeSize)+","+(eyeSize*2)+" "+(eyeSize*4)+","+(eyeSize*2)+" "+(eyeSize*4)+","+(eyeSize*0.5)).attr({ fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 1.25, strokeLinecap:"round", strokeMiterlimit:eyeSize / 1.25})
-moustacheRight.attr({
-    "stroke-dasharray": moustacheLeftlength+" "+moustacheLeftlength,
-    "stroke-dashoffset": moustacheLeftlength
-});
+    makeEyeLids(s);
+    animateEyeLids();
+    
+    makeMouth(s);
+    animateMouthBig(Math.random()* 3000);
 
-let tiePnts = {
-    startX: middleX-eyeSize*0.75,
-    startY: mouthY+(eyeSize*5.5),
-    endX: middleX+eyeSize*0.85,
-    middleY: mouthY+(eyeSize*6.5), 
-    endY: startingPnt*1.85+squareLength-eyeSize/2,
-};
+    makeMoustaches(s);
+    makeTie(s);
+    makeGlasses(s);
 
-let tie = s.path("M"+tiePnts.startX+","+tiePnts.startY+
-            " "+tiePnts.endX+","+tiePnts.startY+" "+(tiePnts.endX-eyeSize/2)+","+tiePnts.middleY+" "+
-            (tiePnts.startX+eyeSize/2)+","+tiePnts.middleY+"z M"+(tiePnts.startX+eyeSize/2)+","+tiePnts.middleY+" "+
-            tiePnts.startX+","+(tiePnts.endY-eyeSize)+" "+middleX+","+tiePnts.endY+" "+tiePnts.endX+","+(tiePnts.endY-eyeSize)+" "+
-            (tiePnts.endX-eyeSize/2)+","+tiePnts.middleY
-).attr({fill: "none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2})
+    //Group
+    PARTS.SquareGroup = s.group(PARTS.Block,PARTS.RightEye, PARTS.RightTopEyeLid, PARTS.RightBottomEyeLid, 
+        PARTS.LeftEye, PARTS.LeftTopEyeLid, PARTS.LeftBottomEyeLid, PARTS.Mouth, PARTS.MoustacheLeft, PARTS.MoustacheRight, PARTS.Tie, 
+        PARTS.LeftGlass, PARTS.RightGlass, PARTS.GlassHinge
+    ).attr({
+        cursor: "pointer"
+    });
+    // shadow
+    PARTS.Shadow = s.ellipse(
+        (DIMENSION.LeftEyeX+DIMENSION.RightEyeX)/2, DIMENSION.SquareLength*2 - DIMENSION.SquareLength/20, DIMENSION.SquareLength/4, DIMENSION.SquareLength/20
+    ).attr({
+        fill: COLOR.Blue,
+        opacity: 0
+    });
 
-let tieLength = tie.getTotalLength();
-tie.attr({
-    "stroke-dasharray": tieLength+" "+tieLength,
-    "stroke-dashoffset": tieLength
-});
+    animateJump();
+    makeMenu();
+    animateMenu();
 
-let leftGlass=s.circle(leftEyeX, eyeY, eyeSize*3.5)
-.attr({fill:"none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2});
-let leftGlassLength = leftGlass.getTotalLength();
-leftGlass.attr({
-    "stroke-dasharray": leftGlassLength+" "+leftGlassLength,
-    "stroke-dashoffset": leftGlassLength
-});
+}
 
-
-let rightGlass=s.circle(rightEyeX, eyeY, eyeSize*3.5)
-.attr({fill:"none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2});
-let rightGlassLength = rightGlass.getTotalLength();
-rightGlass.attr({
-    "stroke-dasharray": rightGlassLength+" "+rightGlassLength,
-    "stroke-dashoffset": rightGlassLength
-});
-
-let glassHinge = s.path("M"+(leftEyeX+eyeSize*4)+","+eyeY+"Q"+middleX+","+(eyeY-eyeSize)+" "+(rightEyeX-eyeSize*4)+","+eyeY)
-.attr({fill:"none", stroke:COLOR.Moustache, strokeWidth: eyeSize / 2, strokeLinecap:"round", strokeMiterlimit:eyeSize / 2});
-let glassHingeLength = glassHinge.getTotalLength();
-glassHinge.attr({
-    "stroke-dasharray": glassHingeLength+" "+glassHingeLength,
-    "stroke-dashoffset": glassHingeLength
-});
+/*-----------------------------GENERATE ELEMENTS-------------------------------------*/
+function makeBlockBody(s){
+    PARTS.Block = s.rect(DIMENSION.StartingPnt, DIMENSION.StartingPnt*1.85, DIMENSION.SquareLength, DIMENSION.SquareLength, DIMENSION.SquareLength/20, DIMENSION.SquareLength/20);
+    DIMENSION.BlockLength = PARTS.Block.getTotalLength();
+    PARTS.Block.attr({
+        fill: "none",
+        stroke: COLOR.BlackStroke,
+        strokeWidth: DIMENSION.EyeSize / 2
+    });
+    setStrokeAttributes("Block", false);
+}
 
 
-let mouth = s.path('M'+(mouthLeftX)+','+(mouthY)+' C'+(mouthLeftX+(eyeSize*2))+','+(mouthY+(eyeSize*3))+' '+(mouthRightX-(eyeSize*2)) +','+(mouthY+(eyeSize*3))+' '+(mouthRightX) +','+(mouthY)+' '+
-'Q'+ (middleX) +',' +(eyeY+eyeSize*2)+' '+(mouthLeftX)+','+(mouthY)).attr({fill: COLOR.White});
+function makeEyes(s){
+    DIMENSION.LeftEyeX = Math.floor(DIMENSION.StartingPnt + DIMENSION.SquareLength / 4.25);
+    DIMENSION.RightEyeX = Math.floor(DIMENSION.StartingPnt + DIMENSION.SquareLength - DIMENSION.SquareLength / 4.25);
+    DIMENSION.EyeY = Math.floor(DIMENSION.StartingPnt*1.85 + DIMENSION.SquareLength / 2.5);
+    DIMENSION.EyeSize = DIMENSION.SquareLength / 20;
+    
+    PARTS.LeftEye = s.circle(DIMENSION.LeftEyeX, DIMENSION.EyeY, DIMENSION.EyeSize
+    ).attr({
+        fill: COLOR.BlackStroke
+    });
+    PARTS.RightEye = s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize
+    ).attr({
+        fill: COLOR.BlackStroke
+    });
 
+    DIMENSION.MiddleX = (DIMENSION.LeftEyeX + DIMENSION.RightEyeX)/2;
+}
+
+
+function makeEyeLids(s){
+
+    PARTS.LeftTopEyeLid = s.polygon([DIMENSION.LeftEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, DIMENSION.LeftEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, 
+        DIMENSION.LeftEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.LeftEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4]
+    ).attr({
+        fill: COLOR.BlobFill
+    });
+    PARTS.RightTopEyeLid = s.polygon([DIMENSION.RightEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, DIMENSION.RightEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, 
+        DIMENSION.RightEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.RightEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4]
+    ).attr({
+            fill: COLOR.BlobFill
+    });
+    PARTS.LeftBottomEyeLid = s.polygon([DIMENSION.LeftEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.LeftEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4, 
+        DIMENSION.LeftEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY+DIMENSION.EyeSize*1.5, DIMENSION.LeftEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY + DIMENSION.EyeSize*1.5]
+    ).attr({
+            fill: COLOR.BlobFill
+    });
+    PARTS.RightBottomEyeLid = s.polygon([DIMENSION.RightEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.RightEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4, 
+        DIMENSION.RightEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY+DIMENSION.EyeSize*1.5, DIMENSION.RightEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY + DIMENSION.EyeSize*1.5]
+    ).attr({
+            fill: COLOR.BlobFill
+    });
+
+}
+
+function makeMouth(s){
+    DIMENSION.MouthLeftX = DIMENSION.LeftEyeX + (DIMENSION.EyeSize * 2);
+    DIMENSION.MouthY = DIMENSION.EyeY + (DIMENSION.EyeSize * 2);
+    DIMENSION.MouthRightX = DIMENSION.RightEyeX - (DIMENSION.EyeSize * 2);
+    PARTS.Mouth = s.path('M'+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY)+' C'+(DIMENSION.MouthLeftX+(DIMENSION.EyeSize*2))+','+(DIMENSION.MouthY+(DIMENSION.EyeSize*3))+' '+(DIMENSION.MouthRightX-(DIMENSION.EyeSize*2)) +','+(DIMENSION.MouthY+(DIMENSION.EyeSize*3))+' '+(DIMENSION.MouthRightX) +','+(DIMENSION.MouthY)+' '+
+        'Q'+ (DIMENSION.MiddleX) +',' +(DIMENSION.EyeY+DIMENSION.EyeSize*2)+' '+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY)
+    ).attr({
+        fill: COLOR.White
+    });
+}
+
+function makeMoustaches(s){
+    PARTS.MoustacheLeft = s.path("M"+DIMENSION.MiddleX+","+(DIMENSION.EyeY+DIMENSION.EyeSize)+
+        "c-" +(DIMENSION.EyeSize)+","+(DIMENSION.EyeSize*2)+" -"+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*2)+" -"+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*0.5)
+        ).attr({ 
+            fill: "none", 
+            stroke:COLOR.Moustache, 
+            strokeWidth: DIMENSION.EyeSize / 1.25, 
+            strokeLinecap:"round", 
+            strokeMiterlimit:DIMENSION.EyeSize / 1.25
+        });
+    DIMENSION.MoustacheLeftLength = PARTS.MoustacheLeft.getTotalLength();
+    setStrokeAttributes("MoustacheLeft", true);
+
+    PARTS.MoustacheRight = s.path("M"+DIMENSION.MiddleX+","+(DIMENSION.EyeY+DIMENSION.EyeSize)+
+    "c" +(DIMENSION.EyeSize)+","+(DIMENSION.EyeSize*2)+" "+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*2)+" "+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*0.5)
+    ).attr({ 
+        fill: "none", 
+        stroke:COLOR.Moustache, 
+        strokeWidth: DIMENSION.EyeSize / 1.25, 
+        strokeLinecap:"round", 
+        strokeMiterlimit:DIMENSION.EyeSize / 1.25
+    });
+    DIMENSION.MoustacheRightLength = PARTS.MoustacheRight.getTotalLength();
+    setStrokeAttributes("MoustacheRight", true);
+}
+
+function makeTie(s){
+    DIMENSION.TiePnts = {
+        startX: DIMENSION.MiddleX-DIMENSION.EyeSize*0.75,
+        startY: DIMENSION.MouthY+(DIMENSION.EyeSize*5.5),
+        endX: DIMENSION.MiddleX+DIMENSION.EyeSize*0.85,
+        middleY: DIMENSION.MouthY+(DIMENSION.EyeSize*6.5), 
+        endY: DIMENSION.StartingPnt*1.85+DIMENSION.SquareLength-DIMENSION.EyeSize/2,
+    };
+
+    PARTS.Tie = s.path("M"+DIMENSION.TiePnts.startX+","+DIMENSION.TiePnts.startY+
+        " "+DIMENSION.TiePnts.endX+","+DIMENSION.TiePnts.startY+" "+
+        (DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY+" "
+        +(DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY+"z M"+
+        (DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY+" "+
+        DIMENSION.TiePnts.startX+","+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+" "+
+        DIMENSION.MiddleX+","+DIMENSION.TiePnts.endY+" "+
+        DIMENSION.TiePnts.endX+","+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+" "
+        +(DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY
+    ).attr({
+        fill: "none", 
+        stroke:COLOR.Moustache, 
+        strokeWidth: DIMENSION.EyeSize / 2, 
+        strokeLinecap:"round", 
+        strokeMiterlimit:DIMENSION.EyeSize / 2
+    });
+
+    DIMENSION.TieLength = PARTS.Tie.getTotalLength();
+    setStrokeAttributes("Tie", true)
+    
+}
+
+function makeGlasses(s){
+    PARTS.LeftGlass=s.circle(DIMENSION.LeftEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
+    ).attr({
+        fill:"none", 
+        stroke:COLOR.Moustache, 
+        strokeWidth: DIMENSION.EyeSize / 2, 
+        strokeLinecap:"round", 
+        strokeMiterlimit:DIMENSION.EyeSize / 2
+    });
+    DIMENSION.LeftGlassLength = PARTS.LeftGlass.getTotalLength();
+    setStrokeAttributes("LeftGlass", true);
+
+
+    PARTS.RightGlass=s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
+    ).attr({
+        fill:"none", 
+        stroke:COLOR.Moustache, 
+        strokeWidth: DIMENSION.EyeSize / 2, 
+        strokeLinecap:"round", 
+        strokeMiterlimit:DIMENSION.EyeSize / 2
+    });
+    DIMENSION.RightGlassLength = PARTS.RightGlass.getTotalLength();
+    setStrokeAttributes("RightGlass", true);
+
+    PARTS.GlassHinge = s.path("M"+(DIMENSION.LeftEyeX+DIMENSION.EyeSize*4)+","+DIMENSION.EyeY+"Q"+
+        DIMENSION.MiddleX+","+(DIMENSION.EyeY-DIMENSION.EyeSize)+" "+
+        (DIMENSION.RightEyeX-DIMENSION.EyeSize*4)+","+DIMENSION.EyeY
+    ).attr({
+        fill:"none", 
+        stroke:COLOR.Moustache,
+        strokeWidth: DIMENSION.EyeSize / 2,
+        strokeLinecap:"round",
+        strokeMiterlimit:DIMENSION.EyeSize / 2
+    });
+    DIMENSION.GlassHingeLength = PARTS.GlassHinge.getTotalLength();
+    setStrokeAttributes("GlassHinge", true);
+}
+
+function makeMenu(){
+    // make art button
+    PARTS.Palette = Snap("#palette");
+    PARTS.PaletteOutline = PARTS.Palette.select("#palette-outline");
+    PARTS.PaletteColor1 = PARTS.Palette.select("#palette-color1");
+    PARTS.PaletteColor2 = PARTS.Palette.select("#palette-color2");
+    PARTS.PaletteColor3 = PARTS.Palette.select("#palette-color3");
+    PARTS.PaletteColor4 = PARTS.Palette.select("#palette-color4");
+    DIMENSION.PaletteOutlineLength = PARTS.PaletteOutline.getTotalLength();
+    setStrokeAttributes("PaletteOutline", false);
+
+    // make programming button
+    PARTS.Browser = Snap("#browser");
+    PARTS.BrowserOutline = PARTS.Browser.select("#browser-outline");
+    PARTS.BrowserButton1 = PARTS.Browser.select("#browser-button1");
+    PARTS.BrowserButton2 = PARTS.Browser.select("#browser-button1");
+    PARTS.BrowserButton3 = PARTS.Browser.select("#browser-button3");
+    DIMENSION.BrowserOutlineLength = PARTS.BrowserOutline.getTotalLength();
+    setStrokeAttributes("BrowserOutline", false);
+
+    //make resume button
+    PARTS.Experience = Snap("#experience");
+    PARTS.ExperienceCenter = PARTS.Experience.select("#experience-circle");
+    PARTS.ExperienceDashes = PARTS.Experience.select("#experience-path1");
+    DIMENSION.ExperienceDashesLength = PARTS.ExperienceDashes.getTotalLength();
+    setStrokeAttributes("ExperienceDashes", false);
+
+    PARTS.ExperienceRectangle = PARTS.Experience.select("#experience-path2");
+    DIMENSION.ExperienceRectangleLength = PARTS.ExperienceRectangle.getTotalLength();
+    setStrokeAttributes("ExperienceRectangle", false);
+
+    PARTS.ExperienceOutline = PARTS.Experience.select("#experience-outline");
+    DIMENSION.ExperienceOutlineLength = PARTS.ExperienceOutline.getTotalLength();
+    setStrokeAttributes("ExperienceOutline", false);
+
+    // make accessories
+    PARTS.AccSvg = Snap("#acc-svg");
+    PARTS.ArtAcc = PARTS.AccSvg.select("#art-acc");
+    PARTS.CodingAcc = PARTS.AccSvg.select("#coding-acc");
+    PARTS.ExperienceAcc = PARTS.AccSvg.select("#experience-acc");
+}
+
+/*-----------------------------ANIMATIONS-------------------------------------*/
+
+function animateEyeLids(){
+    // add some blinking
+    let topLidTween = TweenMax.from([PARTS.LeftTopEyeLid.node, PARTS.RightTopEyeLid.node] , 0.3, {scaleY: 0,
+    transformOrigin: "center top", ease:Cubic.easeInOut});
+
+    let bottomLidTween = TweenMax.from([PARTS.LeftBottomEyeLid.node, PARTS.RightBottomEyeLid.node] , 0.3, {scaleY: 0,
+    transformOrigin: "center bottom", ease:Cubic.easeInOut});
+
+    let t1 = new TimelineMax({
+        paused: true,
+        repeat: 1,
+        yoyo: true,
+        onCompleteParams: ["{self}"],
+        onComplete: function() {
+            TweenLite.delayedCall((3 * Math.random() + 0.6), t1.restart, [], t1);
+        }
+    });
+
+    t1.add([topLidTween, bottomLidTween]);
+    t1.progress(1).progress(0);
+    t1.play();
+}
 
 function animateMouthBig(delay){
     setTimeout(()=>{
-        mouth.animate({ d: 'M'+(mouthLeftX - eyeSize*2)+','+(mouthY)+' C'+(mouthLeftX)+','+(mouthY+(eyeSize*5))+' '+(mouthRightX) +','+(mouthY+(eyeSize*5))+' '+(mouthRightX + eyeSize*2) +','+(mouthY)+' '+
-'Q'+ (middleX) +',' +(eyeY+eyeSize*2)+' '+(mouthLeftX - eyeSize)+','+(mouthY) }, 1000, mina.easeinout, animateMouthRound(Math.random() * 5000+ 0.7));
-    }, delay);
+        PARTS.Mouth.animate({ d: 'M'+(DIMENSION.MouthLeftX - DIMENSION.EyeSize*2)+','+(DIMENSION.MouthY)+' C'+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY+(DIMENSION.EyeSize*5))+' '+(DIMENSION.MouthRightX) +','+(DIMENSION.MouthY+(DIMENSION.EyeSize*5))+' '+(DIMENSION.MouthRightX + DIMENSION.EyeSize*2) +','+(DIMENSION.MouthY)+' '+
+            'Q'+ (DIMENSION.MiddleX) +',' +(DIMENSION.EyeY+DIMENSION.EyeSize*2)+' '+(DIMENSION.MouthLeftX - DIMENSION.EyeSize)+','+(DIMENSION.MouthY) }, 1000, mina.easeinout, animateMouthRound(Math.random() * 5000+ 0.7));
+        }, delay);
 }
 
 function animateMouthRound(delay){
     setTimeout(()=>{
-        mouth.animate({d: 'M'+(middleX - eyeSize)+','+(mouthY + eyeSize)+' C'+(middleX - eyeSize)+','+(mouthY+(eyeSize*5))+' '+(middleX + eyeSize) +','+(mouthY+(eyeSize*5))+' '+(middleX + eyeSize) +','+(mouthY+ eyeSize)+' '+
-'Q'+ (middleX) +',' +(eyeY - eyeSize)+' '+(middleX - eyeSize)+','+(mouthY + eyeSize)}, 1000, mina.easeinout, animateMouthSmall(Math.random() * 6000+ 0.7));
+        PARTS.Mouth.animate({d: 'M'+(DIMENSION.MiddleX - DIMENSION.EyeSize)+','+(DIMENSION.MouthY + DIMENSION.EyeSize)+' C'+(DIMENSION.MiddleX - DIMENSION.EyeSize)+','+(DIMENSION.MouthY+(DIMENSION.EyeSize*5))+' '+(DIMENSION.MiddleX + DIMENSION.EyeSize) +','+(DIMENSION.MouthY+(DIMENSION.EyeSize*5))+' '+(DIMENSION.MiddleX + DIMENSION.EyeSize) +','+(DIMENSION.MouthY+ DIMENSION.EyeSize)+' '+
+        'Q'+ (DIMENSION.MiddleX) +',' +(DIMENSION.EyeY - DIMENSION.EyeSize)+' '+(DIMENSION.MiddleX - DIMENSION.EyeSize)+','+(DIMENSION.MouthY + DIMENSION.EyeSize)}, 1000, mina.easeinout, animateMouthSmall(Math.random() * 6000+ 0.7));
     }, delay);
 }
 
 function animateMouthSmall(delay){
     setTimeout(()=>{
-        mouth.animate({ d: 'M'+(mouthLeftX)+','+(mouthY)+' C'+(mouthLeftX+(eyeSize*2))+','+(mouthY+(eyeSize*3))+' '+(mouthRightX-(eyeSize*2)) +','+(mouthY+(eyeSize*3))+' '+(mouthRightX) +','+(mouthY)+' '+
-'Q'+ (middleX) +',' +(eyeY+eyeSize*2)+' '+(mouthLeftX)+','+(mouthY)}, 1000, mina.easeinout, animateMouthBig(Math.random() * 6000+ 0.7));
-    }, delay);
+        PARTS.Mouth.animate({ d: 'M'+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY)+' C'+(DIMENSION.MouthLeftX+(DIMENSION.EyeSize*2))+','+(DIMENSION.MouthY+(DIMENSION.EyeSize*3))+' '+(DIMENSION.MouthRightX-(DIMENSION.EyeSize*2)) +','+(DIMENSION.MouthY+(DIMENSION.EyeSize*3))+' '+(DIMENSION.MouthRightX) +','+(DIMENSION.MouthY)+' '+
+            'Q'+ (DIMENSION.MiddleX) +',' +(DIMENSION.EyeY+DIMENSION.EyeSize*2)+' '+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY)}, 1000, mina.easeinout, animateMouthBig(Math.random() * 6000+ 0.7));
+        }, delay);
 }
 
-animateMouthBig(Math.random()* 3000);
+function animateJump(){
+    PARTS.SquareGroup.click(()=>{   
+        if(timelineJump.getChildren(true, true, true, 0).length === 0){
+            //not added
+            timelineJump.add(TweenMax.fromTo(PARTS.SquareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: "center bottom"}, 
+            { y: -DIMENSION.SquareLength, scaleX: 1.15, scaleY: 0.85, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
+                ()=>{
+                    TweenMax.to(PARTS.SquareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: "center bottom", ease: Bounce.easeOut},0.3);
+                }}), 0
+            );
 
+            timelineJump.add(TweenMax.fromTo(PARTS.Shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: "center bottom"}, 
+            {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
+                ()=>{
+                    TweenMax.to(PARTS.Shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: "center bottom", ease: Bounce.easeOut}, 0.3);
+                }}), 0
+            );
+        }
+        if(timelineButtons.getChildren(true, true, true, 0).length === 0){
+            timelineButtons.add(TweenMax.fromTo(".programming", 0.5, 
+                {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:DIMENSION.SquareLength/10}, 
+                {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, ease:Back.easeInOut}), 0
+            );
+            timelineButtons.add(TweenMax.fromTo(".art",1,
+                {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: DIMENSION.SquareLength/2},
+                {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
+            );
+            timelineButtons.add(TweenMax.fromTo(".resume",1,
+                {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: -DIMENSION.SquareLength/2},
+                {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
+            );        
+        }else{
+            if(!isMenuShown){
+                timelineButtons.clear();
+                let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+                let tweenVal = Math.random() * (1.02 - 1) + 1;
 
-let squareGroup = s.group(block, rightEye, rightTopEyeLid, rightBottomEyeLid, leftEye, leftTopEyeLid, leftBottomEyeLid, mouth, moustacheLeft, moustacheRight, tie, leftGlass, rightGlass, glassHinge).attr({cursor: "pointer"});
+                timelineButtons.add(TweenMax.fromTo('.btn', 0.4, {scale: 1.1}, 
+                    {opacity:1, scale: 1, transformOrigin:"center center", ease: Back.easeInOut}),0
+                );
+            }
+            isMenuShown = true;
+        }
+        timelineJump.play(0);
+        timelineButtons.play(0);
+    });
+}
 
-let shadow = s.ellipse((leftEyeX+rightEyeX)/2,squareLength*2 - squareLength/20, squareLength/4, squareLength/20).attr({fill: COLOR.Blue, opacity: 0});
-
-let timelineJump = new TimelineMax();
-let timelineButtons = new TimelineMax();
-
-$('.btn').css({width: squareLength/2 +'px', height: squareLength/2+'px'});
-
-squareGroup.click(()=>{
-    timelineJump.add(TweenMax.fromTo(squareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: "center bottom"}, { y: -squareLength, scaleX: 1.15, scaleY: 0.85,transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
-        ()=>{
-                TweenMax.to(squareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: "center bottom", ease: Bounce.easeOut},0.3);
-        }}), 0);
-    timelineJump.add(TweenMax.fromTo(shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: "center bottom"}, {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
-        ()=>{
-            TweenMax.to(shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: "center bottom", ease: Bounce.easeOut}, 0.3);
-    }}), 0);
-    if(!isMenuShown){
+function animateMenu(){
+    $('.art').click(()=>{
+        showArt();
+        hideCoding();
+        hideExperience();
         
-        timelineButtons.add(TweenMax.fromTo(".programming", 0.5, {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:squareLength/10}, {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, ease:Back.easeInOut}), 0);
-        timelineButtons.add(TweenMax.fromTo(".art",1,{scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: squareLength/2},{scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2);
-        timelineButtons.add(TweenMax.fromTo(".resume",1,{scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: -squareLength/2},{scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2);        
-        isMenuShown = true;
-    }else{
-        timelineButtons.clear();
-        let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-        let tweenVal = Math.random() * (1.02 - 1) + 1;
+    });
 
-        timelineButtons.add(TweenMax.fromTo('.btn', 0.4, {scale: 1.1}, {opacity:1, scale: 1, transformOrigin:"center center", ease: Back.easeInOut}),0);
-        // timelineJump.add(TweenMax.fromTo(squareGroup.node, 0.2, { scale: tweenVal, rotation: plusOrMinus*tweenVal, transformOrigin:"center bottom"}, { scale: 1, rotation: 0, transformOrigin:"center bottom", ease: Back.easeInOut, repeat: 1 }),0);
+
+    $('.programming').click(()=>{
+        showCoding();
+        hideArt();
+        hideExperience();
+    });
+
+    $('.resume').click(()=>{
+        showExperience();
+        hideArt();
+        hideCoding();
+    });
+}
+
+function showArt(){
+
+    TweenMax.fromTo(PARTS.PaletteOutline.node, 1, 
+        {strokeDashoffset: DIMENSION.PaletteOutlineLength}, 
+        {fill: COLOR.White, strokeDashoffset: 0, ease: Power2.easeInOut}
+    );
+
+    TweenMax.to(PARTS.PaletteColor1.node, 1,
+        {fill: COLOR.Red, stroke: COLOR.Red, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to(PARTS.PaletteColor2.node, 1,
+        {fill: COLOR.Yellow, stroke:COLOR.Yellow, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to(PARTS.PaletteColor3.node, 1,
+        {fill: COLOR.Blue, stroke:COLOR.Blue, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to(PARTS.PaletteColor4.node, 1,
+        {fill: COLOR.Green, stroke: COLOR.Green, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to([PARTS.MoustacheLeft.node, PARTS.MoustacheRight.node], 1,
+        {strokeDashoffset: 0, ease: Power2.easeOut, delay: 0.5}
+    );
+    if(!isArtClicked){
+        TweenMax.fromTo(PARTS.ArtAcc.node, 0.8, 
+            {x:-DIMENSION.SquareLength/6, y:0, scaleX: 1.2, skewX: 20},
+            {x: 0, opacity: 1, scaleX: 0.95, skewX: 0, ease: Back.easeInOut}
+        );
     }
-    timelineJump.pause(0); 
-    timelineJump.play();
-    timelineButtons.play();
-});
+    isArtClicked = true; 
+}
 
-let palette = Snap("#palette");
-let paletteOutline = palette.select("#palette-outline");
-let paletteColor1 = palette.select("#palette-color1");
-let paletteColor2 = palette.select("#palette-color2");
-let paletteColor3 = palette.select("#palette-color3");
-let paletteColor4 = palette.select("#palette-color4");
-let paletteOutlineLength = paletteOutline.getTotalLength();
-paletteOutline.attr({
-    "stroke-dasharray": paletteOutlineLength+" "+paletteOutlineLength,
-    "stroke-dashoffset": 0
-});
+function hideArt(){
+    if(isArtClicked){
+        TweenMax.to(
+            [PARTS.PaletteOutline.node,PARTS.PaletteColor1.node,PARTS.PaletteColor2.node,PARTS.PaletteColor3.node, PARTS.PaletteColor4.node], 1, 
+            {stroke: COLOR.BlackStroke, fill:"none", ease: Power2.easeInOut}
+        );
+    
+        TweenMax.to(PARTS.MoustacheLeft.node, 0.5,
+            {strokeDashoffset: DIMENSION.MoustacheLeftLength, ease: Power2.easeOut}
+        );
 
-let browser = Snap("#browser");
-let browserOutline = browser.select("#browser-outline");
-let browserButton1 = browser.select("#browser-button1");
-let browserButton2 = browser.select("#browser-button1");
-let browserButton3 = browser.select("#browser-button3");
-let browserOutlineLength = browserOutline.getTotalLength();
-browserOutline.attr({
-    "stroke-dasharray": browserOutlineLength+" "+browserOutlineLength,
-    "stroke-dashoffset": 0
-});
+        TweenMax.to(PARTS.MoustacheRight.node, 0.5,
+            {strokeDashoffset: DIMENSION.MoustacheRightLength, ease: Power2.easeOut}
+        );
 
-let experience = Snap("#experience");
-let experienceCenter = Snap.select("#experience-circle");
-let experienceDashes = experience.select("#experience-path1");
-let experienceDashesLength = experienceDashes.getTotalLength();
-experienceDashes.attr({
-    "stroke-dasharray": experienceDashesLength+" "+experienceDashesLength,
-    "stroke-dashoffset": 0
-});
-let experienceRectangle = experience.select("#experience-path2");
-let experienceRectangleLength = experienceRectangle.getTotalLength();
-experienceRectangle.attr({
-    "stroke-dasharray": experienceRectangleLength+" "+experienceRectangleLength,
-    "stroke-dashoffset": 0
-});
-
-let experienceOutline = experience.select("#experience-outline");
-let experienceOutlineLength = experienceOutline.getTotalLength();
-experienceOutline.attr({
-    "stroke-dasharray": experienceOutlineLength+" "+experienceOutlineLength,
-    "stroke-dashoffset": 0
-});
-
-
-$('.art').click(()=>{
-    toggleArt(true);
-    toggleCoding(false);
-    toggleExperience(false);
-});
-
-
-$('.programming').click(()=>{
-    toggleArt(false);
-    toggleCoding(true);
-    toggleExperience(false);
-});
-
-
-
-$('.resume').click(()=>{
-    toggleArt(false);
-    toggleCoding(false);
-    toggleExperience(true);
-});
-
-let accSvg = Snap("#acc-svg");
-let artAcc = accSvg.select("#art-acc");
-let codingAcc = accSvg.select("#coding-acc");
-let experienceAcc = accSvg.select("#experience-acc");
-
-function toggleArt(toColor){
-    if(toColor){
-        TweenMax.fromTo(paletteOutline.node, 1, {strokeDashoffset: paletteOutlineLength}, {fill: COLOR.White, strokeDashoffset: 0, ease: Power2.easeInOut});
-        TweenMax.to(paletteColor1.node, 1, {fill: COLOR.Red, stroke: COLOR.Red, ease:Power4.easeInOut});
-        TweenMax.to(paletteColor2.node, 1, {fill: COLOR.Yellow, stroke:COLOR.Yellow, ease:Power4.easeInOut});
-        TweenMax.to(paletteColor3.node, 1, {fill: COLOR.Blue, stroke:COLOR.Blue, ease:Power4.easeInOut});
-        TweenMax.to(paletteColor4.node, 1, {fill: COLOR.Green, stroke: COLOR.Green, ease:Power4.easeInOut});
-        TweenMax.to([moustacheLeft.node, moustacheRight.node], 1, {strokeDashoffset: 0, ease: Power2.easeInOut, delay: 0.8});
-        if(!isArtClicked){
-            TweenMax.fromTo(artAcc.node, 0.8, {x:-squareLength/6, y:0, scaleX: 1.2}, {x: 0, opacity: 1, scaleX: 0.95, ease: Back.easeOut, delay: 0.5}); 
-        }
-        isArtClicked = true;
-    }else{
-        if(isArtClicked){
-            TweenMax.to([paletteOutline.node, paletteColor1.node, paletteColor2.node, paletteColor3.node, paletteColor4.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});    
-            TweenMax.to([moustacheLeft.node, moustacheRight.node], 0.5, {strokeDashoffset: moustacheLeftlength, ease: Power2.easeInOut});
-            TweenMax.to(artAcc.node, 0.5, {x:squareLength/6, opacity:0, scaleX: 1.2, ease: Back.easeInOut});
-        }
+        TweenMax.to(PARTS.ArtAcc.node, 0.5, 
+            {x:DIMENSION.SquareLength/6, opacity:0, scaleX: 1.2, skewX:-20, ease: Back.easeInOut}
+        );
         isArtClicked = false;
     }
-
 }
 
-function toggleCoding(toColor){
-    if(toColor){
-        TweenMax.fromTo(browserOutline.node, 1, {strokeDashoffset: browserOutlineLength}, {fill: COLOR.White, strokeDashoffset: 0, ease: Power2.easeInOut});
-        TweenMax.to(browserButton1.node, 1, {fill: COLOR.Red, stroke: COLOR.Red, ease:Power4.easeInOut});
-        TweenMax.to(browserButton2.node, 1, {fill: COLOR.Yellow, stroke:COLOR.Yellow, ease:Power4.easeInOut});
-        TweenMax.to(browserButton3.node, 1, {fill: COLOR.Green, stroke:COLOR.Green, ease:Power4.easeInOut});
-        TweenMax.to([leftGlass.node, rightGlass.node, glassHinge.node], 1, {strokeDashoffset: 0, ease: Power2.easeInOut, delay: 0.8});
-        if(!isCodingClicked){
-            TweenMax.fromTo(codingAcc.node, 0.8, {y:squareLength/4, scaleX: 0.8, scaleY: 1.2}, {y: 0, opacity: 1, scale: 1, ease: Back.easeOut, delay: 0.5});
-        }
-        isCodingClicked = true;
-    }else{
-        if(isCodingClicked){
-            TweenMax.to([browserOutline.node, browserButton1.node, browserButton2.node, browserButton3.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});
-            TweenMax.to([leftGlass.node, rightGlass.node], 0.5, {strokeDashoffset: leftGlassLength, ease: Power2.easeInOut});
-            TweenMax.to(glassHinge.node, 0.5, {strokeDashoffset: glassHingeLength, ease: Power2.easeInOut});
-            TweenMax.to(codingAcc.node, 0.5, {y:squareLength/4, scaleX: 0.8, opacity: 0, scaleY: 1.2, ease: Back.easeInOut});
-        }
+function showCoding(){
+    TweenMax.fromTo(PARTS.BrowserOutline.node, 1, 
+        {strokeDashoffset: DIMENSION.BrowserOutlineLength}, 
+        {fill: COLOR.White, strokeDashoffset: 0, ease: Power2.easeInOut}
+    );
+
+    TweenMax.to(PARTS.BrowserButton1.node, 1, 
+        {fill: COLOR.Red, stroke: COLOR.Red, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to(PARTS.BrowserButton2.node, 1, 
+        {fill: COLOR.Yellow, stroke:COLOR.Yellow, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to(PARTS.BrowserButton3.node, 1, 
+        {fill: COLOR.Green, stroke:COLOR.Green, ease:Power4.easeInOut}
+    );
+
+    TweenMax.to([PARTS.LeftGlass.node, PARTS.RightGlass.node, PARTS.GlassHinge.node], 1, 
+        {strokeDashoffset: 0, ease: Power2.easeOut, delay: 0.5}
+    );
+    if(!isCodingClicked){
+        TweenMax.fromTo(PARTS.CodingAcc.node, 0.8, {y:DIMENSION.SquareLength/6, scaleX: 0.8, scaleY: 1.2}, 
+            {y: 0, opacity: 1, scale: 1, ease: Back.easeOut}
+        );
+    }
+    isCodingClicked = true;  
+}
+
+function hideCoding(){
+    if(isCodingClicked){
+        TweenMax.to(
+            [PARTS.BrowserOutline.node, PARTS.BrowserButton1.node, PARTS.BrowserButton2.node, PARTS.BrowserButton3.node], 1, 
+            {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut}
+        );
+        
+        TweenMax.to(PARTS.LeftGlass.node, 0.5, 
+            {strokeDashoffset: DIMENSION.LeftGlassLength, ease: Power2.easeOut}
+        );
+        TweenMax.to(PARTS.RightGlass.node, 0.5, 
+            {strokeDashoffset: DIMENSION.RightGlassLength, ease: Power2.easeOut}
+        );
+        TweenMax.to(PARTS.GlassHinge.node, 0.5, 
+            {strokeDashoffset: DIMENSION.GlassHingeLength, ease: Power2.easeOut}
+        );
+        TweenMax.to(PARTS.CodingAcc.node, 0.5, 
+            {y:DIMENSION.SquareLength/6, scaleX: 0.8, opacity: 0, scaleY: 1.2, ease: Back.easeInOut}
+        )
         isCodingClicked = false;
     }
 }
 
-function toggleExperience(toColor){
-    if(toColor){
-        TweenMax.fromTo(experienceDashes.node, 1, {strokeDashoffset: experienceDashesLength}, {fill: COLOR.White, strokeDashoffset: 0, stroke: COLOR.Blue, ease: Power2.easeInOut});
-        TweenMax.fromTo(experienceRectangle.node, 1, {strokeDashoffset: experienceRectangleLength}, {strokeDashoffset: 0, fill: COLOR.Yellow, ease: Power2.easeInOut});
-        TweenMax.fromTo(experienceOutline.node, 1, {strokeDashoffset: experienceOutlineLength}, {strokeDashoffset: 0, fill: COLOR.White, ease: Power2.easeInOut});       
-        TweenMax.to(experienceCenter.node, 1, {fill: COLOR.Red, stroke:COLOR.Red, ease:Power4.easeInOut});
-        TweenMax.to(tie.node,1, {strokeDashoffset: 0, ease: Power2.easeInOut, delay: 0.8});
-        if(!isResumeClicked){
-            TweenMax.fromTo(experienceAcc.node, 0.8, {x:squareLength/6, y:0, scaleX: 1.2}, {x: 0, opacity: 1, scale: 1, ease: Back.easeOut, delay: 0.5});
-        }
-        isResumeClicked = true;
-    }else{
-        if(isResumeClicked){
-            TweenMax.to([experienceCenter.node, experienceOutline.node, experienceDashes.node, experienceRectangle.node], 1, {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut});
-            TweenMax.to(tie.node, 0.5, {strokeDashoffset: tieLength, ease: Power2.easeInOut});
-            TweenMax.to(experienceAcc.node, 0.5, {x:-squareLength/6, opacity:0, scaleX: 1.2, ease: Back.easeInOut});
-        }
+function showExperience(){
+    TweenMax.fromTo(PARTS.ExperienceDashes.node, 1, 
+        {strokeDashoffset: DIMENSION.ExperienceDashesLength}, 
+        {fill: COLOR.White, strokeDashoffset: 0, stroke: COLOR.Blue, ease: Power2.easeInOut}
+    );
+    TweenMax.fromTo(PARTS.ExperienceRectangle.node, 1, 
+        {strokeDashoffset: DIMENSION.ExperienceRectangleLength}, 
+        {strokeDashoffset: 0, fill: COLOR.Yellow, ease: Power2.easeInOut}
+    );
+    TweenMax.fromTo(PARTS.ExperienceOutline.node, 1, 
+        {strokeDashoffset: DIMENSION.ExperienceOutlineLength}, 
+        {strokeDashoffset: 0, fill: COLOR.White, ease: Power2.easeInOut}
+    );       
+    TweenMax.to(PARTS.ExperienceCenter.node, 1, 
+        {fill: COLOR.Red, stroke:COLOR.Red, ease:Power4.easeInOut}
+    );
+    TweenMax.to(PARTS.Tie.node,1, 
+        {strokeDashoffset: 0, ease: Power2.easeOut, delay: 0.5}
+    );
+    if(!isResumeClicked){
+        TweenMax.fromTo(PARTS.ExperienceAcc.node, 0.8, 
+            {x:DIMENSION.SquareLength/6, y:0, scaleX: 1.2, skewX: -20}, 
+            {x: 0, opacity: 1, skewX:0, scale: 1, ease: Back.easeInOut}
+        );
+    }
+    isResumeClicked = true;
+}
+
+function hideExperience(){
+    if(isResumeClicked){
+        TweenMax.to(
+            [PARTS.ExperienceCenter.node, PARTS.ExperienceOutline.node, PARTS.ExperienceDashes.node, PARTS.ExperienceRectangle.node], 1, 
+            {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut}
+        );
+    
+        TweenMax.to(PARTS.Tie.node, 0.5, 
+            {strokeDashoffset: DIMENSION.TieLength, ease: Power2.easeOut}
+        );
+    
+        TweenMax.to(PARTS.ExperienceAcc.node, 0.5, 
+            {x:-DIMENSION.SquareLength/6, opacity:0, skewX: 20, scaleX: 1.2, ease: Back.easeInOut}
+        );
+        
         isResumeClicked = false;
     }
 }
 
+/*-----------------------------ATTRIBUTES-------------------------------------*/
+
+function setStrokeAttributes(objectName, isEnd){
+    PARTS[objectName].attr({
+        "stroke-dasharray": DIMENSION[objectName+"Length"]+" "+DIMENSION[objectName+"Length"],
+        "stroke-dashoffset": isEnd? DIMENSION[objectName+"Length"]: 0
+    });
+}
+ 
+$( document ).ready( readyFn );
 
 
 
