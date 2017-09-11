@@ -188,7 +188,21 @@ textarea {
     opacity: 0;
 }
 
+.message{
+    text-align: center;
+    font-family: 'Varela Round', sans-serif;
+    
+}
 
+.message-title{
+    font-size: -webkit-xxx-large;
+    color: #1f2c39;
+}
+
+.message-body{
+    font-size: large;
+    color: grey;
+}
 
 
 
