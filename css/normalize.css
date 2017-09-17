@@ -87,7 +87,12 @@ template {
  */
 
 a {
+  text-decoration: none;
   background-color: transparent;
+}
+
+a:visited {
+  color: initial;
 }
 
 /**

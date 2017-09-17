@@ -112,7 +112,7 @@ textarea {
 }
 
 .svg-container{
-
+    
 }
 
 #svg{
@@ -204,7 +204,23 @@ textarea {
     color: grey;
 }
 
+.links{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 
+.links button{
+    padding: 8px 16px;
+    border-radius: 5vh;
+    border: 3px solid #1f2c39;
+    opacity: 0;
+}
+
+.links button a{
+    color: #FDFFFC;
+    font-weight: bold;
+}
 
 /* ==========================================================================
    Helper classes

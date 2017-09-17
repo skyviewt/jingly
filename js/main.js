@@ -1,13 +1,13 @@
 /*-----------------------------GLOBAL VARS-------------------------------------*/
 let COLOR = {
-    "BlackStroke": "#1f2c39",
-    "BlobFill": "rgb(236, 240, 241)",
-    "Red": "#E71D36",
-    "Yellow": "#FF9F1C",
-    "Green": "#2EC4B6",
-    "Blue": "#005499",
-    "White": "#FDFFFC",
-    "Moustache": "#77818C"
+    'BlackStroke': '#1f2c39',
+    'BlobFill': 'rgb(236, 240, 241)',
+    'Red': '#E71D36',
+    'Yellow': '#FF9F1C',
+    'Green': '#2EC4B6',
+    'Blue': '#005499',
+    'White': '#FDFFFC',
+    'Moustache': '#77818C'
 };
 
 let isMenuShown = false;
@@ -22,19 +22,58 @@ let timelineButtons = new TimelineMax({paused:true});
 
 let TEXT = {
     Title: {
-        beforeClick: "Hello!",
-        toClick: "Click me",
-        afterClick: "Welcome!"
+        beforeClick: 'Hello!',
+        afterClick: 'Welcome!'
     },
     body: {
-        afterClick:"My name is Jing, I am a programmer and illustrator.",
-        art: ""
+        afterClick:'My name is Jing, I am a programmer and illustrator.',
+        art: 'View my artwork collection',
+        coding: 'Check out my coding project',
+        resume: 'Learn about my experiences'
     }
 }
+let artButton = $('.art');
+let codingButton = $('.programming');
+let resumeButton = $('.resume');
+
+let redirectLinkButton = $('.animsition-overlay button');
+let redirectLink = redirectLinkButton.find('a');
+
+let linkStr = {
+    art: './art/index.html',
+    programming: './coding/index.html',
+    resume: 'experience/index.html'
+};
+
+let msgTitle = $('.message-title');
+let msgBody= $('.message-body');
 
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
-    // Code to run when the document is ready.
+
+    $('.animsition-overlay').animsition({
+        inClass: 'overlay-slide-in-top',
+        outClass: 'overlay-slide-out-top',
+        inDuration: 1000,
+        outDuration: 500,
+        linkElement: '.animsition-link',
+        // e.g. linkElement: 'a:not([target='_blank']):not([href^='#'])'
+        loading: true,
+        loadingParentElement: 'body', //animsition wrapper element
+        loadingClass: 'animsition-loading',
+        loadingInner: '',
+        timeout: false,
+        timeoutCountdown: 5000,
+        onLoadEvent: true,
+        browser: [ 'animation-duration', '-webkit-animation-duration'],
+        // 'browser' option allows you to disable the 'animsition' in case the css property in the array is not supported by your browser.
+        // The default setting is to disable the 'animsition' in a browser that does not support 'animation-duration'.
+        overlay : true,
+        overlayClass : 'animsition-overlay-slide',
+        overlayParentElement : 'body',
+        transition: function(url){ window.location.href = url; }
+    });
+
     let s = Snap('#svg');
     DIMENSION.SquareLength = Math.floor(Math.min($( window ).width(), $( window ).height()) / 4);
     DIMENSION.StartingPnt = (DIMENSION.SquareLength*2 - DIMENSION.SquareLength) / 2;
@@ -45,17 +84,21 @@ function readyFn( jQuery ) {
         height: DIMENSION.SquareLength*2
     });
     s.attr({
-        viewBox:"0 0 "+ DIMENSION.SquareLength*2 + " " + DIMENSION.SquareLength*2 
+        viewBox:'0 0 '+ DIMENSION.SquareLength*2 + ' ' + DIMENSION.SquareLength*2 
     });
 
     // change menu attributes
-    $(".accessory").css({
-        width:DIMENSION.SquareLength/2+"px", 
+    $('.accessory').css({
+        width:DIMENSION.SquareLength/2+'px', 
         left:DIMENSION.SquareLength*0.85+'px'
     });
     $('.btn').css({
         width: DIMENSION.SquareLength/1.5 +'px',
         height: DIMENSION.SquareLength/1.5 +'px'
+    });
+
+    $('.links').css({
+        'margin-top': (DIMENSION.StartingPnt*1.85 - DIMENSION.SquareLength/1.5)/2 + $('.animsition-overlay button').height() + 'px'
     });
     
     //making parts
@@ -63,10 +106,8 @@ function readyFn( jQuery ) {
     makeBlockBody(s);
 
     // animate blob
-    TweenMax.fromTo(PARTS.Block.node, 1, {strokeDashoffset: DIMENSION.BlockLength, opacity: 0}, {fill: COLOR.BlobFill, strokeDashoffset: 0, opacity: 1, ease: Power2.easeInOut, onStar: ()=>{
-        $(".message-title").fadeOut(function() {
-            $(this).text("Hello!").fadeIn();
-        });
+    TweenMax.fromTo(PARTS.Block.node, 1, {strokeDashoffset: DIMENSION.BlockLength, opacity: 0}, {fill: COLOR.BlobFill, strokeDashoffset: 0, opacity: 1, ease: Power2.easeInOut, onStart: ()=>{
+        animateMsg(msgTitle, TEXT.Title.beforeClick);
     }});
 
     makeEyeLids(s);
@@ -84,7 +125,7 @@ function readyFn( jQuery ) {
         PARTS.LeftEye, PARTS.LeftTopEyeLid, PARTS.LeftBottomEyeLid, PARTS.Mouth, PARTS.MoustacheLeft, PARTS.MoustacheRight, PARTS.Tie, 
         PARTS.LeftGlass, PARTS.RightGlass, PARTS.GlassHinge
     ).attr({
-        cursor: "pointer"
+        cursor: 'pointer'
     });
     // shadow
     PARTS.Shadow = s.ellipse(
@@ -105,11 +146,11 @@ function makeBlockBody(s){
     PARTS.Block = s.rect(DIMENSION.StartingPnt, DIMENSION.StartingPnt*1.85, DIMENSION.SquareLength, DIMENSION.SquareLength, DIMENSION.SquareLength/20, DIMENSION.SquareLength/20);
     DIMENSION.BlockLength = PARTS.Block.getTotalLength();
     PARTS.Block.attr({
-        fill: "none",
+        fill: 'none',
         stroke: COLOR.BlackStroke,
         strokeWidth: DIMENSION.EyeSize / 2
     });
-    setStrokeAttributes("Block", false);
+    setStrokeAttributes('Block', false);
 }
 
 
@@ -169,29 +210,29 @@ function makeMouth(s){
 }
 
 function makeMoustaches(s){
-    PARTS.MoustacheLeft = s.path("M"+DIMENSION.MiddleX+","+(DIMENSION.EyeY+DIMENSION.EyeSize)+
-        "c-" +(DIMENSION.EyeSize)+","+(DIMENSION.EyeSize*2)+" -"+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*2)+" -"+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*0.5)
+    PARTS.MoustacheLeft = s.path('M'+DIMENSION.MiddleX+','+(DIMENSION.EyeY+DIMENSION.EyeSize)+
+        'c-' +(DIMENSION.EyeSize)+','+(DIMENSION.EyeSize*2)+' -'+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*2)+' -'+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*0.5)
         ).attr({ 
-            fill: "none", 
+            fill: 'none', 
             stroke:COLOR.Moustache, 
             strokeWidth: DIMENSION.EyeSize / 1.25, 
-            strokeLinecap:"round", 
+            strokeLinecap:'round', 
             strokeMiterlimit:DIMENSION.EyeSize / 1.25
         });
     DIMENSION.MoustacheLeftLength = PARTS.MoustacheLeft.getTotalLength();
-    setStrokeAttributes("MoustacheLeft", true);
+    setStrokeAttributes('MoustacheLeft', true);
 
-    PARTS.MoustacheRight = s.path("M"+DIMENSION.MiddleX+","+(DIMENSION.EyeY+DIMENSION.EyeSize)+
-    "c" +(DIMENSION.EyeSize)+","+(DIMENSION.EyeSize*2)+" "+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*2)+" "+(DIMENSION.EyeSize*4)+","+(DIMENSION.EyeSize*0.5)
+    PARTS.MoustacheRight = s.path('M'+DIMENSION.MiddleX+','+(DIMENSION.EyeY+DIMENSION.EyeSize)+
+    'c' +(DIMENSION.EyeSize)+','+(DIMENSION.EyeSize*2)+' '+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*2)+' '+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*0.5)
     ).attr({ 
-        fill: "none", 
+        fill: 'none', 
         stroke:COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 1.25, 
-        strokeLinecap:"round", 
+        strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 1.25
     });
     DIMENSION.MoustacheRightLength = PARTS.MoustacheRight.getTotalLength();
-    setStrokeAttributes("MoustacheRight", true);
+    setStrokeAttributes('MoustacheRight', true);
 }
 
 function makeTie(s){
@@ -203,106 +244,106 @@ function makeTie(s){
         endY: DIMENSION.StartingPnt*1.85+DIMENSION.SquareLength-DIMENSION.EyeSize/2,
     };
 
-    PARTS.Tie = s.path("M"+DIMENSION.TiePnts.startX+","+DIMENSION.TiePnts.startY+
-        " "+DIMENSION.TiePnts.endX+","+DIMENSION.TiePnts.startY+" "+
-        (DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY+" "
-        +(DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY+"z M"+
-        (DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY+" "+
-        DIMENSION.TiePnts.startX+","+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+" "+
-        DIMENSION.MiddleX+","+DIMENSION.TiePnts.endY+" "+
-        DIMENSION.TiePnts.endX+","+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+" "
-        +(DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+","+DIMENSION.TiePnts.middleY
+    PARTS.Tie = s.path('M'+DIMENSION.TiePnts.startX+','+DIMENSION.TiePnts.startY+
+        ' '+DIMENSION.TiePnts.endX+','+DIMENSION.TiePnts.startY+' '+
+        (DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY+' '
+        +(DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY+'z M'+
+        (DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY+' '+
+        DIMENSION.TiePnts.startX+','+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+' '+
+        DIMENSION.MiddleX+','+DIMENSION.TiePnts.endY+' '+
+        DIMENSION.TiePnts.endX+','+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+' '
+        +(DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY
     ).attr({
-        fill: "none", 
+        fill: 'none', 
         stroke:COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
-        strokeLinecap:"round", 
+        strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2
     });
 
     DIMENSION.TieLength = PARTS.Tie.getTotalLength();
-    setStrokeAttributes("Tie", true)
+    setStrokeAttributes('Tie', true)
     
 }
 
 function makeGlasses(s){
     PARTS.LeftGlass=s.circle(DIMENSION.LeftEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
     ).attr({
-        fill:"none", 
+        fill:'none', 
         stroke:COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
-        strokeLinecap:"round", 
+        strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2
     });
-    DIMENSION.LeftGlassLength = PARTS.LeftGlass.getTotalLength();
-    setStrokeAttributes("LeftGlass", true);
+    DIMENSION.LeftGlassLength = Math.ceil(PARTS.LeftGlass.getTotalLength());
+    setStrokeAttributes('LeftGlass', true);
 
 
     PARTS.RightGlass=s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
     ).attr({
-        fill:"none", 
+        fill:'none', 
         stroke:COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
-        strokeLinecap:"round", 
+        strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2
     });
-    DIMENSION.RightGlassLength = PARTS.RightGlass.getTotalLength();
-    setStrokeAttributes("RightGlass", true);
+    DIMENSION.RightGlassLength = Math.ceil(PARTS.RightGlass.getTotalLength());
+    setStrokeAttributes('RightGlass', true);
 
-    PARTS.GlassHinge = s.path("M"+(DIMENSION.LeftEyeX+DIMENSION.EyeSize*4)+","+DIMENSION.EyeY+"Q"+
-        DIMENSION.MiddleX+","+(DIMENSION.EyeY-DIMENSION.EyeSize)+" "+
-        (DIMENSION.RightEyeX-DIMENSION.EyeSize*4)+","+DIMENSION.EyeY
+    PARTS.GlassHinge = s.path('M'+(DIMENSION.LeftEyeX+DIMENSION.EyeSize*4)+','+DIMENSION.EyeY+'Q'+
+        DIMENSION.MiddleX+','+(DIMENSION.EyeY-DIMENSION.EyeSize)+' '+
+        (DIMENSION.RightEyeX-DIMENSION.EyeSize*4)+','+DIMENSION.EyeY
     ).attr({
-        fill:"none", 
+        fill:'none', 
         stroke:COLOR.Moustache,
         strokeWidth: DIMENSION.EyeSize / 2,
-        strokeLinecap:"round",
+        strokeLinecap:'round',
         strokeMiterlimit:DIMENSION.EyeSize / 2
     });
     DIMENSION.GlassHingeLength = PARTS.GlassHinge.getTotalLength();
-    setStrokeAttributes("GlassHinge", true);
+    setStrokeAttributes('GlassHinge', true);
 }
 
 function makeMenu(){
     // make art button
-    PARTS.Palette = Snap("#palette");
-    PARTS.PaletteOutline = PARTS.Palette.select("#palette-outline");
-    PARTS.PaletteColor1 = PARTS.Palette.select("#palette-color1");
-    PARTS.PaletteColor2 = PARTS.Palette.select("#palette-color2");
-    PARTS.PaletteColor3 = PARTS.Palette.select("#palette-color3");
-    PARTS.PaletteColor4 = PARTS.Palette.select("#palette-color4");
+    PARTS.Palette = Snap('#palette');
+    PARTS.PaletteOutline = PARTS.Palette.select('#palette-outline');
+    PARTS.PaletteColor1 = PARTS.Palette.select('#palette-color1');
+    PARTS.PaletteColor2 = PARTS.Palette.select('#palette-color2');
+    PARTS.PaletteColor3 = PARTS.Palette.select('#palette-color3');
+    PARTS.PaletteColor4 = PARTS.Palette.select('#palette-color4');
     DIMENSION.PaletteOutlineLength = PARTS.PaletteOutline.getTotalLength();
-    setStrokeAttributes("PaletteOutline", false);
+    setStrokeAttributes('PaletteOutline', false);
 
     // make programming button
-    PARTS.Browser = Snap("#browser");
-    PARTS.BrowserOutline = PARTS.Browser.select("#browser-outline");
-    PARTS.BrowserButton1 = PARTS.Browser.select("#browser-button1");
-    PARTS.BrowserButton2 = PARTS.Browser.select("#browser-button1");
-    PARTS.BrowserButton3 = PARTS.Browser.select("#browser-button3");
+    PARTS.Browser = Snap('#browser');
+    PARTS.BrowserOutline = PARTS.Browser.select('#browser-outline');
+    PARTS.BrowserButton1 = PARTS.Browser.select('#browser-button1');
+    PARTS.BrowserButton2 = PARTS.Browser.select('#browser-button1');
+    PARTS.BrowserButton3 = PARTS.Browser.select('#browser-button3');
     DIMENSION.BrowserOutlineLength = PARTS.BrowserOutline.getTotalLength();
-    setStrokeAttributes("BrowserOutline", false);
+    setStrokeAttributes('BrowserOutline', false);
 
     //make resume button
-    PARTS.Experience = Snap("#experience");
-    PARTS.ExperienceCenter = PARTS.Experience.select("#experience-circle");
-    PARTS.ExperienceDashes = PARTS.Experience.select("#experience-path1");
+    PARTS.Experience = Snap('#experience');
+    PARTS.ExperienceCenter = PARTS.Experience.select('#experience-circle');
+    PARTS.ExperienceDashes = PARTS.Experience.select('#experience-path1');
     DIMENSION.ExperienceDashesLength = PARTS.ExperienceDashes.getTotalLength();
-    setStrokeAttributes("ExperienceDashes", false);
+    setStrokeAttributes('ExperienceDashes', false);
 
-    PARTS.ExperienceRectangle = PARTS.Experience.select("#experience-path2");
+    PARTS.ExperienceRectangle = PARTS.Experience.select('#experience-path2');
     DIMENSION.ExperienceRectangleLength = PARTS.ExperienceRectangle.getTotalLength();
-    setStrokeAttributes("ExperienceRectangle", false);
+    setStrokeAttributes('ExperienceRectangle', false);
 
-    PARTS.ExperienceOutline = PARTS.Experience.select("#experience-outline");
+    PARTS.ExperienceOutline = PARTS.Experience.select('#experience-outline');
     DIMENSION.ExperienceOutlineLength = PARTS.ExperienceOutline.getTotalLength();
-    setStrokeAttributes("ExperienceOutline", false);
+    setStrokeAttributes('ExperienceOutline', false);
 
     // make accessories
-    PARTS.AccSvg = Snap("#acc-svg");
-    PARTS.ArtAcc = PARTS.AccSvg.select("#art-acc");
-    PARTS.CodingAcc = PARTS.AccSvg.select("#coding-acc");
-    PARTS.ExperienceAcc = PARTS.AccSvg.select("#experience-acc");
+    PARTS.AccSvg = Snap('#acc-svg');
+    PARTS.ArtAcc = PARTS.AccSvg.select('#art-acc');
+    PARTS.CodingAcc = PARTS.AccSvg.select('#coding-acc');
+    PARTS.ExperienceAcc = PARTS.AccSvg.select('#experience-acc');
 }
 
 /*-----------------------------ANIMATIONS-------------------------------------*/
@@ -310,16 +351,16 @@ function makeMenu(){
 function animateEyeLids(){
     // add some blinking
     let topLidTween = TweenMax.from([PARTS.LeftTopEyeLid.node, PARTS.RightTopEyeLid.node] , 0.3, {scaleY: 0,
-    transformOrigin: "center top", ease:Cubic.easeInOut});
+    transformOrigin: 'center top', ease:Cubic.easeInOut});
 
     let bottomLidTween = TweenMax.from([PARTS.LeftBottomEyeLid.node, PARTS.RightBottomEyeLid.node] , 0.3, {scaleY: 0,
-    transformOrigin: "center bottom", ease:Cubic.easeInOut});
+    transformOrigin: 'center bottom', ease:Cubic.easeInOut});
 
     let t1 = new TimelineMax({
         paused: true,
         repeat: 1,
         yoyo: true,
-        onCompleteParams: ["{self}"],
+        onCompleteParams: ['{self}'],
         onComplete: function() {
             TweenLite.delayedCall((3 * Math.random() + 0.6), t1.restart, [], t1);
         }
@@ -354,31 +395,33 @@ function animateMouthSmall(delay){
 function animateJump(){
     PARTS.SquareGroup.click(()=>{   
         if(timelineJump.getChildren(true, true, true, 0).length === 0){
-            //not added
-            timelineJump.add(TweenMax.fromTo(PARTS.SquareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: "center bottom"}, 
-            { y: -DIMENSION.SquareLength, scaleX: 1.15, scaleY: 0.85, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
+            //not added, first jump
+            timelineJump.add(TweenMax.fromTo(PARTS.SquareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: 'center bottom'}, 
+            { y: -DIMENSION.SquareLength, scaleX: 1.15, scaleY: 0.85, transformOrigin: 'center bottom', ease: Back.easeInOut, onComplete:
                 ()=>{
-                    TweenMax.to(PARTS.SquareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: "center bottom", ease: Bounce.easeOut},0.3);
+                    TweenMax.to(PARTS.SquareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: 'center bottom', ease: Bounce.easeOut},0.3);
                 }}), 0
             );
 
-            timelineJump.add(TweenMax.fromTo(PARTS.Shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: "center bottom"}, 
-            {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: "center bottom", ease: Back.easeInOut, onComplete:
+            timelineJump.add(TweenMax.fromTo(PARTS.Shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: 'center bottom'}, 
+            {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: 'center bottom', ease: Back.easeInOut, onComplete:
                 ()=>{
-                    TweenMax.to(PARTS.Shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: "center bottom", ease: Bounce.easeOut}, 0.3);
+                    TweenMax.to(PARTS.Shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: 'center bottom', ease: Bounce.easeOut}, 0.3);
                 }}), 0
             );
+            animateMsg(msgTitle, TEXT.Title.afterClick);
+            animateMsg(msgBody, TEXT.body.afterClick);
         }
         if(timelineButtons.getChildren(true, true, true, 0).length === 0){
-            timelineButtons.add(TweenMax.fromTo(".programming", 0.5, 
+            timelineButtons.add(TweenMax.fromTo('.programming', 0.5, 
                 {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:DIMENSION.SquareLength/10}, 
                 {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, ease:Back.easeInOut}), 0
             );
-            timelineButtons.add(TweenMax.fromTo(".art",1,
+            timelineButtons.add(TweenMax.fromTo('.art',1,
                 {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: DIMENSION.SquareLength/2},
                 {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
             );
-            timelineButtons.add(TweenMax.fromTo(".resume",1,
+            timelineButtons.add(TweenMax.fromTo('.resume',1,
                 {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: -DIMENSION.SquareLength/2},
                 {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
             );        
@@ -389,7 +432,7 @@ function animateJump(){
                 let tweenVal = Math.random() * (1.02 - 1) + 1;
 
                 timelineButtons.add(TweenMax.fromTo('.btn', 0.4, {scale: 1.1}, 
-                    {opacity:1, scale: 1, transformOrigin:"center center", ease: Back.easeInOut}),0
+                    {opacity:1, scale: 1, transformOrigin:'center center', ease: Back.easeInOut}),0
                 );
             }
             isMenuShown = true;
@@ -400,7 +443,7 @@ function animateJump(){
 }
 
 function animateMenu(){
-    $('.art').click(()=>{
+    artButton.click(()=>{
         showArt();
         hideCoding();
         hideExperience();
@@ -408,16 +451,22 @@ function animateMenu(){
     });
 
 
-    $('.programming').click(()=>{
+    codingButton.click(()=>{
         showCoding();
         hideArt();
         hideExperience();
     });
 
-    $('.resume').click(()=>{
+    resumeButton.click(()=>{
         showExperience();
         hideArt();
         hideCoding();
+    });
+}
+
+function animateMsg(msgObj, text){
+    msgObj.fadeOut(function() {
+        $(this).text(text).fadeIn();
     });
 }
 
@@ -454,13 +503,16 @@ function showArt(){
         );
     }
     isArtClicked = true; 
+    redirectLink.attr('href',   linkStr.art);
+    TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Red, ease: Power4.easeInOut});
+    animateMsg(msgBody, TEXT.body.art);
 }
 
 function hideArt(){
     if(isArtClicked){
         TweenMax.to(
             [PARTS.PaletteOutline.node,PARTS.PaletteColor1.node,PARTS.PaletteColor2.node,PARTS.PaletteColor3.node, PARTS.PaletteColor4.node], 1, 
-            {stroke: COLOR.BlackStroke, fill:"none", ease: Power2.easeInOut}
+            {stroke: COLOR.BlackStroke, fill:'none', ease: Power2.easeInOut}
         );
     
         TweenMax.to(PARTS.MoustacheLeft.node, 0.5,
@@ -504,14 +556,17 @@ function showCoding(){
             {y: 0, opacity: 1, scale: 1, ease: Back.easeOut}
         );
     }
-    isCodingClicked = true;  
+    isCodingClicked = true;
+    redirectLink.attr('href',   linkStr.programming);
+    TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Yellow, ease: Power4.easeInOut});
+    animateMsg(msgBody, TEXT.body.coding);
 }
 
 function hideCoding(){
     if(isCodingClicked){
         TweenMax.to(
             [PARTS.BrowserOutline.node, PARTS.BrowserButton1.node, PARTS.BrowserButton2.node, PARTS.BrowserButton3.node], 1, 
-            {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut}
+            {stroke: COLOR.BlackStroke, fill: 'none', ease: Back.easeInOut}
         );
         
         TweenMax.to(PARTS.LeftGlass.node, 0.5, 
@@ -556,13 +611,16 @@ function showExperience(){
         );
     }
     isResumeClicked = true;
+    redirectLink.attr('href',   linkStr.resume);
+    TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Green, ease: Power4.easeInOut});
+    animateMsg(msgBody, TEXT.body.resume);
 }
 
 function hideExperience(){
     if(isResumeClicked){
         TweenMax.to(
             [PARTS.ExperienceCenter.node, PARTS.ExperienceOutline.node, PARTS.ExperienceDashes.node, PARTS.ExperienceRectangle.node], 1, 
-            {stroke: COLOR.BlackStroke, fill: "none", ease: Back.easeInOut}
+            {stroke: COLOR.BlackStroke, fill: 'none', ease: Back.easeInOut}
         );
     
         TweenMax.to(PARTS.Tie.node, 0.5, 
@@ -581,8 +639,8 @@ function hideExperience(){
 
 function setStrokeAttributes(objectName, isEnd){
     PARTS[objectName].attr({
-        "stroke-dasharray": DIMENSION[objectName+"Length"]+" "+DIMENSION[objectName+"Length"],
-        "stroke-dashoffset": isEnd? DIMENSION[objectName+"Length"]: 0
+        'stroke-dasharray': DIMENSION[objectName+'Length']+' '+DIMENSION[objectName+'Length'],
+        'stroke-dashoffset': isEnd? DIMENSION[objectName+'Length']: 0
     });
 }
  
