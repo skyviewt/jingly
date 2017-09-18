@@ -1,15 +1,4 @@
 /*-----------------------------GLOBAL VARS-------------------------------------*/
-let COLOR = {
-    'BlackStroke': '#1f2c39',
-    'BlobFill': 'rgb(236, 240, 241)',
-    'Red': '#E71D36',
-    'Yellow': '#FF9F1C',
-    'Green': '#2EC4B6',
-    'Blue': '#005499',
-    'White': '#FDFFFC',
-    'Moustache': '#77818C'
-};
-
 let isMenuShown = false;
 let isArtClicked = false;
 let isCodingClicked = false;
@@ -23,7 +12,10 @@ let timelineButtons = new TimelineMax({paused:true});
 let TEXT = {
     Title: {
         beforeClick: 'Hello!',
-        afterClick: 'Welcome!'
+        afterClick: 'Welcome!',
+        art: 'Artist',
+        coding: 'Programmer',
+        resume: 'Professional'
     },
     body: {
         afterClick:'My name is Jing, I am a programmer and illustrator.',
@@ -74,7 +66,7 @@ function readyFn( jQuery ) {
         transition: function(url){ window.location.href = url; }
     });
 
-    let s = Snap('#svg');
+    let s = Snap('#svg-canvas');
     DIMENSION.SquareLength = Math.floor(Math.min($( window ).width(), $( window ).height()) / 4);
     DIMENSION.StartingPnt = (DIMENSION.SquareLength*2 - DIMENSION.SquareLength) / 2;
 
@@ -102,8 +94,8 @@ function readyFn( jQuery ) {
     });
     
     //making parts
-    makeEyes(s);
-    makeBlockBody(s);
+    makeEyes(s, 1.85);
+    makeBlockBody(s, 1.85);
 
     // animate blob
     TweenMax.fromTo(PARTS.Block.node, 1, {strokeDashoffset: DIMENSION.BlockLength, opacity: 0}, {fill: COLOR.BlobFill, strokeDashoffset: 0, opacity: 1, ease: Power2.easeInOut, onStart: ()=>{
@@ -117,7 +109,7 @@ function readyFn( jQuery ) {
     animateMouthBig(Math.random()* 3000);
 
     makeMoustaches(s);
-    makeTie(s);
+    makeTie(s, 1.85);
     makeGlasses(s);
 
     //Group
@@ -142,167 +134,6 @@ function readyFn( jQuery ) {
 }
 
 /*-----------------------------GENERATE ELEMENTS-------------------------------------*/
-function makeBlockBody(s){
-    PARTS.Block = s.rect(DIMENSION.StartingPnt, DIMENSION.StartingPnt*1.85, DIMENSION.SquareLength, DIMENSION.SquareLength, DIMENSION.SquareLength/20, DIMENSION.SquareLength/20);
-    DIMENSION.BlockLength = PARTS.Block.getTotalLength();
-    PARTS.Block.attr({
-        fill: 'none',
-        stroke: COLOR.BlackStroke,
-        strokeWidth: DIMENSION.EyeSize / 2
-    });
-    setStrokeAttributes('Block', false);
-}
-
-
-function makeEyes(s){
-    DIMENSION.LeftEyeX = Math.floor(DIMENSION.StartingPnt + DIMENSION.SquareLength / 4.25);
-    DIMENSION.RightEyeX = Math.floor(DIMENSION.StartingPnt + DIMENSION.SquareLength - DIMENSION.SquareLength / 4.25);
-    DIMENSION.EyeY = Math.floor(DIMENSION.StartingPnt*1.85 + DIMENSION.SquareLength / 2.5);
-    DIMENSION.EyeSize = DIMENSION.SquareLength / 20;
-    
-    PARTS.LeftEye = s.circle(DIMENSION.LeftEyeX, DIMENSION.EyeY, DIMENSION.EyeSize
-    ).attr({
-        fill: COLOR.BlackStroke
-    });
-    PARTS.RightEye = s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize
-    ).attr({
-        fill: COLOR.BlackStroke
-    });
-
-    DIMENSION.MiddleX = (DIMENSION.LeftEyeX + DIMENSION.RightEyeX)/2;
-}
-
-
-function makeEyeLids(s){
-
-    PARTS.LeftTopEyeLid = s.polygon([DIMENSION.LeftEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, DIMENSION.LeftEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, 
-        DIMENSION.LeftEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.LeftEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4]
-    ).attr({
-        fill: COLOR.BlobFill
-    });
-    PARTS.RightTopEyeLid = s.polygon([DIMENSION.RightEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, DIMENSION.RightEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY-DIMENSION.EyeSize, 
-        DIMENSION.RightEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.RightEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4]
-    ).attr({
-            fill: COLOR.BlobFill
-    });
-    PARTS.LeftBottomEyeLid = s.polygon([DIMENSION.LeftEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.LeftEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4, 
-        DIMENSION.LeftEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY+DIMENSION.EyeSize*1.5, DIMENSION.LeftEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY + DIMENSION.EyeSize*1.5]
-    ).attr({
-            fill: COLOR.BlobFill
-    });
-    PARTS.RightBottomEyeLid = s.polygon([DIMENSION.RightEyeX+DIMENSION.EyeSize*1.25, DIMENSION.EyeY+DIMENSION.EyeSize/4, DIMENSION.RightEyeX-DIMENSION.EyeSize*1.25, DIMENSION.EyeY + DIMENSION.EyeSize/4, 
-        DIMENSION.RightEyeX-DIMENSION.EyeSize*0.75, DIMENSION.EyeY+DIMENSION.EyeSize*1.5, DIMENSION.RightEyeX+DIMENSION.EyeSize*0.75, DIMENSION.EyeY + DIMENSION.EyeSize*1.5]
-    ).attr({
-            fill: COLOR.BlobFill
-    });
-
-}
-
-function makeMouth(s){
-    DIMENSION.MouthLeftX = DIMENSION.LeftEyeX + (DIMENSION.EyeSize * 2);
-    DIMENSION.MouthY = DIMENSION.EyeY + (DIMENSION.EyeSize * 2);
-    DIMENSION.MouthRightX = DIMENSION.RightEyeX - (DIMENSION.EyeSize * 2);
-    PARTS.Mouth = s.path('M'+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY)+' C'+(DIMENSION.MouthLeftX+(DIMENSION.EyeSize*2))+','+(DIMENSION.MouthY+(DIMENSION.EyeSize*3))+' '+(DIMENSION.MouthRightX-(DIMENSION.EyeSize*2)) +','+(DIMENSION.MouthY+(DIMENSION.EyeSize*3))+' '+(DIMENSION.MouthRightX) +','+(DIMENSION.MouthY)+' '+
-        'Q'+ (DIMENSION.MiddleX) +',' +(DIMENSION.EyeY+DIMENSION.EyeSize*2)+' '+(DIMENSION.MouthLeftX)+','+(DIMENSION.MouthY)
-    ).attr({
-        fill: COLOR.White
-    });
-}
-
-function makeMoustaches(s){
-    PARTS.MoustacheLeft = s.path('M'+DIMENSION.MiddleX+','+(DIMENSION.EyeY+DIMENSION.EyeSize)+
-        'c-' +(DIMENSION.EyeSize)+','+(DIMENSION.EyeSize*2)+' -'+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*2)+' -'+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*0.5)
-        ).attr({ 
-            fill: 'none', 
-            stroke:COLOR.Moustache, 
-            strokeWidth: DIMENSION.EyeSize / 1.25, 
-            strokeLinecap:'round', 
-            strokeMiterlimit:DIMENSION.EyeSize / 1.25
-        });
-    DIMENSION.MoustacheLeftLength = PARTS.MoustacheLeft.getTotalLength();
-    setStrokeAttributes('MoustacheLeft', true);
-
-    PARTS.MoustacheRight = s.path('M'+DIMENSION.MiddleX+','+(DIMENSION.EyeY+DIMENSION.EyeSize)+
-    'c' +(DIMENSION.EyeSize)+','+(DIMENSION.EyeSize*2)+' '+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*2)+' '+(DIMENSION.EyeSize*4)+','+(DIMENSION.EyeSize*0.5)
-    ).attr({ 
-        fill: 'none', 
-        stroke:COLOR.Moustache, 
-        strokeWidth: DIMENSION.EyeSize / 1.25, 
-        strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 1.25
-    });
-    DIMENSION.MoustacheRightLength = PARTS.MoustacheRight.getTotalLength();
-    setStrokeAttributes('MoustacheRight', true);
-}
-
-function makeTie(s){
-    DIMENSION.TiePnts = {
-        startX: DIMENSION.MiddleX-DIMENSION.EyeSize*0.75,
-        startY: DIMENSION.MouthY+(DIMENSION.EyeSize*5.5),
-        endX: DIMENSION.MiddleX+DIMENSION.EyeSize*0.85,
-        middleY: DIMENSION.MouthY+(DIMENSION.EyeSize*6.5), 
-        endY: DIMENSION.StartingPnt*1.85+DIMENSION.SquareLength-DIMENSION.EyeSize/2,
-    };
-
-    PARTS.Tie = s.path('M'+DIMENSION.TiePnts.startX+','+DIMENSION.TiePnts.startY+
-        ' '+DIMENSION.TiePnts.endX+','+DIMENSION.TiePnts.startY+' '+
-        (DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY+' '
-        +(DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY+'z M'+
-        (DIMENSION.TiePnts.startX+DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY+' '+
-        DIMENSION.TiePnts.startX+','+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+' '+
-        DIMENSION.MiddleX+','+DIMENSION.TiePnts.endY+' '+
-        DIMENSION.TiePnts.endX+','+(DIMENSION.TiePnts.endY-DIMENSION.EyeSize)+' '
-        +(DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY
-    ).attr({
-        fill: 'none', 
-        stroke:COLOR.Moustache, 
-        strokeWidth: DIMENSION.EyeSize / 2, 
-        strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 2
-    });
-
-    DIMENSION.TieLength = PARTS.Tie.getTotalLength();
-    setStrokeAttributes('Tie', true)
-    
-}
-
-function makeGlasses(s){
-    PARTS.LeftGlass=s.circle(DIMENSION.LeftEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
-    ).attr({
-        fill:'none', 
-        stroke:COLOR.Moustache, 
-        strokeWidth: DIMENSION.EyeSize / 2, 
-        strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 2
-    });
-    DIMENSION.LeftGlassLength = Math.ceil(PARTS.LeftGlass.getTotalLength());
-    setStrokeAttributes('LeftGlass', true);
-
-
-    PARTS.RightGlass=s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
-    ).attr({
-        fill:'none', 
-        stroke:COLOR.Moustache, 
-        strokeWidth: DIMENSION.EyeSize / 2, 
-        strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 2
-    });
-    DIMENSION.RightGlassLength = Math.ceil(PARTS.RightGlass.getTotalLength());
-    setStrokeAttributes('RightGlass', true);
-
-    PARTS.GlassHinge = s.path('M'+(DIMENSION.LeftEyeX+DIMENSION.EyeSize*4)+','+DIMENSION.EyeY+'Q'+
-        DIMENSION.MiddleX+','+(DIMENSION.EyeY-DIMENSION.EyeSize)+' '+
-        (DIMENSION.RightEyeX-DIMENSION.EyeSize*4)+','+DIMENSION.EyeY
-    ).attr({
-        fill:'none', 
-        stroke:COLOR.Moustache,
-        strokeWidth: DIMENSION.EyeSize / 2,
-        strokeLinecap:'round',
-        strokeMiterlimit:DIMENSION.EyeSize / 2
-    });
-    DIMENSION.GlassHingeLength = PARTS.GlassHinge.getTotalLength();
-    setStrokeAttributes('GlassHinge', true);
-}
 
 function makeMenu(){
     // make art button
@@ -347,29 +178,6 @@ function makeMenu(){
 }
 
 /*-----------------------------ANIMATIONS-------------------------------------*/
-
-function animateEyeLids(){
-    // add some blinking
-    let topLidTween = TweenMax.from([PARTS.LeftTopEyeLid.node, PARTS.RightTopEyeLid.node] , 0.3, {scaleY: 0,
-    transformOrigin: 'center top', ease:Cubic.easeInOut});
-
-    let bottomLidTween = TweenMax.from([PARTS.LeftBottomEyeLid.node, PARTS.RightBottomEyeLid.node] , 0.3, {scaleY: 0,
-    transformOrigin: 'center bottom', ease:Cubic.easeInOut});
-
-    let t1 = new TimelineMax({
-        paused: true,
-        repeat: 1,
-        yoyo: true,
-        onCompleteParams: ['{self}'],
-        onComplete: function() {
-            TweenLite.delayedCall((3 * Math.random() + 0.6), t1.restart, [], t1);
-        }
-    });
-
-    t1.add([topLidTween, bottomLidTween]);
-    t1.progress(1).progress(0);
-    t1.play();
-}
 
 function animateMouthBig(delay){
     setTimeout(()=>{
@@ -505,6 +313,7 @@ function showArt(){
     isArtClicked = true; 
     redirectLink.attr('href',   linkStr.art);
     TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Red, ease: Power4.easeInOut});
+    animateMsg(msgTitle, TEXT.Title.art);
     animateMsg(msgBody, TEXT.body.art);
 }
 
@@ -559,6 +368,7 @@ function showCoding(){
     isCodingClicked = true;
     redirectLink.attr('href',   linkStr.programming);
     TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Yellow, ease: Power4.easeInOut});
+    animateMsg(msgTitle, TEXT.Title.coding);
     animateMsg(msgBody, TEXT.body.coding);
 }
 
@@ -613,6 +423,7 @@ function showExperience(){
     isResumeClicked = true;
     redirectLink.attr('href',   linkStr.resume);
     TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Green, ease: Power4.easeInOut});
+    animateMsg(msgTitle, TEXT.Title.resume);
     animateMsg(msgBody, TEXT.body.resume);
 }
 
@@ -635,15 +446,6 @@ function hideExperience(){
     }
 }
 
-/*-----------------------------ATTRIBUTES-------------------------------------*/
-
-function setStrokeAttributes(objectName, isEnd){
-    PARTS[objectName].attr({
-        'stroke-dasharray': DIMENSION[objectName+'Length']+' '+DIMENSION[objectName+'Length'],
-        'stroke-dashoffset': isEnd? DIMENSION[objectName+'Length']: 0
-    });
-}
- 
 $( document ).ready( readyFn );
 
 

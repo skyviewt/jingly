@@ -115,7 +115,7 @@ textarea {
     
 }
 
-#svg{
+#svg-canvas{
     display: block;
     margin: auto;
 }
@@ -197,6 +197,7 @@ textarea {
 .message-title{
     font-size: -webkit-xxx-large;
     color: #1f2c39;
+    margin: 2vh;
 }
 
 .message-body{
@@ -222,6 +223,76 @@ textarea {
     font-weight: bold;
 }
 
+
+/*---------------------resume---------------*/
+#svg-timeline{
+   position: absolute;
+}
+#timeline {
+    background-color: #2EC4B6;
+    height: 10px;
+    width: 100%;
+    position: relative;
+  }
+#timeline .inside {
+    position: absolute;
+    height: 4px;
+    background-color: #2EC4B6;
+    width: 0%;
+    top: 3px;
+    left: 0;
+  }
+#timeline .dot {
+    z-index: 99;
+    -webkit-transition: 0.3s ease-in-out;
+    transition: 0.3s ease-in-out;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    top: -15px;
+    text-align: center;
+    cursor: pointer;
+  }
+#timeline .dot:nth-child(1) {
+    left: 20%;
+    background-color: #1f2c39;
+    opacity: 0;
+  }
+#timeline .dot:nth-child(2) {
+    left: 40%;
+    background-color: #E71D36;
+  }
+#timeline .dot:nth-child(3) {
+    left: 60%;
+    background-color: #FF9F1C;
+  }
+#timeline .dot:nth-child(4) {
+    left: 80%;
+    background-color: #005499;
+  }
+#timeline .dot:hover {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+#timeline .dot date {
+    font-size: 1.1rem;
+    display: block;
+    position: relative;
+    top: -60px;
+    text-align: center;
+  }
+#timeline .dot span {
+    display: inline-block;
+    margin-top: 10px;
+    width: 20px;
+    height: 20px;
+    background-color: #FDFFFC;
+    position: relative;
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  
 /* ==========================================================================
    Helper classes
    ========================================================================== */
