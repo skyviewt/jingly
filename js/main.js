@@ -119,6 +119,9 @@ function readyFn( jQuery ) {
     ).attr({
         cursor: 'pointer'
     });
+
+    animateMouseMoveBody();
+
     // shadow
     PARTS.Shadow = s.ellipse(
         (DIMENSION.LeftEyeX+DIMENSION.RightEyeX)/2, DIMENSION.SquareLength*2 - DIMENSION.SquareLength/20, DIMENSION.SquareLength/4, DIMENSION.SquareLength/20
@@ -254,8 +257,7 @@ function animateMenu(){
     artButton.click(()=>{
         showArt();
         hideCoding();
-        hideExperience();
-        
+        hideExperience();       
     });
 
 

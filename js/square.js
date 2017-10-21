@@ -8,10 +8,8 @@ function makeBlockBody(s, heightScale, isSetStroke){
     });
     if(isSetStroke === undefined || isSetStroke){
         setStrokeAttributes('Block', false);
-    }
-    
+    } 
 }
-
 
 function makeEyes(s, heightScale){
     DIMENSION.LeftEyeX = Math.floor((DIMENSION.StartingPntX !== undefined ? DIMENSION.StartingPntX : DIMENSION.StartingPnt)  + DIMENSION.SquareLength / 4.25);
@@ -94,7 +92,7 @@ function makeMoustaches(s){
     setStrokeAttributes('MoustacheRight', true);
 }
 
-function makeTie(s,heightScale){
+function makeTie(s,heightScale, color){
     DIMENSION.TiePnts = {
         startX: DIMENSION.MiddleX-DIMENSION.EyeSize*0.75,
         startY: DIMENSION.MouthY+(DIMENSION.EyeSize*5.5),
@@ -114,7 +112,7 @@ function makeTie(s,heightScale){
         +(DIMENSION.TiePnts.endX-DIMENSION.EyeSize/2)+','+DIMENSION.TiePnts.middleY
     ).attr({
         fill: 'none', 
-        stroke:COLOR.Moustache, 
+        stroke:color? color : COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2
@@ -125,11 +123,11 @@ function makeTie(s,heightScale){
     
 }
 
-function makeGlasses(s){
+function makeGlasses(s, color){
     PARTS.LeftGlass=s.circle(DIMENSION.LeftEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
     ).attr({
-        fill:'none', 
-        stroke:COLOR.Moustache, 
+        fill: 'none', 
+        stroke: color? color : COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2
@@ -140,8 +138,8 @@ function makeGlasses(s){
 
     PARTS.RightGlass=s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
     ).attr({
-        fill:'none', 
-        stroke:COLOR.Moustache, 
+        fill: 'none', 
+        stroke: color? color : COLOR.Moustache,  
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2
@@ -153,14 +151,35 @@ function makeGlasses(s){
         DIMENSION.MiddleX+','+(DIMENSION.EyeY-DIMENSION.EyeSize)+' '+
         (DIMENSION.RightEyeX-DIMENSION.EyeSize*4)+','+DIMENSION.EyeY
     ).attr({
-        fill:'none', 
-        stroke:COLOR.Moustache,
+        fill: 'none', 
+        stroke: color? color: COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2,
         strokeLinecap:'round',
         strokeMiterlimit:DIMENSION.EyeSize / 2
     });
-    DIMENSION.GlassHingeLength = PARTS.GlassHinge.getTotalLength();
+    DIMENSION.GlassHingeLength = Math.ceil(PARTS.GlassHinge.getTotalLength());
     setStrokeAttributes('GlassHinge', true);
+}
+
+function makeWorkerHat(s, heightScale, color) {
+   DIMENSION.WorkerHat = {};
+   DIMENSION.WorkerHat.startX = (DIMENSION.StartingPntX !== undefined ? DIMENSION.StartingPntX : DIMENSION.StartingPnt)-DIMENSION.EyeSize;
+   DIMENSION.WorkerHat.startY = DIMENSION.StartingPnt*heightScale+DIMENSION.SquareLength/8;
+   PARTS.WorkerHat = s.path('M'+DIMENSION.WorkerHat.startX+','+DIMENSION.WorkerHat.startY
+        +' '+'C'+
+        DIMENSION.WorkerHat.startX+','+(DIMENSION.WorkerHat.startY-DIMENSION.SquareLength/1.5)+' '+
+        (DIMENSION.WorkerHat.startX+DIMENSION.SquareLength+2*DIMENSION.EyeSize)+','+(DIMENSION.WorkerHat.startY-DIMENSION.SquareLength/1.5)+' '+
+        (DIMENSION.WorkerHat.startX+DIMENSION.SquareLength+2*DIMENSION.EyeSize)+','+DIMENSION.WorkerHat.startY+'Z'
+        ).attr({
+        fill: 'none'
+    });
+    PARTS.WorkerHatEdge = s.rect((DIMENSION.StartingPntX !== undefined ? DIMENSION.StartingPntX : DIMENSION.StartingPnt)-DIMENSION.EyeSize*3,
+        (DIMENSION.StartingPnt*heightScale - DIMENSION.SquareLength/8 + DIMENSION.SquareLength/5),
+        DIMENSION.SquareLength+DIMENSION.EyeSize*6,
+        DIMENSION.SquareLength/8
+        ).attr({
+        fill: 'none'
+    });
 }
 
 /*-----------------------------ANIMATIONS-------------------------------------*/
@@ -186,6 +205,21 @@ function animateEyeLids(){
     t1.add([topLidTween, bottomLidTween]);
     t1.progress(1).progress(0);
     t1.play();
+}
+
+
+function animateMouseMoveBody() {
+    PARTS.SquareGroup.hover(()=>{
+        TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: 3, transformOrigin: 'center bottom', ease:Back.easeInOut, 
+            onComplete: ()=>{
+                TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: -3, transformOrigin: 'center bottom', ease:Back.easeInOut,
+                    onComplete: ()=>{
+                        TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: 0, transformOrigin: 'center bottom'}); 
+                    }
+                });
+            }
+        });
+    });
 }
 
 

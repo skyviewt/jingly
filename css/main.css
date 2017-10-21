@@ -202,7 +202,7 @@ textarea {
 
 .message-body{
     font-size: large;
-    color: grey;
+    color: #77818C;
 }
 
 .links{
@@ -230,51 +230,68 @@ textarea {
 }
 #timeline {
     background-color: #2EC4B6;
-    height: 10px;
+    height: 20px;
     width: 100%;
     position: relative;
+    display: flex;
+    align-items: center;
   }
 #timeline .inside {
     position: absolute;
-    height: 4px;
-    background-color: #2EC4B6;
-    width: 0%;
-    top: 3px;
-    left: 0;
+    height: 10px;
+    background-color: #FDFFFC;
+    width: 100%;
+    top: 5px;
+    right: 0;
   }
 #timeline .dot {
-    z-index: 99;
-    -webkit-transition: 0.3s ease-in-out;
-    transition: 0.3s ease-in-out;
+    z-index: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     width: 40px;
     height: 40px;
     border-radius: 50%;
     position: absolute;
-    top: -15px;
     text-align: center;
     cursor: pointer;
   }
 #timeline .dot:nth-child(1) {
     left: 20%;
     background-color: #1f2c39;
-    opacity: 0;
-  }
+    border: 1px solid #1f2c39;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+#timeline .dot:nth-child(1):hover {
+    border: 1vh solid #1f2c39;
+}
+
 #timeline .dot:nth-child(2) {
     left: 40%;
-    background-color: #E71D36;
-  }
+    background-color: #005499;
+    border: 1px solid #005499;
+}
+
+#timeline .dot:nth-child(2):hover {
+    border: 1vh solid #005499;
+}
 #timeline .dot:nth-child(3) {
     left: 60%;
     background-color: #FF9F1C;
-  }
+    border: 1px solid #FF9F1C;
+}
+#timeline .dot:nth-child(3):hover {
+    border: 1vh solid #FF9F1C;
+}
 #timeline .dot:nth-child(4) {
     left: 80%;
-    background-color: #005499;
-  }
-#timeline .dot:hover {
-    -webkit-transform: scale(1.2);
-            transform: scale(1.2);
-  }
+    background-color: #E71D36;
+    border: 1px solid #E71D36;
+}
+#timeline .dot:nth-child(4):hover {
+    border: 1vh solid #E71D36;
+}
+
 #timeline .dot date {
     font-size: 1.1rem;
     display: block;
