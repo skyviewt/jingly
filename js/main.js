@@ -120,8 +120,6 @@ function readyFn( jQuery ) {
         cursor: 'pointer'
     });
 
-    animateMouseMoveBody();
-
     // shadow
     PARTS.Shadow = s.ellipse(
         (DIMENSION.LeftEyeX+DIMENSION.RightEyeX)/2, DIMENSION.SquareLength*2 - DIMENSION.SquareLength/20, DIMENSION.SquareLength/4, DIMENSION.SquareLength/20

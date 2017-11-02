@@ -130,11 +130,13 @@ function makeGlasses(s, color){
         stroke: color? color : COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 2
+        strokeMiterlimit:DIMENSION.EyeSize / 2,
+        opacity: color? 0: 1
     });
-    DIMENSION.LeftGlassLength = Math.ceil(PARTS.LeftGlass.getTotalLength());
-    setStrokeAttributes('LeftGlass', true);
-
+    if(color === undefined){
+        DIMENSION.LeftGlassLength = Math.ceil(PARTS.LeftGlass.getTotalLength());
+        setStrokeAttributes('LeftGlass', true);
+    }
 
     PARTS.RightGlass=s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
     ).attr({
@@ -142,10 +144,13 @@ function makeGlasses(s, color){
         stroke: color? color : COLOR.Moustache,  
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 2
+        strokeMiterlimit:DIMENSION.EyeSize / 2,
+        opacity: color? 0: 1
     });
-    DIMENSION.RightGlassLength = Math.ceil(PARTS.RightGlass.getTotalLength());
-    setStrokeAttributes('RightGlass', true);
+    if(color === undefined){
+        DIMENSION.RightGlassLength = Math.ceil(PARTS.RightGlass.getTotalLength());
+        setStrokeAttributes('RightGlass', true);
+    }
 
     PARTS.GlassHinge = s.path('M'+(DIMENSION.LeftEyeX+DIMENSION.EyeSize*4)+','+DIMENSION.EyeY+'Q'+
         DIMENSION.MiddleX+','+(DIMENSION.EyeY-DIMENSION.EyeSize)+' '+
@@ -155,10 +160,13 @@ function makeGlasses(s, color){
         stroke: color? color: COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2,
         strokeLinecap:'round',
-        strokeMiterlimit:DIMENSION.EyeSize / 2
+        strokeMiterlimit:DIMENSION.EyeSize / 2,
+        opacity: color? 0: 1
     });
-    DIMENSION.GlassHingeLength = Math.ceil(PARTS.GlassHinge.getTotalLength());
-    setStrokeAttributes('GlassHinge', true);
+    if(color === undefined){
+        DIMENSION.GlassHingeLength = Math.ceil(PARTS.GlassHinge.getTotalLength());
+        setStrokeAttributes('GlassHinge', true);
+    }
 }
 
 function makeWorkerHat(s, heightScale, color) {
@@ -171,14 +179,22 @@ function makeWorkerHat(s, heightScale, color) {
         (DIMENSION.WorkerHat.startX+DIMENSION.SquareLength+2*DIMENSION.EyeSize)+','+(DIMENSION.WorkerHat.startY-DIMENSION.SquareLength/1.5)+' '+
         (DIMENSION.WorkerHat.startX+DIMENSION.SquareLength+2*DIMENSION.EyeSize)+','+DIMENSION.WorkerHat.startY+'Z'
         ).attr({
-        fill: 'none'
+        fill: color,
+        stroke: color, 
+        strokeWidth: DIMENSION.EyeSize / 2,
+        strokeLinecap:'round',
+        opacity: 0
     });
     PARTS.WorkerHatEdge = s.rect((DIMENSION.StartingPntX !== undefined ? DIMENSION.StartingPntX : DIMENSION.StartingPnt)-DIMENSION.EyeSize*3,
         (DIMENSION.StartingPnt*heightScale - DIMENSION.SquareLength/8 + DIMENSION.SquareLength/5),
         DIMENSION.SquareLength+DIMENSION.EyeSize*6,
         DIMENSION.SquareLength/8
         ).attr({
-        fill: 'none'
+        fill: color,
+        stroke: color, 
+        strokeWidth: DIMENSION.EyeSize / 2,
+        strokeLinecap:'round',
+        opacity: 0
     });
 }
 
