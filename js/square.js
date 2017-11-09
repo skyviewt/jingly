@@ -226,15 +226,15 @@ function animateEyeLids(){
 
 function animateMouseMoveBody() {
     PARTS.SquareGroup.hover(()=>{
-        TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: 3, transformOrigin: 'center bottom', ease:Back.easeInOut, 
+        let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+        TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: plusOrMinus*3, transformOrigin: 'center bottom', ease:Power4.easeInOut, 
             onComplete: ()=>{
-                TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: -3, transformOrigin: 'center bottom', ease:Back.easeInOut,
-                    onComplete: ()=>{
-                        TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: 0, transformOrigin: 'center bottom'}); 
-                    }
-                });
+                TweenMax.to(PARTS.SquareGroup.node, 0.1, {skewX: -1*plusOrMinus*3, transformOrigin: 'center bottom', ease:Power4.easeInOut});
             }
         });
+    },
+    ()=>{
+        TweenMax.to(PARTS.SquareGroup.node, 0, {skewX: 0, transformOrigin: 'center bottom'}); 
     });
 }
 

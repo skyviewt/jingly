@@ -22,61 +22,80 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
-        <div class="animsition-overlay" data-animsition-overlay="true">
-            
+        <!-- <svg class="animsition-overlay" data-animsition-overlay="true" id="desktop-background" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
+            <path fill="#77818C" d="M-16.7-40h1630v1270h-1630z"/>
+            <path fill="#FDFFFC" fill-opacity=".8" d="M1716.7 188.3a936.7 395 0 1 1 0-5.7"/>
+            <path fill="#BBC2C4" fill-opacity=".8" d="M676.7 586.7a456.7 763.3 0 1 1 0-1"/>
+        </svg> -->
+        
+        <div class="header yellow small">
         </div>
+        
 
         <div id="browser-container">
             <div class="browser">
                 <div class="top-bar">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                    <div class="dot" onclick="closeBrowser()"></div>
+                    <div class="dot" onclick="minimize()"></div>
+                    <div class="dot" onclick="maximize()" ></div>
                 </div>
                 <ul class="browser-tabs">
-                    <li class="tab-link active" data-tab="tab-1">Tab One</li>
-                    <li class="tab-link" data-tab="tab-2">Tab Two</li>
-                    <li class="tab-link" data-tab="tab-3">Tab Three</li>
-                    <li class="tab-link" data-tab="tab-4">Tab Four</li>
+                    <li class="tab-link active" id="tab-1" onclick="toggleTab(1)" >Tab One</li>
+                    <li class="tab-link" id="tab-2" onclick="toggleTab(2)">Tab Two</li>
+                    <li class="tab-link" id="tab-3" onclick="toggleTab(3)">Tab Three</li>
+                    <li class="tab-link" id="tab-4" onclick="toggleTab(4)">Tab Four</li>
                 </ul>
-                <div id="tabs-1">
-                    blablablabla tab1
-                </div>
-
-                <div id="tabs-2">
-                        blablablabla tab2
-                </div>
-                <div id="tabs-3">
-                        blablablabla tab3
+                <div id="tabs-content">
+                    lalala
                 </div>
             </div>
-
-
-            <div class="animation">
-                <div class="square dude">
-                    <div class="face"> </div>
-                </div>
-    
-                <div class="box dude">
-                    <div class="face"></div>
-                </div>
-        
-                <div class="rectangle dude">
-                </div>
-    
-                <div class="circle dude">
-                </div>
-            </div>
+            
         </div>
 
+        <div class="start">
+            <div class="animation">
+                <div class="list-item square-dude" onclick="openTab(4)">
+                    <div class="square dude">
+                        <div class="face"> </div>
+                    </div>
+                    <span>Stack 4</span>
+                </div>
+                
+                <div class="list-item box-dude" onclick="openTab(3)">
+                    <div class="box dude">
+                        <div class="face"></div>
+                    </div>
+                    <span>Stack 3</span>
+                </div>
+         
+                <div class="list-item rectangle-dude" onclick="openTab(2)">
+                    <div class="rectangle dude"></div>
+                    <span>Stack 2</span>
+                </div>
+    
+                <div class="list-item circle-dude" onclick="openTab(1)">
+                    <div class="circle dude"></div>
+                    <span>Stack 1</span>
+                </div>
+            </div>
+        </div>      
+        <div class="task-bar">
+            <div class="start-button" onclick="toggleMenu()">
+                START 
+            </div>
+
+            <div id="minimized-window" onclick="restore()">
+                <div id="window-name">Stack 1</div>
+            </div>
+        </div>
         
       
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="./js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="../js/vendor/animsition.min.js"></script>
         <script src="../js/config.js"></script>
-        <script src="../js/coding.js"></script>
+        <script src="../js/common.js"></script>
+        <script src="./coding.js"></script>
         <script src="../js/plugins.js"></script>
     </body>
 </html>

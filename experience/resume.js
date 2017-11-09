@@ -69,14 +69,6 @@ function readyFn( jQuery ) {
         viewBox:'0 0 '+ Math.ceil($( window ).width()) + ' ' + DIMENSION.SquareLength*2
     });
 
-    $('#timeline').css({
-        'margin-top':DIMENSION.SquareLength * 2 + 'px'
-    });
-
-    // $('#svg-timeline').css({
-    //     'margin-top': -1 * (DIMENSION.SquareLength * 2 + DIMENSION.SquareLength *1.5 - DIMENSION.SquareLength* 1.9 - 5) + 'px'
-    // });
-
     makeEyes(s, 1.9);
     makeBlockBody(s, 1.9, false);
     makeEyeLids(s);
@@ -133,13 +125,8 @@ function readyFn( jQuery ) {
         animateAccesories(); 
     });
     
-    animateMouseMoveBody();
-    // $('.sliders').css({
-    //     'margin-top': DIMENSION.SquareLength+'px'
-    // })
-    // $('#timeline-title').css({
-    //     'padding-bottom': DIMENSION.SquareLength+'px'
-    // })
+    animateMouseMoveBody(PARTS.SquareGroup);
+
 
 }// end of readyFn
 
@@ -155,7 +142,7 @@ function animateAccesories(){
 function hidePrevAccesory() {
     let sign = prevDot < currentDot ? -1 : 1;
     if(prevDot === 4) {
-        timelineMcgill.stop();
+        timelineMcgill.pause(0);
         // education
         TweenMax.fromTo([PARTS.LeftGlass.node, PARTS.RightGlass.node, PARTS.GlassHinge.node],0.5,{scale: 1, opacity:1}, 
             {scale: 0, opacity: 0, ease: Back.easeInOut, onComplete: ()=>{
@@ -163,7 +150,7 @@ function hidePrevAccesory() {
             }}
         );
     }else if(prevDot === 3){
-        timelineLaronde.stop();
+        timelineLaronde.pause(0);
         //skills
         TweenMax.fromTo([PARTS.WorkerHat.node, PARTS.WorkerHatEdge.node],0.5, {x: 0, opacity: 1},
             {x: sign * DIMENSION.SquareLength/2, opacity:0, ease: Power2.easeOut, onComplete:()=>{
@@ -171,7 +158,7 @@ function hidePrevAccesory() {
             }}
         );
     }else if(prevDot === 2){
-        timelineMileEnd.stop();
+        timelineMileEnd.pause(0);
         //experience
         TweenMax.to([PARTS.Tie.node],0.5, 
             {strokeDashoffset: DIMENSION.TieLength, fill: 'none', ease: Power2.easeOut, onComplete:()=>{
@@ -180,7 +167,7 @@ function hidePrevAccesory() {
         );
     }else {
         //home
-        timelineHome.stop();
+        timelineHome.pause(0);
         showCurrentSlideAndAcc();
     }
 }

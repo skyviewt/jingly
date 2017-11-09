@@ -1,17 +1,14 @@
 /*---------------------resume---------------*/
-body{
-    overflow: hidden;
-}
 
 #main-container {
     display: flex;
     flex-direction: column;
 }
 .timeline-container{
-    display: flex;
+    /* display: flex;
     align-items: center;
     flex-direction: column;
-    margin-top: 20px;
+    margin-top: 20px; */
 }
 #svg-timeline{
     transform: translateY(-75%);
@@ -109,26 +106,69 @@ body{
 }
 
 .sliders{
+    position: relative;
     font-family: 'Varela Round', sans-serif;
     display: flex;
     justify-content: space-evenly;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 [id^='slider-']{
-    border-radius: 10px;
-    width: 85%;
-    margin: 0 auto;
-    padding: 16px;
+    width: 100%;
     color: #1f2c39;
-    background: rgb(236, 240, 241);
+    position: absolute;
 }
 .content-slider .info-content {
     overflow-y: scroll;
 }
 
+.content-slider .article{
+    position: absolute;
+    top: 0;
+    background: rgb(236, 240, 241);
+    padding: 20px;
+    margin: 0 5vmin;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 .content-slider .icon-title{
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.icon-title:before{
+    content: "";
+    height: 25px;
+    width: 25px;
+    margin-right: 1vmin;
+}
+
+.icon-title.ubisoft:before{
+    background: url(../img/icons/ubisoft-logo.png) center no-repeat;
+    background-size: contain;
+}
+
+.project-info {
+    font-family: 'Ubuntu', sans-serif;
+    display: flex;
+    justify-content: space-between;
+}
+
+.project-info .project-name{
+    color: #005499;
+    font-weight: 500;
+    font-size: large;
+}
+
+.project-info .date{
+    color: #77818C;
+    font-weight: 300;
+    font-style: italic;
+    font-size: medium;
 }
 
 #slider-2,#slider-3,#slider-4 {
@@ -141,7 +181,7 @@ body{
 }
 
 #timeline-text {
-
+    height: 100%;
 }
 #timeline-text .timeline-title:nth-child(1){
     left: 20%;
@@ -161,8 +201,9 @@ body{
 
 .timeline-title {
     position: absolute;
+    top: 2vmin;
     line-height: 1;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-size: medium;
     font-weight: 400;
     text-align: center;
@@ -173,11 +214,13 @@ body{
 #background-container {
     flex-grow: 0;
     flex-shrink: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 #background-container svg {
-    position: absolute;
-    bottom: 0;
+
 }
 
 #colored-bridge-foot-1, #colored-bridge-foot-2, #excited {

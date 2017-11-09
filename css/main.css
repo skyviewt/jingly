@@ -17,6 +17,14 @@ html {
     background-color: #FDFFFC;
 }
 
+html.touch body {
+    overflow:hidden;
+}
+
+body{
+    overflow: hidden;
+}
+
 /*
  * Remove text-shadow in selection highlight:
  * https://twitter.com/miketaylr/status/12228805301
@@ -221,6 +229,65 @@ textarea {
 .links button a{
     color: #FDFFFC;
     font-weight: bold;
+}
+/*-----------------header--------*/
+.header-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 20px;
+    flex-grow: 1;
+    justify-content: space-evenly;
+}
+
+.header{
+    margin-top: 0;
+    background: rgb(236, 240, 241);
+    padding: 1vmin;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    -webkit-transform: translateX(90%);
+    transform: translateX(90%);
+    border-bottom-left-radius: 10px;
+    border-top-left-radius: 10px;
+    z-index: 1;
+}
+
+.header.yellow{
+    background: #FF9F1C;
+}
+
+.header.red{
+    background: #E71D36;
+}
+
+.header.blue{
+    background: #005499;
+}
+
+.header.green{
+    background: #2EC4B6;
+}
+
+.header-btn:not(.logo) {
+    background: transparent;
+    transition: fill 0.8s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}
+.header-btn:not(.logo) svg{
+    width: 40px;
+}
+
+.header-btn.logo{
+    width: 50px;
+    flex-shrink: 0;
 }
 
   

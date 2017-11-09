@@ -23,6 +23,8 @@ function readyFn( jQuery ) {
         overlayParentElement : 'body',
         transition: function(url){ window.location.href = url; }
     });
+
+    new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
 }
 
 $( document ).ready( readyFn );
