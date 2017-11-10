@@ -232,6 +232,9 @@ textarea {
 }
 /*-----------------header--------*/
 .header-nav {
+    font-family: "Varela Round", sans-serif;
+    text-transform: uppercase;
+    font-weight: 700;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -250,10 +253,9 @@ textarea {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    -webkit-transform: translateX(90%);
-    transform: translateX(90%);
-    border-bottom-left-radius: 10px;
-    border-top-left-radius: 10px;
+    width: 60px;
+    transform-origin: center right;
+    border-radius: 10px;
     z-index: 1;
 }
 
@@ -280,6 +282,7 @@ textarea {
     flex-direction: column;
     align-items: center;
     margin: 0 auto;
+    opacity: 0;
 }
 .header-btn:not(.logo) svg{
     width: 40px;
@@ -288,8 +291,12 @@ textarea {
 .header-btn.logo{
     width: 50px;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
+.header-btn-title{
+    color: #1f2c39;
+}
   
 /* ==========================================================================
    Helper classes

@@ -59,6 +59,9 @@ function readyFn( jQuery ) {
     DIMENSION.StartingPnt = DIMENSION.SquareLength / 2;
     DIMENSION.StartingPntX = $(window).width()*0.2 - DIMENSION.SquareLength/2 + 20;
 
+    $('#timeline-text').css({
+        'margin-top': DIMENSION.SquareLength+'px'
+    })
     // change svg sttributes
     
     s.attr({
