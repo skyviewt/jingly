@@ -15,6 +15,13 @@ let timelineMcgill = new TimelineMax({pause: true});
 let timelineLaronde = new TimelineMax({pause: true});
 let timelineMileEnd = new TimelineMax({pause: true});
 
+let sliderActiveTag = {
+    1: '',
+    2: '-ubisoft-club',
+    3: '-programming',
+    4: '-education'
+}
+
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
 
@@ -55,13 +62,17 @@ function readyFn( jQuery ) {
     
 
     let s = Snap('#svg-timeline');
-    DIMENSION.SquareLength = Math.floor(Math.max($( window ).width(), $(window).height()) / 20);
+    DIMENSION.SquareLength = Math.min(Math.floor(Math.max($( window ).width(), $(window).height()) / 20), 50);
     DIMENSION.StartingPnt = DIMENSION.SquareLength / 2;
     DIMENSION.StartingPntX = $(window).width()*0.2 - DIMENSION.SquareLength/2 + 20;
 
     $('#timeline-text').css({
-        'margin-top': DIMENSION.SquareLength+'px'
-    })
+        'margin-top': (1.5*DIMENSION.SquareLength)+'px'
+    });
+
+    $('.sliders').css({
+        'margin-top': (-1*DIMENSION.SquareLength)+'px'
+    });
     // change svg sttributes
     
     s.attr({
@@ -213,7 +224,7 @@ function showCurrentSlideAndAcc() {
             // add background animation for first time
             timelineMileEnd.add([
                 TweenMax.to('#tank', 0.8, {scale: 1.05, transformOrigin: 'center bottom', yoyo: true, repeat: -1, ease: Sine.easeInOut}),
-                TweenMax.to(['#colored-bridge-foot-1', '#colored-bridge-foot-2'], 0.8, {opacity: 1, ease: Sine.easeInOut, delay: 0.8})
+                TweenMax.staggerFromTo('.graffitis', 0.8, {oppacity: 0, rotation: 125 , scale: 1.2}, {opacity: 1, rotation: 0, scale: 1, ease: Back.easeInOut}, 0.2)
             ],0);
         }
         timelineMileEnd.play(0);
@@ -232,20 +243,52 @@ function showCurrentSlideAndAcc() {
 function toggleSlide() {
     let sign = prevDot < currentDot ? -1 : 1;
 
-    TweenMax.fromTo('#slider-'+prevDot, 0.6, {x: 0, opacity: 1, display: 'block'}, {x: -1 * sign*80, opacity: 0, display: 'none', ease: Back.easeInOut, onStart: ()=>{
+    TweenMax.fromTo('#slider-'+prevDot+sliderActiveTag[prevDot], 0.4, {x: 0, opacity: 1}, {x: -1 * sign*80, opacity: 0, ease: Back.easeIn,
+     onComplete: ()=>{
+        if(prevDot !== 1) {
+            $('#slider-nav-'+prevDot).toggleClass('hide');
+        }
         
-        
-    }, onComplete: () =>{
-        $('#slider-'+prevDot).css({
-            'display': 'none'
-        });
-    }}, 0);
+        $('#slider-'+prevDot+sliderActiveTag[prevDot]).toggleClass('hide');
 
-    TweenMax.fromTo('#slider-'+currentDot, 0.6, {x: sign*80, opacity: 0}, {x:0, opacity: 1, ease: Back.easeInOut, onStart: ()=>{
-        $('#slider-'+currentDot).css({
-            'display': 'block'
-        });
-    }, delay: 0.3},0);
+        TweenMax.fromTo('#slider-'+currentDot+sliderActiveTag[currentDot], 0.6, {x: sign*80, opacity: 0}, {x:0, opacity: 1, ease: Back.easeOut, onStart: ()=>{
+            
+            $('#slider-'+currentDot+sliderActiveTag[currentDot]).toggleClass('hide');
+            if(currentDot !== 1) {
+                $('#slider-nav-'+currentDot).toggleClass('hide');
+            }
+        }},0);
+        
+    }}, 0);
+}
+
+function showSection(sectionName){
+    // hide previous slide and active nav
+    
+    TweenMax.fromTo('#slider-'+currentDot+sliderActiveTag[currentDot], 0.4, {y: 0, opacity: 1}, {y:100, opacity: 0, ease: Back.easeIn, onComplete: ()=>{
+        
+        toggleSliderNav();
+        // show current slide and active nav
+        TweenMax.fromTo('#slider-'+currentDot+'-'+sectionName, 0.4, {y: -100, opacity: 0}, {y:0, opacity: 1, ease: Back.easeOut, onStart: ()=>{
+            toggleSliderNav(sectionName);
+        } },0); 
+    }},0);
+    
+
+   
+}
+
+function toggleSliderNav(sectionName){
+    if(sectionName === undefined){
+        $('#slider-'+currentDot+sliderActiveTag[currentDot]).toggleClass('hide');
+        $('#slider-nav-section'+sliderActiveTag[currentDot]).toggleClass('active');
+    }else{
+        if(sliderActiveTag[currentDot] !== sectionName){
+            $('#slider-'+currentDot+'-'+sectionName).toggleClass('hide');
+            $('#slider-nav-section'+'-'+sectionName).toggleClass('active');
+            sliderActiveTag[currentDot] = '-'+sectionName;
+        }
+    }
 }
 
 $( document ).ready( readyFn );

@@ -4,6 +4,38 @@ function readyFn( jQuery ) {
 
     $('.header').load('../header/header.html', ()=>{
 
+        $('.header-btn.logo').on('click', function (event) {
+            event.stopPropagation();
+            if(!isMenuOpen){
+                $('.header-btn.logo').removeClass('animsition-link');
+                
+                TweenMax.to('.header', 0.5, {width: '100%', transformOrigin:'center right', 'border-radius':0, ease:Power2.easeInOut, onComplete:()=>{
+                    TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 1, ease:Power2.easeInOut});
+                    $('.header-nav').toggleClass('minimized');
+                    
+                }});
+                isMenuOpen = true;
+            }else{
+                // let the redirection happen
+                $('header-btn.logo').addClass('animsition-link');
+                $(location).attr('href','../');
+            }
+          });
+
+        $('html').click(function(event) {
+            //if clicked element is not your element and parents aren't your div
+            if(isMenuOpen){
+                if (event.target.className != 'header' && $(event.target).parents('.header').length == 0) {
+                    isMenuOpen = false;
+                    $('.header-btn.logo').removeClass('animsition-link');
+                    TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 0, ease:Power2.easeInOut, onComplete: ()=>{
+                        TweenMax.to('.header', 0.5, {width: '60px', transformOrigin:'center right', 'border-radius': '10px',ease:Power2.easeInOut});
+                        $('.header-nav').toggleClass('minimized');
+                    }});
+                }
+            }
+        });
+
         $('.header-btn.art').hover(()=>{
             TweenMax.to(this, 0.5, {scale: 1.25, ease: Back.easeInOut});
             TweenMax.to('#header-palette-color1', 0.5, {fill: COLOR.Red, ease: Power2.easeInOut});
@@ -69,21 +101,6 @@ function readyFn( jQuery ) {
             TweenMax.to('.header-btn.linkedin .header-btn-title', 0.5, {color: '#1f2c39', ease: Power2.easeInOut});
         });
     });   
-}
-
-function onLogoClick() {
-    if(!isMenuOpen){       
-        TweenMax.to('.header', 0.5, {width: '100%', transformOrigin:'center right', 'border-radius':0, ease:Power2.easeInOut, onComplete:()=>{
-            TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 1, ease:Power2.easeInOut});
-            isMenuOpen = true;
-        }});
-        
-    }else{
-        TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 0, ease:Power2.easeInOut, onComplete: ()=>{
-            TweenMax.to('.header', 0.5, {width: '60px', transformOrigin:'center right', 'border-radius': '10px', ease:Power2.easeInOut});
-            isMenuOpen = false;
-        }});
-    }
 }
 
 

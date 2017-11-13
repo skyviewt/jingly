@@ -104,132 +104,6 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-.page{
-    margin:auto;
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    max-width: 100%;
-    max-height: 100%;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.svg-container{
-    
-}
-
-#svg-canvas{
-    display: block;
-    margin: auto;
-}
-
-.nav{
-    list-style-type: none;
-    display: flex;
-    width: 50%;
-    justify-content: space-evenly;
-    margin: auto;
-    padding-left: 0;
-    flex-wrap: wrap;
-}
-
-.btn {
-    width: 100px;
-    height: 100px;
-    text-align:center;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 700;
-    outline: none;
-    position: relative;
-    border-radius:50%;
-    -webkit-font-smoothing: antialiased;
-    opacity: 0;
-    flex-shrink: 0;
-}
-
-.btn > svg{
-    margin: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-}
-
-.art{
-    background-color: #E71D36;
-}
-
-.programming{
-    background-color: #FF9F1C;
-}
-
-.resume{
-    background-color: #2EC4B6;
-}
-
-.drawing-container{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.accessory{
-    position: absolute;
-    height: auto;
-    overflow: visible;
-    align-self: flex-end;
-    margin-left: auto;
-    margin-right: auto;
-    right:0;
-    left:0;
-}
-
-.accessory .group{
-    opacity: 0;
-}
-
-.message{
-    text-align: center;
-    font-family: 'Varela Round', sans-serif;
-    
-}
-
-.message-title{
-    font-size: -webkit-xxx-large;
-    color: #1f2c39;
-    margin: 2vh;
-}
-
-.message-body{
-    font-size: large;
-    color: #77818C;
-}
-
-.links{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-}
-
-.links button{
-    padding: 8px 16px;
-    border-radius: 5vh;
-    border: 3px solid #1f2c39;
-    opacity: 0;
-}
-
-.links button a{
-    color: #FDFFFC;
-    font-weight: bold;
-}
 /*-----------------header--------*/
 .header-nav {
     font-family: "Varela Round", sans-serif;
@@ -245,6 +119,10 @@ textarea {
     justify-content: space-evenly;
 }
 
+.header-nav.minimized{
+    display: none;
+}
+
 .header{
     margin-top: 0;
     background: rgb(236, 240, 241);
@@ -256,7 +134,7 @@ textarea {
     width: 60px;
     transform-origin: center right;
     border-radius: 10px;
-    z-index: 1;
+    z-index: 2;
 }
 
 .header.yellow{

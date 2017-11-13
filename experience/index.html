@@ -25,8 +25,8 @@
         <div class="header green small animsition-overlay" data-animsition-overlay="true">
         </div>
         
-        <div id="main-container animsition-overlay" data-animsition-overlay="true">
-            <div class="timeline-container animsition-overlay" data-animsition-overlay="true">
+        <div id="main-container" class="animsition-overlay" data-animsition-overlay="true">
+            <div class="timeline-container">
                 <div id="timeline-text">
                     <div class="timeline-title"></div>
                     <div class="timeline-title">Work Experiences</div>
@@ -51,90 +51,218 @@
                 <svg id="svg-timeline" version="1.1" height="100%" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"></svg>
             </div>
             <div class="sliders">
-                <div id="slider-1" class="content-slider">
-                        <div class="article" id="work-experience-ubisoft">
-                            <h3 class="icon-title">Let's go!</h3>
-                            <div class="info-content">
-                                <p>Follow my journey of gaining education, work experiences and skill by a ride through my hometown - the city of Montréal.</p>
-                                
-                            </div>
-                        </div>
-                </div>
-                <div id="slider-2" class="content-slider">
-                        <div class="article" id="work-experience-ubisoft">
-                            <h3 class="icon-title ubisoft">Ubisoft</h3>
-                            <div class="info-content">
-                                <div class="project-info">
-                                    <div class="project-name">Ubisoft Club</div>
-                                    <div class="date">Feb 2016 - Present</div>
-                                </div>
-                                <div class="short-description">
-                                    Ubisoft Club is a centralized reward system for all Ubisoft titles to manage in-game rewards, challenges and actions, as well as tracking personal and friends’ activities and news.
-                                </div>
-                                <ul class="experience-bullets">
-                                        <li>Front-end app development with Angular1.5, Ionic and Cordova stack</li>
-                                        <li>Implemented a Gaming AI Assistant <italic>SAM</italic></li>
-                                        <li>Implemented user profile, in-game challenges, stats and ranking systems</li>
-                                        <li>Designed and implemented error handling and data refresh architecture, offline experience and session renewal</li>
-                                        <li>Worked on iOS native project with Objective-C and Xcode 8</li>
-                                        <li>Wrote build machine automation scripts and various helper scripts in Python</li>
-                                        <li>Implemented various tools such as challenge tracking and progression with React+Flux, game economy and config management with angular in TypeScript</li>
-                                        <li>Implemented prototypes of project in different frameworks such as angular2 and React + Flux to analyse performance gain and new technologies</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="article" id="work-experience-autodesk">
-                            <h3 class="icon-title">Autodesk</h3>
-                            <div class="info-content">
-                                <p>dfdfsdado winter purslane gram earthnut pea broccoli salsify squash plantain wattle seed wakame broccoli rabe bamboo shoot. Zucchini lotus root azuki bean epazote dulse pumpkin rutabaga spinach. Endive mung bean gumbo maize plantain rock melon.</p>
-                            </div>
-                        </div>
-                    <nav>
-                        <a on-click="showExperience('work-experience-ubisoft')" class="icon-title"><span>Ubisoft</span></a>
-                        <a on-click="showExperience('work-experience-autodesk')" class="icon-title"><span>Autodesk</span></a>
-                    </nav>
-                </div>
-                <div id="slider-3" class="content-slider">
-                    <div class="article" id="art-skills">
-                        <h3 class="icon-title">Art</h3>
-                        <div class="info-content">
-                            <p>Veggies sunt bona vobis, proinde vos postulo esse magis desert raisin bush tomato soko salsify garbanzo horseradish cabbage burdock.</p>
-                            <p>Daikon artichoke gumbo azuki bean bok choy avocado winter purslane gram earthnut pea broccoli salsify squash plantain wattle seed wakame broccoli rabe bamboo shoot. Zucchini lotus root azuki bean epazote dulse pumpkin rutabaga spinach. Endive mung bean gumbo maize plantain rock melon.</p>
-                        </div>
+
+                <div class="article" id="slider-1">
+                    <h3 class="icon-title">Let's go!</h3>
+                    <div class="info-content">
+                        <p>Follow my journey of gaining education, work experiences and skill by a ride through my hometown - the city of Montréal.</p>
                     </div>
-                    <div class="article" id="programming-skills">
-                        <h3 class="icon-title">Coding</h3>
-                        <div class="info-content">
-                            <p>dfdfsdado winter purslane gram earthnut pea broccoli salsify squash plantain wattle seed wakame broccoli rabe bamboo shoot. Zucchini lotus root azuki bean epazote dulse pumpkin rutabaga spinach. Endive mung bean gumbo maize plantain rock melon.</p>
-                        </div>
-                    </div>
-                    <nav>
-                        <a on-click="showExperience('art-skills')" class="icon-title"><span>Art</span></a>
-                        <a on-click="showExperience('programming-skills')" class="icon-title"><span>Coding</span></a>
-                    </nav>
                 </div>
 
-                <div id="slider-4" class="content-slider">
-                    <div class="article" id="education">
-                        <h3 class="icon-title">Education</h3>
-                        <div class="info-content">
-                            <p>Veggies sunt bona vobis, proinde vos postulo esse magis desert raisin bush tomato soko salsify garbanzo horseradish cabbage burdock.</p>
-                            <p>Daikon artichoke gumbo azuki bean bok choy avocado winter purslane gram earthnut pea broccoli salsify squash plantain wattle seed wakame broccoli rabe bamboo shoot. Zucchini lotus root azuki bean epazote dulse pumpkin rutabaga spinach. Endive mung bean gumbo maize plantain rock melon.</p>
-                        </div>
-                    </div>
-                    <div class="article" id="academic-achievement">
-                        <h3 class="icon-title">Academic achievement</h3>
 
-                        <div class="info-content">
-                            <p>dfdfsdado winter purslane gram earthnut pea broccoli salsify squash plantain wattle seed wakame broccoli rabe bamboo shoot. Zucchini lotus root azuki bean epazote dulse pumpkin rutabaga spinach. Endive mung bean gumbo maize plantain rock melon.</p>
+                <div class="article hide" id="slider-2-ubisoft-club">
+                    <h3 class="icon-title ubisoft">Ubisoft</h3>
+                    <div class="info-content">
+                        <div class="project-info">
+                            <div class="project-position">Generalist Programmer</div>
+                            <a class="project-name" target="_blank" href="https://club.ubisoft.com/">Ubisoft Club</a>
+                            <div class="date">Feb 2016 - Present</div>
                         </div>
-
+                        <div class="short-description">
+                            Ubisoft Club is a centralized reward system for all Ubisoft titles to manage in-game rewards, challenges and actions, as well as tracking personal and friends’ activities and news.
+                        </div>
+                        <ul class="experience-bullets">
+                                <li>Front-end app development with Angular1.5, Ionic and Cordova stack</li>
+                                <li>Implemented a Gaming AI Assistant <i>SAM</i></li>
+                                <li>Implemented user profile, in-game challenges, stats and ranking systems</li>
+                                <li>Designed and implemented error handling and data refresh architecture, offline experience and session renewal</li>
+                                <li>Worked on iOS native project with Objective-C and Xcode 8</li>
+                                <li>Wrote build machine automation scripts and various helper scripts in Python</li>
+                                <li>Implemented various tools such as challenge tracking and progression with React+Flux, game economy and config management with angular in TypeScript</li>
+                                <li>Implemented prototypes of project in different frameworks such as angular2 and React + Flux to analyse performance gain and new technologies</li>
+                        </ul>
                     </div>
-                    <nav>
-                        <a on-click="showExperience('education')" class="icon-title"><span>Education</span></a>
-                        <a on-click="showExperience('academic-achievement')" class="icon-title"><span>Academic achievement</span></a>
-                    </nav>
                 </div>
+
+                <div class="article hide" id="slider-2-ubisoft-watchdogs2">
+                    <h3 class="icon-title ubisoft">Ubisoft</h3>
+                    <div class="info-content">
+                        <div class="project-info">
+                            <div class="project-position">Generalist Programmer Intern</div>
+                            <a class="project-name" target="_blank" href="https://www.ubisoft.com/en-us/game/watch-dogs-2/">Watch Dogs 2</a>
+                            <div class="date">May 2015 - Aug 2015</div>
+                        </div>
+
+                        <ul class="experience-bullets">
+                            <li>Worked on In-game online backend components and web services with C++, Python and MySQL</li>
+                            <li>Implemented web tools for in game geo-location tracking, session-matching and in game configuration commands, client side with OpenLayers 3 map APIs, Jinja2 for Python, backend in Python</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article hide" id="slider-2-autodesk">
+                    <h3 class="icon-title autodesk">Autodesk</h3>
+                    <div class="info-content">
+                        <div class="project-info">
+                            <div class="project-position">Software Developer Intern</div>
+                            <a class="project-name" target="_blank" href="https://www.autodesk.com/products/flame/overview">Flame Utility</a>
+                            <div class="date">Jan 2015 – April 2015</div>
+                        </div>
+                        
+                        <ul class="experience-bullets">
+                            <li>Worked on C/C++, FLEX and QT programming and fixed defects under Linux environment on a large-scale system with custom tree data structure for video processing and compositing</li>
+                            <li>Implemented additional new features from consumer requests</li>
+                            <li>Improved usability with 20 bug fixes and 3 feature implementations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article hide" id="slider-2-intel">
+                    <h3 class="icon-title mcafee">McAfee</h3>
+                    <div class="info-content">
+                        <div class="project-info">
+                            <div class="project-position">Software Development Engineer Intern</div>
+                            <a class="project-name" target="_blank" href="https://home.mcafee.com/Secure/CloudAV/HowItWorks.html">Cloud AV</a>
+                            <div class="date">May 2014 – Aug 2014</div>
+                        </div>
+                        
+                        <ul class="experience-bullets">
+                            <li>Worked on C++ programming with Visual Studio for Windows Session Manager and Alert Manager</li>
+                            <li>Implemented UI components and functionalities such as Tray Icon and Alert with WIN32 and MFC programming</li>
+                            <li>Integrated Alert and Message Bus connection</li>
+                            <li>Designed and implemented cross-platform web/mobile prototype UI with Cordova, Ionic and Angularjs, as well as the Alpha Release Site</li>
+                            <li>Wrote Installer scripts with NSIS</li>
+                            <li>Wrote unit tests for all relevant functions with Google Mocks</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article hide" id="slider-2-mcgill">
+                    <h3 class="icon-title mcgill">McGIll University</h3>
+                    <div class="info-content">
+                        <div class="project-info">
+                            <div class="project-position">Web Developer & IT Staff</div>
+                            <a class="project-name" target="_blank" href="http://www.cs.mcgill.ca/">cs.mcgill.ca</a>
+                            <div class="date">2013 – 2014</div>
+                        </div>
+                        
+                        <ul class="experience-bullets">
+                            <li>Reconstructed McGill University’s CS Website, Back-end in Django + Python, front-end with HTML5, CSS3, JS+JQuery, Bootstrap3</li>
+                            <li>Designed and illustrated all illustrations and logo using Photoshop and Illustrator</li>
+                            <li>Performed IT tasks & system troubleshooting, website maintenance, etc.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="article hide" id="slider-3-programming">
+                    <h3 class="icon-title programming">Programming</h3>
+                    <div class="info-content">
+                        <ul class="experience-bullets">
+                            <li>Proficient: C, C++, Python, Java, HTML5+CSS3+JavaScript & Popular frameworks and libraries (Angular, React, JQuery)</li>
+                            <li>Intermediate: C#, SML, PHP</li>
+                            <li>Concepts and paradigms: Object Oriented Programming, Functional Programming, UML, programming design patterns, Database relational languages</li>
+                            <li>Excellent debugging skills and ability to learn quickly validated by managers and team members</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="article hide" id="slider-3-art">
+                    <h3 class="icon-title art">art</h3>
+                    <div class="info-content">
+                        <li>Adobe Illustrator & Photoshop, Paint Tool SAI, Autodesk 3Ds max & AutoCAD, Unity3D</li>
+                        <li>UX/UI design</li>
+                        <li>Concept art and digital portrait</li>
+                    </div>
+                </div>
+
+                <div class="article hide" id="slider-4-education">
+                    <h3 class="icon-title education">Education</h3>
+                    <div class="info-content">
+                        <div class="project-info">
+                            <div class="project-position">Bachelor of Science</div>
+                            <a class="project-name" target="_blank" href="http://www.mcgill.ca/">McGIll University</a>
+                            <div class="date">Jan 2012 – Dec 2015</div>
+                        </div>
+                        
+                        <ul class="experience-bullets">
+                            <li>Computer Science – Internship Program, Bachelor of Science</li>
+                            <li>CGPA: 3.54/4.0</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="article hide" id="slider-4-achievement">
+                    <h3 class="icon-title achievement">Academic achievement</h3>
+                    <div class="info-content overflow">
+                        <div class="project-info">
+                            <div class="project-position">GOOMS!(Get Out Of My Space!)</div>
+                            <a class="project-name" target="_blank" href="https://montreal.ubisoft.com/en/game-lab-competition/">Ubisoft Game Lab Academia Competition</a>
+                            <div class="date">April 2014</div>
+                        </div>
+                        <ul class="experience-bullets no-overflow">
+                            <li>Nominated for: Best prototype, Best Marketing, Best Presentation & Best Artistic Direction</li>
+                            <li>UI+HUD design & logic using Unity3D C# scripting</li>
+                        </ul>
+                        <hr>
+                        <div class="project-info">
+                            <div class="project-position">Vanier Key Society</div>
+                            <a class="project-name" target="_blank">CEGEP Vanier College</a>
+                            <div class="date">2010-2012</div>
+                        </div>
+                        <div class="short-description">
+                            Chosen for their high academic standing, strong communication skills and demonstrated leadership abilities. Act as ambassadors at collegial functions.
+                        </div>
+
+                        <div class="project-info">
+                            <div class="project-position">Tutor & TA</div>
+                        </div>
+                        <ul class="experience-bullets no-overflow">
+                            <li>Private and drop-in tutoring for Math & Science Centre in mathematics, physics and chemistry</li>
+                            <li>In-class tutoring and TA for Physics mechanics class</li>
+                        </ul>
+
+                        <div class="project-info">
+                            <div class="project-position">Tutor & TA</div>
+                        </div>
+                        <ul class="experience-bullets no-overflow">
+                            <li>Private and drop-in tutoring for Math & Science Centre in mathematics, physics and chemistry</li>
+                            <li>In-class tutoring and TA for Physics mechanics class</li>
+                        </ul>
+                        <div class="project-info">
+                            <div class="project-position">Honour Roll</div>
+                        </div>
+                        <ul class="experience-bullets no-overflow">
+                            <li>Honour Roll for Winter 2010, Fall 2010, Winter 2011</li>
+                        </ul>
+                        <hr>
+                        <div class="project-info">
+                            <div class="project-position">Honour List</div>
+                            <a class="project-name" target="_blank">CEGEP Dawson College</a>
+                            <div class="date">2006 - 2009</div>
+                        </div>
+                        <ul class="experiemce-bullets no-overflow">
+                            <li>Graduation Honours List 2008-2009</li>
+                            <li>Honour List for Fall 2006, Winter 2006, Fall 2007, Winter 2007</li>
+                        </ul>
+                    </div>
+                </div>          
+            </div>
+            <div class="navs">
+                <nav class="slider-nav hide" id="slider-nav-2">
+                    <a onclick="showSection('ubisoft-club')" id="slider-nav-section-ubisoft-club" class="icon-title ubisoft active">Ubisoft Club</a>
+                    <a onclick="showSection('ubisoft-watchdogs2')" id="slider-nav-section-ubisoft-watchdogs2" class="icon-title ubisoft">Watch Dogs_2</a>
+                    <a onclick="showSection('autodesk')" id="slider-nav-section-autodesk" class="icon-title autodesk">Autodesk</a>
+                    <a onclick="showSection('intel')" id="slider-nav-section-intel" class="icon-title mcafee">McAfee Intel</a>
+                    <a onclick="showSection('mcgill')" id="slider-nav-section-mcgill" class="icon-title mcgill">McGIll</a>                    
+                </nav>
+
+                <nav class="slider-nav hide" id="slider-nav-3">
+                    <a onclick="showSection('programming')" id="slider-nav-section-programming" class="icon-title programming active">Programming</a>
+                    <a onclick="showSection('art')" id="slider-nav-section-art" class="icon-title art">Art</a>
+                </nav>
+
+                <nav class="slider-nav hide" id="slider-nav-4">
+                    <a onclick="showSection('education')" id="slider-nav-section-education" class="icon-title education active">Education</a>
+                    <a onclick="showSection('achievement')" id="slider-nav-section-achievement" class="icon-title achievement">Academic Achievements</a>
+                </nav>
             </div>
 
             <div id="background-container"></div>
