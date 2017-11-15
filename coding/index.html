@@ -9,10 +9,11 @@
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round|Raleway" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round|Ubuntu:300,300i,400,500,700" rel="stylesheet">
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/animsition.min.css">
         <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/gallery.css">
         <link rel="stylesheet" href="../css/coding.css">
         <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
         <script src="../js/vendor/snap.svg-min.js"></script>
@@ -22,77 +23,306 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <!-- <svg class="animsition-overlay" data-animsition-overlay="true" id="desktop-background" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" preserveAspectRatio="xMidYMid meet">
-            <path fill="#77818C" d="M-16.7-40h1630v1270h-1630z"/>
-            <path fill="#FDFFFC" fill-opacity=".8" d="M1716.7 188.3a936.7 395 0 1 1 0-5.7"/>
-            <path fill="#BBC2C4" fill-opacity=".8" d="M676.7 586.7a456.7 763.3 0 1 1 0-1"/>
-        </svg> -->
-        
-        <div class="header yellow small">
-        </div>
-        
-
-        <div id="browser-container">
-            <div class="browser">
-                <div class="top-bar">
-                    <div class="dot" onclick="closeBrowser()"></div>
-                    <div class="dot" onclick="minimize()"></div>
-                    <div class="dot" onclick="maximize()" ></div>
-                </div>
-                <ul class="browser-tabs">
-                    <li class="tab-link active" id="tab-1" onclick="toggleTab(1)" >Tab One</li>
-                    <li class="tab-link" id="tab-2" onclick="toggleTab(2)">Tab Two</li>
-                    <li class="tab-link" id="tab-3" onclick="toggleTab(3)">Tab Three</li>
-                    <li class="tab-link" id="tab-4" onclick="toggleTab(4)">Tab Four</li>
-                </ul>
-                <div id="tabs-content">
-                    lalala
-                </div>
-            </div>
             
-        </div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="animsition-overlay" data-animsition-overlay="true" id="desktop-background" viewBox="0 0 366 187.62">
+                <defs>
+                    <style>
+                        .cls-1{fill:url(#linear-gradient);}.cls-2{fill:#fff;}.cls-3{fill:#ffd29c;}.cls-4{fill:#e25220;}.cls-5{fill:#1f2c39;}.cls-6{fill:#ff9f1c;}.cls-7{fill:#e25220;}
+                    </style>
+                    <linearGradient id="linear-gradient" x1="183" x2="183" y1="121.73" y2="-66.34" gradientTransform="matrix(1 0 0 -1 0 121.24)" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+                        <stop offset="1" stop-color="#ff9f1c"/>
+                    </linearGradient>
+                    <!-- <linearGradient id="linear-gradient-2" x1="182.9" x2="183.4" y1="-61.6" y2="-21.12" gradientTransform="matrix(1 0 0 -1 0 121.24)" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#ff9f1c"/>
+                        <stop offset="1" stop-color="#e71d36"/>
+                    </linearGradient> -->
+                </defs>
 
-        <div class="start">
-            <div class="animation">
-                <div class="list-item square-dude" onclick="openTab(4)">
-                    <div class="square dude">
-                        <div class="face"> </div>
-                    </div>
-                    <span>Stack 4</span>
-                </div>
+                <path d="M0 0h366v187.62H0z" class="cls-1"/>
+                <circle cx="111.34" cy="73.73" r="2.27" class="cls-2 stars1"/>
+                <circle cx="233.21" cy="117.6" r="1.13" class="cls-2 stars2"/>
+                <circle cx="161.21" cy="88.87" r="1.13" class="cls-2 stars1"/>
+                <circle cx="209.82" cy="65.07" r="1.93" class="cls-2 stars4"/>
+                <circle cx="274.76" cy="76" r="2.27" class="cls-2 stars1"/>
+                <circle cx="205.76" cy="95.5" r="1.53" class="cls-2 stars4"/>
+                <circle cx="27.93" cy="110.04" r="1.18" class="cls-2 stars5"/>
+                <circle cx="157.21" cy="36.87" r="1.13" class="cls-2 stars3"/>
+                <circle cx="183.34" cy="94.73" r="2.27" class="cls-2 stars5"/>
+                <circle cx="148.61" cy="51.21" r="1.93" class="cls-2 stars5"/>
+                <circle cx="300.21" cy="86.6" r="1.13" class="cls-2 stars3"/>
+                <circle cx="347.76" cy="91.5" r="1.53" class="cls-2 stars5"/>
+                <circle cx="233.82" cy="33.07" r="1.93" class="cls-2 stars2"/>
+                <circle cx="344" cy="53.14" r="1.93" class="cls-2 stars3"/>
+                <circle cx="18.93" cy="54.56" r="1.53" class="cls-2 stars2"/>
+                <circle cx="18.93" cy="38.55" r="1.53" class="cls-2 stars4"/>
                 
-                <div class="list-item box-dude" onclick="openTab(3)">
-                    <div class="box dude">
-                        <div class="face"></div>
-                    </div>
-                    <span>Stack 3</span>
-                </div>
-         
-                <div class="list-item rectangle-dude" onclick="openTab(2)">
-                    <div class="rectangle dude"></div>
-                    <span>Stack 2</span>
-                </div>
-    
-                <div class="list-item circle-dude" onclick="openTab(1)">
-                    <div class="circle dude"></div>
-                    <span>Stack 1</span>
-                </div>
-            </div>
-        </div>      
-        <div class="task-bar">
-            <div class="start-button" onclick="toggleMenu()">
-                START 
+                <path d="M0 112.16l103.2-24 120.8 30.7L353.87 97 366 98.8v88.82H0z" class="cls-3"/>
+                <g id="left-tree-1">
+                    <path d="M54 123.12c23 0 8-32 0-64-8 32-23 64 0 64" class="cls-4"/>
+                    <path d="M56 143.12l-2-64q-1 32-2 63" class="cls-5"/>
+                </g>
+                <g id="left-tree-2">
+                    <path d="M67.36 126.07c16.16 0 5.62-22.48 0-45.67-5.62 23.2-16.16 45.67 0 45.67" class="cls-6"/>
+                    <path d="M68.76 140.12l-1.4-45-1.36 44.3" class="cls-5"/>
+                </g>
+                <path d="M0 140.23l80.84-8.8L272 147.78l72-8.48 22-4.75v53.07H0z" class="cls-6"/>
+                <g id="right-tree-1">
+                    <path d="M262 139.3c19.2 0 6.68-30.1 0-61.15-6.68 31-19.2 61.15 0 61.15" class="cls-6"/>
+                    <path d="M263.65 158.12L262 97.92l-1.67 59.26" class="cls-5"/>
+                </g>
+                <g id="right-tree-2">
+                    <path d="M287 136.12c23 0 8-32 0-65-8 33-23 65 0 65" class="cls-4"/>
+                    <path d="M289 157.47l-2-64q-1 32-2 63" class="cls-5"/>
+                </g>
+                <g id="right-tree-3">
+                    <path d="M306.55 140.12c18.4 0 6.4-25.6 0-52-6.4 26.4-18.4 52 0 52" class="cls-6"/>
+                    <path d="M308.15 156.12l-1.6-51.2q-.8 25.6-1.6 50.4" class="cls-5"/>
+                </g>
+                <path d="M0 161.67l62-3L235 155l70-.9 61 2.42v31.06H0z" class="cls-7"/>
+
+            </svg>
+            
+            <div class="header yellow small">
             </div>
 
-            <div id="minimized-window" onclick="restore()">
-                <div id="window-name">Stack 1</div>
-            </div>
-        </div>
+            <div id="browser-container">
+                <div class="browser">
+                    <div class="top-bar">
+                        <div class="dot" onclick="closeBrowser()"></div>
+                        <div class="dot" onclick="minimize()"></div>
+                        <div class="dot" onclick="maximize()" ></div>
+                    </div>
+                    <ul class="browser-tabs">
+                        <li class="tab-link active" id="tab-1" onclick="toggleTab(1)" >Professional</li>
+                        <li class="tab-link" id="tab-2" onclick="toggleTab(2)">Internships</li>
+                        <li class="tab-link" id="tab-3" onclick="toggleTab(3)">Academic</li>
+                        <li class="tab-link" id="tab-4" onclick="toggleTab(4)">Personal</li>
+                    </ul>
+                    <div class="cover"></div>
+                    <div id="tabs-content-1" class="tab-content">
+                      
+                        <div class="icon-title ubisoft">Ubisoft</div>
+                        <div class="project-group">
+                            <div class="app-icon-container">
+                                <span class="project-title">Ubisoft Club</span>
+                                <img class="app-icon" src="../img/coding/ubisoft-club.jpg"/>
+                            </div>
+                            <div class="short-description">
+                                    Front-end app development with AngularJS, Ionic, Grunt and Cordova stack. Implemented and designed archtecture for major UI features.
+                            </div>
+                        </div>
+                        <div class="links-container">
+                        <a class="project-links" target="_blank" href="https://play.google.com/store/apps/details?id=com.ubisoft.uplay&hl=en">View on Google Play Store</a>
+                        <a class="project-links" target="_blank" href="https://itunes.apple.com/ca/app/ubisoft-club/id405228226?mt=8">View on App Store</a>
+                        </div>
+                    </div>
+
+                    <div id="tabs-content-2" class="tab-content hide">
+                       
+                        <div class="icon-title ubisoft">Ubisoft</div>
+                        <div class="project-group vertical">
+                            <a class="project-name" target="_blank" href="https://www.ubisoft.com/en-us/game/watch-dogs-2/">Watch Dogs 2</a>
+                            <div class="project-preview watch-dogs2" onclick="togglePreview('watch-dogs2')"></div>
+                        
+                            <div class="short-description">
+                                Webtool to track in game stats, positions and configurations, sending commands and configs back in game. front-end using Jinja2 in Python, back-end in Python and C# and UbiAdmin REST APIs. Map API using OpenLayers 3. In game developement in C++
+                            </div>
+                        </div>
+                        <br>
+                        <div class="icon-title autodesk">Autodesk</div>
+                        <div class="project-group vertical">
+                                
+                            <div class="video-container">
+                                    <a class="project-name" target="_blank" href="https://www.autodesk.com/products/flame/overview">Flame Utility</a>
+                                <video width="100%" height="100%" controls>
+                                    <source src="autodesk.mp4" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            </div>
+                        
+                            <div class="short-description">
+                                Video Demo of one of the features implemented: Context View
+                            </div>
+                        </div>
+
+                        <br>
+                        <div class="icon-title mcafee">McAfee Intel</div>
+                        <div class="project-group vertical">
+                            
+                            <a class="project-name" href="https://home.mcafee.com/Secure/CloudAV/HowItWorks.html" target="_blank">Cloud AV</a>
+                            <div class="project-preview mcafee" onclick="togglePreview('mcafee')"></div>
+                            
+                            <div class="short-description">
+                                    A new Light-weight Anti-malware product under development from Intel Security. Worked on Cross-platform Prototype UI with ANgularjs and Cordova webstack.
+                                    Also worked on Windows Session Manager and Alert Manager, other UI components such as Tray Icon and Alert Window's components
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tabs-content-3" class="tab-content hide">
+                        <div class="icon-title mcgill">McGill</div>
+                        <div class="project-group">
+                            <a target="_blank" href="http://www.cs.mcgill.ca/" class="app-icon-container">
+                                <span class="project-title">McGIll CS Department Website</span>
+                                <img class="app-icon" src="../img/coding/mcgill-cs-logo.png"/>
+                            </a>
+                            
+                            <div class="short-description">
+                                Web Developement for revamping McGill University Computer Science Website, Providing Information regarding Students, Courses, Research Area, Faculty & Lab, etc. Constructed various forms & infomation registration for falculty administrative purposes.
+                                Framework Using Django + Boostrap 3. Logo and all illustrations with Adobe Illustrator.
+                            </div>
+                        </div>
+                        <div id="grid-gallery" class="grid-gallery animsition-overlay" data-animsition-overlay="true">
+
+                            <section class="grid-wrap">
+                                <div>Previous Version: </div>   
+                                <ul class="grid">
+                                    <li class="grid-sizer"></li>
+                                    <li class="number-list">
+                                        <a class="project-links">1</a>
+                                    </li>
+                                    <li class="number-list">
+                                        <a class="project-links">2</a>
+                                    </li>
+                                    <li class="number-list">
+                                        <a class="project-links">3</a>
+                                    </li>
+                                    <li class="number-list">
+                                        <a class="project-links">4</a>
+                                    </li>
+                                    <li class="number-list">
+                                        <a class="project-links">5</a>
+                                    </li>
+                                    <li class="number-list">
+                                        <a class="project-links">6</a>
+                                    </li>
+                                    <li class="number-list">
+                                        <a class="project-links">7</a>
+                                    </li>
+                                </ul>
+                            </section><!-- // grid-wrap -->
+                            <section class="slideshow">
+                                <ul>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs1.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs2.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs4.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs5.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs6.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs7.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                    <li>
+                                        <figure>
+                                            <img src="../img/coding/socs8.png" alt="img01"/>
+                                        </figure>
+                                    </li>
+                                </ul>
+                                <nav>
+                                    <span class="icon nav-prev"></span>
+                                    <span class="icon nav-next"></span>
+                                    <span class="icon nav-close"></span>
+                                </nav>
+                                <div class="info-keys icon">Navigate with arrow keys</div>
+                            </section><!-- // slideshow -->
+                        </div><!-- // grid-gallery -->
+                        <hr>
+                        <div class="project-group vertical">
+                                
+                            <div class="video-container">
+                                <div class="project-name">Unity3D Game project: Medieval Warfare</div>
+                                <video width="100%" height="100%" controls>
+                                    <source src="game.mp4" type="video/mp4">
+                                    Your browser does not support HTML5 video.
+                                </video>
+                            </div>
+                        
+                            <div class="short-description">
+                                A Unity3D game turn based tile strategy Civilization5-like game. Has a set of detailed rules provided by instructor. Win strategy is to eliminate all opponents either by taking all their tiles or passively let a player unable to pay his upkeeps for all his units. Unity scripts written with C#. login/registration database with MySQL and PHP.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tabs-content-4" class="tab-content hide">
+                        <div class="overflow">
+                            <div class="icon-title ubisoft">Ubisoft</div>
+                            <div class="project-group">
+                                tabs 4
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+
+
+                <div class="start">
+                        <div class="animation">
+                            <div class="list-item square-dude" onclick="openTab(4)">
+                                <div class="square dude">
+                                    <div class="face"> </div>
+                                </div>
+                                <span>Personal</span>
+                            </div>
+                            
+                            <div class="list-item box-dude" onclick="openTab(3)">
+                                <div class="box dude">
+                                    <div class="face"></div>
+                                </div>
+                                <span>Academic</span>
+                            </div>
+                    
+                            <div class="list-item rectangle-dude" onclick="openTab(2)">
+                                <div class="rectangle dude"></div>
+                                <span>Internships</span>
+                            </div>
+                
+                            <div class="list-item circle-dude" onclick="openTab(1)">
+                                <div class="circle dude"></div>
+                                <span>Professional</span>
+                            </div>
+                        </div>
+                    </div>      
+                    <div class="task-bar">
+                        <div class="start-button" onclick="toggleMenu()">
+                            START 
+                        </div>
         
+                        <div id="minimized-window" onclick="restore()">
+                            <div id="window-name">Stack 1</div>
+                        </div>
+                    </div>
+            </div>
+
+
+    
       
         <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
         <script>window.jQuery || document.write('<script src="./js/vendor/jquery-1.12.0.min.js"><\/script>')</script>
         <script src="../js/vendor/animsition.min.js"></script>
+        <script src="../js/vendor/imagesloaded.pkgd.min.js"></script>
+        <script src="../js/vendor/masonry.pkgd.min.js"></script> 
         <script src="../js/config.js"></script>
         <script src="../js/common.js"></script>
         <script src="./coding.js"></script>

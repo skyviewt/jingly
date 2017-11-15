@@ -24,7 +24,7 @@ function readyFn( jQuery ) {
         transition: function(url){ window.location.href = url; }
     });
 
-    new CBPGridGallery( document.getElementById( 'grid-gallery' ) );
+    new CBPGridGallery( document.getElementById( 'grid-gallery' ),  {isShowThumb: true} );
 }
 
 $( document ).ready( readyFn );

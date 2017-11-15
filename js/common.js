@@ -9,10 +9,10 @@ function readyFn( jQuery ) {
             if(!isMenuOpen){
                 $('.header-btn.logo').removeClass('animsition-link');
                 
-                TweenMax.to('.header', 0.5, {width: '100%', transformOrigin:'center right', 'border-radius':0, ease:Power2.easeInOut, onComplete:()=>{
-                    TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 1, ease:Power2.easeInOut});
+                TweenMax.to('.header', 0.5, {width: '100%', transformOrigin:'center right', 'border-radius':0, ease:Power2.easeInOut, onStart: ()=>{
                     $('.header-nav').toggleClass('minimized');
-                    
+                },onComplete:()=>{
+                    TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 1, ease:Power2.easeInOut});
                 }});
                 isMenuOpen = true;
             }else{

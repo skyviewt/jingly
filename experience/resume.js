@@ -194,7 +194,7 @@ function showCurrentSlideAndAcc() {
             timelineMcgill.add([
                 TweenMax.to('#mcgill', 1, {scale:1.05, transformOrigin: 'center bottom', ease: Sine.easeInOut}),        
                 TweenMax.to('#mcgill-flag', 0.8, {skewY: -10, scaleX: 0.85, transformOrigin: 'left center', yoyo: true, repeat: -1, ease: Sine.easeInOut}),
-                TweenMax.to('#windows', 0.8, {fill:COLOR.Yellow, yoyo: true, repeat: 2, ease: Bounce.easeInOut, delay: 0.8}),
+                TweenMax.to('.windows', 0.8, {fill:COLOR.Yellow, yoyo: true, repeat: 2, ease: Bounce.easeInOut, delay: 0.8}),
                 TweenMax.to('#mcgill-door', 0.5, {fill:COLOR.BlackStroke, ease: Sine.easeInOut})
             ],0);
         }

@@ -143,81 +143,6 @@
     display: none;
 }
 
-.icon-title{
-    text-transform: uppercase;
-    display: flex;
-    align-items: center;
-    font-family: 'Ubuntu', sans-serif;
-    margin: 1vmin;
-}
-
-.icon-title:before{
-    content: "";
-    height: 25px;
-    width: 25px;
-    margin-right: 1vmin;
-}
-
-.icon-title.ubisoft:before{
-    background: url(../img/icons/ubisoft-logo.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.autodesk:before{
-    background: url(../img/icons/autodesk-logo.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.mcafee:before{
-    background: url(../img/icons/mcafee-logo.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.mcgill:before{
-    background: url(../img/icons/mcgill-logo.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.art:before{
-    background: url(../img/icons/designer-cup.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.active.art:before{
-    background: url(../img/icons/designer-cup-white.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.programming:before{
-    background: url(../img/icons/server.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.active.programming:before{
-    background: url(../img/icons/server-white.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.education:before{
-    background: url(../img/icons/book.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.active.education:before{
-    background: url(../img/icons/book-white.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.achievement:before{
-    background: url(../img/icons/target.png) center no-repeat;
-    background-size: contain;
-}
-
-.icon-title.active.achievement:before{
-    background: url(../img/icons/target-white.png) center no-repeat;
-    background-size: contain;
-}
-
 .project-info {
     font-family: 'Ubuntu', sans-serif;
     display: flex;
@@ -225,11 +150,6 @@
     justify-content: space-between;
 }
 
-.project-info .project-name{
-    color: #005499;
-    font-weight: 500;
-    font-size: large;
-}
 .project-info .date{
     color: #77818C;
     font-weight: 300;
@@ -242,16 +162,6 @@
     font-variant: all-small-caps;
     font-size: larger;
     font-weight: 500;
-}
-
-.article .short-description {
-    color: #35393e;
-    line-height: 1.5;
-    font-weight: 300;
-    padding-left: 2vmin;
-    margin: 2vmin;
-    border-left: 1vmin solid #b1c2d4;
-    margin: 1vmin;
 }
 
 .article .experience-bullets{

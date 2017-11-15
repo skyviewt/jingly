@@ -1,5 +1,8 @@
 let isStartMenuHidden = true;
-let prevTab = 1;
+let currentTab = 1;
+let backgroundTimeline = new TimelineMax({pause: true});
+let isMaximized = false;
+let windowNameArray = ['Professional', 'Internships', 'Academic', 'Personal'];
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
     $('.animsition-overlay').animsition({
@@ -25,6 +28,8 @@ function readyFn( jQuery ) {
         transition: function(url){ window.location.href = url; }
     });
 
+    new CBPGridGallery( document.getElementById( 'grid-gallery' ), {isShowThumb: false} );
+
     let allMenuItems= ['square', 'box', 'rectangle', 'circle'];
     allMenuItems.forEach((item)=>{
         $('.'+item+'-dude').hover(()=>{
@@ -33,6 +38,28 @@ function readyFn( jQuery ) {
         }, ()=>{
             $('.'+item).toggleClass('animated');
         });
+    });
+
+    // animate svg background
+    backgroundTimeline.add([
+        TweenMax.staggerFromTo(['#left-tree-1', '#left-tree-2'], 0.9, {skewX: 0, rotation: 0, scaleY: 1}, {skewX: 0.5, rotation:8, scaleY: 1.05, yoyo: true, repeat: -1, transformOrigin:"center bottom", delay: 1}, 0.1),
+        TweenMax.staggerFromTo(['#right-tree-1', '#right-tree-2', '#right-tree-3'], 1.1, {skewX: 0, rotation: 0, scaleY: 1}, {skewX: 0.4, rotation:5, scaleY: 1.015, yoyo: true, repeat: -1, transformOrigin:"center bottom", delay: 1.5}, 0.15),
+        TweenMax.staggerFromTo('.stars1', 1, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut}, 0.1),
+        TweenMax.staggerFromTo('.stars2', 1.2, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 0.5}, 0.2),
+        TweenMax.staggerFromTo('.stars3', 0.8, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 0.7}, 0.1),
+        TweenMax.staggerFromTo('.stars4', 0.9, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 0.3}, 0.5),
+        TweenMax.staggerFromTo('.stars5', 1.1, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 1}, 0.3)
+    ]);
+
+    backgroundTimeline.play();
+
+    $('html').click(function(event) {
+        //if clicked element is not your element and parents aren't your div
+        if(!isStartMenuHidden){
+            if (event.target.className != 'start' && $(event.target).parents('.start').length == 0) {
+                toggleMenu();
+            }
+        }
     });
    
 }
@@ -44,14 +71,19 @@ function openTab(index){
 }
 
 function toggleTab(index){
-    if(index !== prevTab){
-        $('#tab-'+index +' , #tab-'+prevTab).toggleClass('active');
-        prevTab = index;
+    if(index !== currentTab){
+        $('#tab-'+index +' , #tab-'+currentTab).toggleClass('active');
+        $('#tabs-content-'+currentTab+', #tabs-content-'+index).toggleClass('hide');
+        if(isMaximized) {
+            $('#tabs-content-'+currentTab+', #tabs-content-'+index).toggleClass('maximized');
+        }
+        currentTab = index;
     }
 }
 
 function maximize() {
-    $('.browser').toggleClass('maximized');
+    $('.browser, #tabs-content-'+currentTab).toggleClass('maximized');
+    isMaximized = !isMaximized;
 }
 
 function closeBrowser(){
@@ -60,7 +92,9 @@ function closeBrowser(){
 
 function minimize(){
     TweenMax.to('.browser', 0.2, {y: '100%', skewX: 10, scale: 0.1, opacity: 0, ease: Power2.easeInOut});
-    TweenMax.to('#minimized-window', 0.2, {width: '25%', opacity: 1, transformOrigin:'center left', ease: Power2.easeInOut});
+    TweenMax.to('#minimized-window', 0.2, {width: '25%', opacity: 1, transformOrigin:'center left', ease: Power2.easeInOut, onComplete: ()=>{
+        $('#window-name').html(windowNameArray[currentTab-1]);
+    }});
 }
 
 function restore(){
@@ -70,14 +104,28 @@ function restore(){
 
 function toggleMenu(){
     if(isStartMenuHidden){
-        TweenMax.to('.start', 0.5, {y: '0%', ease: Power2.easeInOut, onComplete: ()=>{
+        TweenMax.to('.start', 0.5, {y: '0%', ease: Power2.easeInOut, onStart: ()=>{
+            $('.start').css({
+                display: 'flex'
+            });
+        }, onComplete: ()=>{
+            
             isStartMenuHidden = false;
         }});
     }else{
-        TweenMax.to('.start', 0.5, {y: '100%', ease: Power2.easeInOut, onComplete: ()=>{
+        TweenMax.to('.start', 0.5, {y: '100%', ease: Power2.easeInOut, onStart: ()=>{
+            
+        }, onComplete: ()=>{
+            $('.start').css({
+                display: 'none'
+            });
             isStartMenuHidden = true;
         }});
     }
+}
+
+function togglePreview(previewClass){
+    $('.project-preview.'+previewClass).toggleClass('maximized');
 }
 
 
