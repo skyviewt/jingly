@@ -103,7 +103,7 @@
         imagesLoaded( grid, function() {
             new Masonry( grid, {
                 itemSelector: 'li',
-                columnWidth: grid.querySelector( '.grid-sizer' )
+                columnWidth: 'li'
             });
         });
     };
@@ -305,14 +305,10 @@
                 }
                 // remove classes show and current from the slideshow items
                 $(self.currentItem).removeClass('current');
-                $(self.currentItem).removeClass('show');
-                
-                if( self.prevItem ) {
-                    $( self.prevItem).removeClass( 'show' );
-                }
-                if( self.nextItem ) {
-                    $(self.nextItem).removeClass( 'show' );
-                }
+
+                self.slideshowItems.forEach( function(item){
+                    $(item).removeClass('show');
+                });
 
                 // also reset any transforms for all the items
                 self.slideshowItems.forEach( function( item ) { setTransform( item, '' ); } );

@@ -21,6 +21,8 @@
 .grid-gallery figure img {
 	display: block;
 	width: 100%;
+	flex-shrink: 0;
+	margin: 0 auto;
 }
 
 .grid-gallery figcaption h3 {
@@ -30,6 +32,8 @@
 
 .grid-gallery figcaption p {
 	margin: 0;
+	font-family: 'Ubuntu', sans-serif;
+    color: #77818C;
 }
 
 /* Grid style */
@@ -44,7 +48,7 @@
 }
 
 .grid li {
-	width: 25%;
+	width: 20%;
 	float: left;
 	cursor: pointer;
 }
@@ -64,13 +68,14 @@
 .grid figcaption {
     background: rgb(236, 240, 241);
     padding: 2vmin;
-    border-radius: 0 0 6px 6px;
+	border-radius: 0 0 6px 6px;
+	flex-shrink: 2;
 }
 
 /* Slideshow style */
 .slideshow {
 	position: fixed;
-	background: rgba(0,0,0,0.6);
+	background: rgb(236, 240, 241);
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -115,13 +120,20 @@
 }
 
 .slideshow li {
-	width: 660px;
-	height: 560px;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	margin: -280px 0 0 -330px;
-	visibility: hidden;
+	width: 50vw;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 25vw;
+    visibility: hidden;
+    flex-grow: 2;
+}
+
+.slideshow li.vertical{
+	width: 33vw;
+    height: 100%;
+    bottom: 0;
+    left: 33.5vw;
 }
 
 .slideshow li.show {
@@ -137,7 +149,8 @@
 	left: 0;
 	background: rgba(255,255,255,0.8);
 	-webkit-transition: opacity 0.3s;
-	transition: opacity 0.3s;
+    transition: opacity 0.3s;
+    z-index: 0;
 }
 
 .slideshow li.current:after {
@@ -149,20 +162,23 @@
 }
 
 .slideshow figure {
-	width: 100%;
-	height: 100%;
+	width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    border-radius: 16px;
 	background: #FDFFFC;
-	border: 50px solid #FDFFFC;
+	border: 8px solid #1f2c39;
 	overflow: hidden;
+	flex-direction: column;
 }
 
 .slideshow figcaption {
-	padding-bottom: 20px;
+	padding: 20px;
 }
 
-.slideshow figcaption h3 {
-	font-weight: 300;
-	font-size: 200%;
+figcaption h3 {
+	font-weight: 600;
+    font-size: larger;
+    font-family: 'Varela Round', sans-serif;
 }
 
 /* Navigation */
@@ -229,9 +245,10 @@ span.nav-close:before {
 	font-size: 8px;
 	padding-top: 20px;
 	text-transform: uppercase;
-	color: #FDFFFC;
+	color: #77818C;
 	letter-spacing: 1px;
 	text-align: center;
+	font-family: 'Ubuntu', sans-serif;
 }
 
 .info-keys:before,
@@ -240,10 +257,11 @@ span.nav-close:before {
 	top: 0;
 	width: 16px;
 	height: 16px;
-	border: 1px solid #FDFFFC;
+	border: 1px solid #77818C;
 	text-align: center;
 	line-height: 14px;
 	font-size: 12px;
+	border-radius: 4px;
 }
 
 .info-keys:before {

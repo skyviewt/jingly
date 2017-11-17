@@ -62,7 +62,7 @@ function readyFn( jQuery ) {
         }
     });
    
-}
+}// end readyFn
 
 function openTab(index){
     restore();
