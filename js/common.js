@@ -29,7 +29,7 @@ function readyFn( jQuery ) {
                     isMenuOpen = false;
                     $('.header-btn.logo').removeClass('animsition-link');
                     TweenMax.to(['.header-btn.art', '.header-btn.coding', '.header-btn.resume', '.header-btn.linkedin'], 0.2, {opacity: 0, ease:Power2.easeInOut, onComplete: ()=>{
-                        TweenMax.to('.header', 0.5, {width: '60px', transformOrigin:'center right', 'border-radius': '10px',ease:Power2.easeInOut});
+                        TweenMax.to('.header', 0.5, {width: $(window).width() > 760 ? '50px' : '30px', transformOrigin:'center right', 'border-radius': '10px',ease:Power2.easeInOut});
                         $('.header-nav').toggleClass('minimized');
                     }});
                 }

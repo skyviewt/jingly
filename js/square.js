@@ -4,7 +4,7 @@ function makeBlockBody(s, heightScale, isSetStroke){
     PARTS.Block.attr({
         fill: isSetStroke === undefined || isSetStroke ? 'none' : COLOR.BlobFill,
         stroke: COLOR.BlackStroke,
-        strokeWidth: DIMENSION.EyeSize / 2 > 3 ? DIMENSION.EyeSize / 2 : 3
+        strokeWidth: DIMENSION.EyeSize / 2 > ($( window ).width() <= 760 ? 2 : 3) ? DIMENSION.EyeSize / 2 : ($( window ).width() <= 760 ? 2 : 3)
     });
     if(isSetStroke === undefined || isSetStroke){
         setStrokeAttributes('Block', false);

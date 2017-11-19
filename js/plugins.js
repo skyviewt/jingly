@@ -101,9 +101,10 @@
     CBPGridGallery.prototype._initMasonry = function() {
         var grid = this.grid;
         imagesLoaded( grid, function() {
-            new Masonry( grid, {
+            var pckry = new Packery( grid, {
                 itemSelector: 'li',
-                columnWidth: 'li'
+                gutter: 10,
+                percentPosition: true
             });
         });
     };

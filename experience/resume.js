@@ -21,7 +21,7 @@ let sliderActiveTag = {
     3: '-programming',
     4: '-education'
 }
-
+let s;
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
 
@@ -60,27 +60,67 @@ function readyFn( jQuery ) {
         transition: function(url){ window.location.href = url; }
     });
     
+    s = Snap('#svg-timeline');
+    makeSquare(true);
+    changeTimelinePosition();
 
-    let s = Snap('#svg-timeline');
+    PARTS.dot1.click(function(event){
+        TweenMax.to(PARTS.timelineInside, 1, {width: '100%', ease: Back.easeInOut, delay: 0.3});
+        TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut});
+        prevDot = currentDot;
+        currentDot = 1;
+        animateDotChange();
+        animateAccesories();
+    });
+
+    PARTS.dot2.click(function(event){
+        TweenMax.to(PARTS.timelineInside, 1, {width: '60%', ease: Back.easeInOut, delay: 0.3});
+        TweenMax.to(PARTS.SquareGroup.node, 1, {x:event.pageX - DIMENSION.SquareLength, transformOrigin:'center center', ease: Back.easeInOut});
+        prevDot = currentDot;
+        currentDot = 2;
+        animateDotChange();
+        animateAccesories();
+    });
+
+    PARTS.dot3.click(function(event){
+        
+        TweenMax.to(PARTS.timelineInside, 1, {width: '40%', ease: Back.easeInOut, delay: 0.3});
+        TweenMax.to( PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut});
+        prevDot = currentDot;
+        currentDot = 3;
+        animateDotChange();
+        animateAccesories();
+    });
+
+    PARTS.dot4.click(function(event){
+        
+        TweenMax.to(PARTS.timelineInside, 1, {width: '0%', ease: Back.easeInOut, delay: 0.3});
+        TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut});
+        prevDot = currentDot;
+        currentDot = 4;
+        animateDotChange();
+        animateAccesories(); 
+    });
+
+    window.addEventListener("orientationchange", function() {
+        changeTimelinePosition();
+        // console.log($(window).width(), window.innerWidth)
+        // some how at here still get prev rotation widh => fllp width and height
+        TweenMax.to( PARTS.SquareGroup.node, 0.5, {x: $(window).height()/5*currentDot - DIMENSION.SquareLength/2});
+    }, false);
+
+
+}// end of readyFn
+
+function makeSquare(isInit){
+    
     DIMENSION.SquareLength = Math.min(Math.floor(Math.max($( window ).width(), $(window).height()) / 20), 50);
     DIMENSION.StartingPnt = DIMENSION.SquareLength / 2;
-    DIMENSION.StartingPntX = $(window).width()*0.2 - DIMENSION.SquareLength/2 + 20;
-
-    $('#timeline-text').css({
-        'margin-top': (1.5*DIMENSION.SquareLength)+'px'
-    });
-
-    $('.sliders').css({
-        'margin-top': (-1*DIMENSION.SquareLength)+'px'
-    });
+    DIMENSION.StartingPntX = 0;
     // change svg sttributes
-    
     s.attr({
-        width: Math.ceil($( window ).width()),
-        height: DIMENSION.SquareLength*2
-    });
-    s.attr({
-        viewBox:'0 0 '+ Math.ceil($( window ).width()) + ' ' + DIMENSION.SquareLength*2
+        width: '100%',
+        height:  DIMENSION.SquareLength*2
     });
 
     makeEyes(s, 1.9);
@@ -92,7 +132,6 @@ function readyFn( jQuery ) {
     makeTie(s, 1.9, COLOR.Blue);
     makeGlasses(s, COLOR.Red);
     makeWorkerHat(s, 1.9, COLOR.Yellow);
-    
 
     //Group
     PARTS.SquareGroup = s.group(PARTS.Block,PARTS.RightEye, PARTS.RightTopEyeLid, PARTS.RightBottomEyeLid, 
@@ -101,48 +140,11 @@ function readyFn( jQuery ) {
     ).attr({
         cursor: 'pointer'
     });
+    if(isInit)
+        TweenMax.to( PARTS.SquareGroup.node, 1, {x: $( window ).width()*0.2 - DIMENSION.SquareLength/2 , ease: Back.easeInOut});
 
-    PARTS.dot1.click(function(){
-
-        TweenMax.to(PARTS.timelineInside, 1, {width: '100%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to(PARTS.SquareGroup.node, 1, {x: 0, ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 1;
-        animateDotChange();
-        animateAccesories();
-    });
-
-    PARTS.dot2.click(function(){
-        TweenMax.to(PARTS.timelineInside, 1, {width: '60%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to(PARTS.SquareGroup.node, 1, {x: $( window ).width()*.2+'px', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 2;
-        animateDotChange();
-        animateAccesories();
-    });
-
-    PARTS.dot3.click(function(){
-        TweenMax.to(PARTS.timelineInside, 1, {width: '40%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to( PARTS.SquareGroup.node, 1, {x: $( window ).width()*.4+'px', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 3;
-        animateDotChange();
-        animateAccesories();
-    });
-
-    PARTS.dot4.click(function(){
-        TweenMax.to(PARTS.timelineInside, 1, {width: '0%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to(PARTS.SquareGroup.node, 1, {x: $( window ).width()*.6+'px', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 4;
-        animateDotChange();
-        animateAccesories(); 
-    });
-    
     animateMouseMoveBody(PARTS.SquareGroup);
-
-
-}// end of readyFn
+}
 
 function animateDotChange(){
      TweenMax.to(PARTS['dot'+prevDot], 0.2, {scale: 1, ease: Back.easeInOut, delay: 0.5});
@@ -184,6 +186,16 @@ function hidePrevAccesory() {
         timelineHome.pause(0);
         showCurrentSlideAndAcc();
     }
+}
+
+function changeTimelinePosition(){
+    $('#timeline-text').css({
+        'margin-top': (1.5*DIMENSION.SquareLength)+'px'
+    });
+
+    $('.sliders').css({
+        'margin-top': (-1*DIMENSION.SquareLength)+'px'
+    });
 }
 
 function showCurrentSlideAndAcc() {

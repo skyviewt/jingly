@@ -10,7 +10,7 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
-html {
+   html {
     color: #222;
     font-size: 1em;
     line-height: 1.4;
@@ -113,14 +113,25 @@ textarea {
     font-family: "Varela Round", sans-serif;
     text-transform: uppercase;
     font-weight: 700;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 20px;
-    flex-grow: 1;
-    justify-content: space-evenly;
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
 }
 
 .header-nav.minimized{
@@ -130,13 +141,21 @@ textarea {
 .header{
     margin-top: 0;
     background: rgb(236, 240, 241);
+    padding: 1vm;
     padding: 1vmin;
     margin-bottom: 20px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 60px;
-    transform-origin: center right;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    width: 50px;
+    -webkit-transform-origin: center right;
+            transform-origin: center right;
     border-radius: 10px;
     z-index: 2;
 }
@@ -157,14 +176,27 @@ textarea {
     background: #2EC4B6;
 }
 
+.header.grey{
+    background: #77818C;
+}
+
 .header-btn:not(.logo) {
     background: transparent;
+    -webkit-transition: fill 0.8s;
     transition: fill 0.8s;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     margin: 0 auto;
     opacity: 0;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 .header-btn:not(.logo) svg{
     width: 40px;
@@ -172,19 +204,28 @@ textarea {
 
 .header-btn.logo{
     width: 50px;
-    flex-shrink: 0;
+    -ms-flex-negative: 0;
+        flex-shrink: 0;
     cursor: pointer;
 }
 
 .header-btn-title{
     color: #1f2c39;
+    font-family: 'Varela Round', sans-serif;
+    font-size: medium;
+    font-weight: 300;
 }
 /* ----------used by more than one pages---------- */
 .icon-title{
     text-transform: uppercase;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     font-family: 'Ubuntu', sans-serif;
+    margin: 1vm;
     margin: 1vmin;
 }
 
@@ -192,6 +233,7 @@ textarea {
     content: "";
     height: 25px;
     width: 25px;
+    margin-right: 1vm;
     margin-right: 1vmin;
 }
 
@@ -259,9 +301,13 @@ textarea {
     color: #35393e;
     line-height: 1.5;
     font-weight: 300;
+    padding-left: 2vm;
     padding-left: 2vmin;
+    margin: 2vm;
     margin: 2vmin;
+    border-left: 1vm solid #b1c2d4;
     border-left: 1vmin solid #b1c2d4;
+    margin: 1vm;
     margin: 1vmin;
 }
 
@@ -269,6 +315,25 @@ textarea {
     color: #005499;
     font-weight: 500;
     font-size: large;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (max-device-width : 760px) {
+    .header{
+        width: 30px;
+    }
+    .header-btn.logo {
+        width: 30px;
+    }
+    .header-btn:not(.logo) svg {
+        width: 25px;
+    }
+    .header-btn-title{
+        font-size: smaller;
+    }
+    .icon-title{
+        font-size: 14px;
+    }
 }
   
 /* ==========================================================================
