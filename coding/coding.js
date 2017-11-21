@@ -42,13 +42,13 @@ function readyFn( jQuery ) {
 
     // animate svg background
     backgroundTimeline.add([
-        TweenMax.staggerFromTo(['#left-tree-1', '#left-tree-2'], 0.9, {skewX: 0, rotation: 0, scaleY: 1}, {skewX: 0.5, rotation:8, scaleY: 1.05, yoyo: true, repeat: -1, transformOrigin:"center bottom", delay: 1}, 0.1),
-        TweenMax.staggerFromTo(['#right-tree-1', '#right-tree-2', '#right-tree-3'], 1.1, {skewX: 0, rotation: 0, scaleY: 1}, {skewX: 0.4, rotation:5, scaleY: 1.015, yoyo: true, repeat: -1, transformOrigin:"center bottom", delay: 1.5}, 0.15),
+        TweenMax.staggerFromTo(['#left-tree-1', '#left-tree-2'], 0.9, {skewX: 0, rotation: 0, scaleY: 1}, {skewX: 0.1, rotation:3, scaleY: 1.012, yoyo: true, repeat: -1, transformOrigin:"center bottom", delay: 1}, 0.1),
+        TweenMax.staggerFromTo(['#right-tree-1', '#right-tree-2', '#right-tree-3'], 1.1, {skewX: 0, rotation: 0, scaleY: 1}, {skewX: 0.3, rotation:4, scaleY: 1.005, yoyo: true, repeat: -1, transformOrigin:"center bottom", delay: 1.5}, 0.15),
         TweenMax.staggerFromTo('.stars1', 1, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut}, 0.1),
-        TweenMax.staggerFromTo('.stars2', 1.2, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 0.5}, 0.2),
-        TweenMax.staggerFromTo('.stars3', 0.8, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 0.7}, 0.1),
-        TweenMax.staggerFromTo('.stars4', 0.9, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 0.3}, 0.5),
-        TweenMax.staggerFromTo('.stars5', 1.1, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, ease: Back.easeInOut, delay: 1}, 0.3)
+        TweenMax.staggerFromTo('.stars2', 1.2, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, repeatDelay: Math.floor(Math.random() * 6) + 1, ease: Back.easeInOut, delay: 0.5}, 0.2),
+        TweenMax.staggerFromTo('.stars3', 0.8, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, repeatDelay: Math.floor(Math.random() * 6) + 1, ease: Back.easeInOut, delay: 0.7}, 0.1),
+        TweenMax.staggerFromTo('.stars4', 0.9, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, repeatDelay: Math.floor(Math.random() * 6) + 1, ease: Back.easeInOut, delay: 0.3}, 0.5),
+        TweenMax.staggerFromTo('.stars5', 1.1, {opacity: 0}, {opacity: 1, yoyo: true, repeat: -1, repeatDelay: Math.floor(Math.random() * 6) + 1, ease: Back.easeInOut, delay: 1}, 0.3)
     ]);
 
     backgroundTimeline.play();
@@ -65,9 +65,11 @@ function readyFn( jQuery ) {
 }// end readyFn
 
 function openTab(index){
-    restore();
-    toggleTab(index);
-    toggleMenu();
+    if(!isStartMenuHidden){
+        restore();
+        toggleTab(index);
+        toggleMenu();
+    }
 }
 
 function toggleTab(index){
@@ -87,7 +89,9 @@ function maximize() {
 }
 
 function closeBrowser(){
-    TweenMax.to('.browser', 0.15, {scale: 0.1, opacity: 0, transformOrigin:'top left', ease: Power4.easeInOut});
+    TweenMax.to('.browser', 0.15, {scale: 0.1, opacity: 0, transformOrigin:'top left', ease: Power4.easeInOut, onComplete: ()=>{
+        $('.browser').css({display: 'none'});
+    }});
 }
 
 function minimize(){
@@ -98,7 +102,9 @@ function minimize(){
 }
 
 function restore(){
-    TweenMax.to('.browser', 0.2, {y: '0%', skewX: 0, scale: 1, opacity: 1, ease: Power2.easeInOut});
+    TweenMax.to('.browser', 0.2, {y: '0%', skewX: 0, scale: 1, opacity: 1, ease: Power2.easeInOut, onStart: ()=>{
+        $('.browser').css({display: 'block'});
+    }});
     TweenMax.to('#minimized-window', 0.2, {width: '0%', opacity: 0, ease: Power2.easeInOut});   
 }
 

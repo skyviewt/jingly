@@ -6,6 +6,8 @@ let isResumeClicked = false;
 let DIMENSION = {};
 let PARTS = {};
 
+let jumpTO = undefined;
+
 let timelineJump = new TimelineMax({paused:true});
 let timelineButtons = new TimelineMax({paused:true});
 
@@ -18,7 +20,7 @@ let TEXT = {
         resume: 'Professional'
     },
     body: {
-        afterClick:'My name is Jing, I am a programmer and illustrator.',
+        afterClick:'I\'m Jing, a programmer with a passion for design, illustration and video games. My past work experiences include Autodesk, McAfee and McGill, currently I am a Generalist Programmer II at Ubisoft Montreal.',
         art: 'View my artwork collection',
         coding: 'Check out my coding project',
         resume: 'Learn about my experiences'
@@ -32,9 +34,9 @@ let redirectLinkButton = $('.animsition-overlay button');
 let redirectLink = redirectLinkButton.find('a');
 
 let linkStr = {
-    art: './art/index.html',
-    programming: './coding/index.html',
-    resume: 'experience/index.html'
+    art: './art',
+    programming: './coding',
+    resume: './experience'
 };
 
 let msgTitle = $('.message-title');
@@ -132,6 +134,12 @@ function readyFn( jQuery ) {
     makeMenu();
     animateMenu();
 
+    jumpTO = setTimeout(()=>{
+        if(!isMenuShown){
+            squareJump();
+        }
+    }, 2500);
+
 }
 
 /*-----------------------------GENERATE ELEMENTS-------------------------------------*/
@@ -202,53 +210,60 @@ function animateMouthSmall(delay){
 }
 
 function animateJump(){
-    PARTS.SquareGroup.click(()=>{   
-        if(timelineJump.getChildren(true, true, true, 0).length === 0){
-            //not added, first jump
-            timelineJump.add(TweenMax.fromTo(PARTS.SquareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: 'center bottom'}, 
-            { y: -DIMENSION.SquareLength, scaleX: 1.15, scaleY: 0.85, transformOrigin: 'center bottom', ease: Back.easeInOut, onComplete:
-                ()=>{
-                    TweenMax.to(PARTS.SquareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: 'center bottom', ease: Bounce.easeOut},0.3);
-                }}), 0
-            );
-
-            timelineJump.add(TweenMax.fromTo(PARTS.Shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: 'center bottom'}, 
-            {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: 'center bottom', ease: Back.easeInOut, onComplete:
-                ()=>{
-                    TweenMax.to(PARTS.Shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: 'center bottom', ease: Bounce.easeOut}, 0.3);
-                }}), 0
-            );
-            animateMsg(msgTitle, TEXT.Title.afterClick);
-            animateMsg(msgBody, TEXT.body.afterClick);
-        }
-        if(timelineButtons.getChildren(true, true, true, 0).length === 0){
-            timelineButtons.add(TweenMax.fromTo('.programming', 0.5, 
-                {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:DIMENSION.SquareLength/10}, 
-                {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, ease:Back.easeInOut}), 0
-            );
-            timelineButtons.add(TweenMax.fromTo('.art',1,
-                {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: DIMENSION.SquareLength/2},
-                {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
-            );
-            timelineButtons.add(TweenMax.fromTo('.resume',1,
-                {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: -DIMENSION.SquareLength/2},
-                {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
-            );        
-        }else{
-            if(!isMenuShown){
-                timelineButtons.clear();
-                let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
-                let tweenVal = Math.random() * (1.02 - 1) + 1;
-
-                timelineButtons.add(TweenMax.fromTo('.btn', 0.4, {scale: 1.1}, 
-                    {opacity:1, scale: 1, transformOrigin:'center center', ease: Back.easeInOut}),0
-                );
-            }
-            isMenuShown = true;
-        }
-        timelineJump.play(0);
-        timelineButtons.play(0);
+    PARTS.SquareGroup.click(()=>{
+        if(jumpTO !== undefined){
+            clearTimeout(jumpTO);
+        } 
+        squareJump();
     });
+}
+
+function squareJump(){
+    if(timelineJump.getChildren(true, true, true, 0).length === 0){
+        //not added, first jump
+        timelineJump.add(TweenMax.fromTo(PARTS.SquareGroup.node, 0.3, { y: 0, scaleX: 0.95, scaleY: 1.05, transformOrigin: 'center bottom'}, 
+        { y: -DIMENSION.SquareLength, scaleX: 1.15, scaleY: 0.85, transformOrigin: 'center bottom', ease: Back.easeInOut, onComplete:
+            ()=>{
+                TweenMax.to(PARTS.SquareGroup.node, 0.8, {y: 0, scaleX:1, scaleY: 1, transformOrigin: 'center bottom', ease: Bounce.easeOut},0.3);
+            }}), 0
+        );
+
+        timelineJump.add(TweenMax.fromTo(PARTS.Shadow.node, 0.3,{scaleX: 0, scaleY: 0, opacity: 1, transformOrigin: 'center bottom'}, 
+        {scaleX: 1.5, scaleY: 1.5, opacity: 1, transformOrigin: 'center bottom', ease: Back.easeInOut, onComplete:
+            ()=>{
+                TweenMax.to(PARTS.Shadow.node, 0.8, {scaleX:0, scaleY:0, transformOrigin: 'center bottom', ease: Bounce.easeOut}, 0.3);
+            }}), 0
+        );
+        animateMsg(msgTitle, TEXT.Title.afterClick);
+        animateMsg(msgBody, TEXT.body.afterClick);
+    }
+    if(timelineButtons.getChildren(true, true, true, 0).length === 0){
+        timelineButtons.add(TweenMax.fromTo('.programming', 0.5, 
+            {scaleX: 0.5, scaleY: 1.25, opacity:0, x:0, y:DIMENSION.SquareLength/10}, 
+            {scaleX:1, scaleY:1, opacity:1, x: 0, y: 0, ease:Back.easeInOut}), 0
+        );
+        timelineButtons.add(TweenMax.fromTo('.art',1,
+            {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: DIMENSION.SquareLength/2},
+            {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
+        );
+        timelineButtons.add(TweenMax.fromTo('.resume',1,
+            {scale: 0.5, skew: 10, rotation: 180, opacity: 0, x: -DIMENSION.SquareLength/2},
+            {scale: 1, skew: 0, rotation: 0, opacity: 1, x: 0, ease: Back.easeInOut}), 0.2
+        );        
+    }else{
+        if(!isMenuShown){
+            timelineButtons.clear();
+            let plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+            let tweenVal = Math.random() * (1.02 - 1) + 1;
+
+            timelineButtons.add(TweenMax.fromTo('.btn', 0.4, {scale: 1.1}, 
+                {opacity:1, scale: 1, transformOrigin:'center center', ease: Back.easeInOut}),0
+            );
+        }
+        isMenuShown = true;
+    }
+    timelineJump.play(0);
+    timelineButtons.play(0);
 }
 
 function animateMenu(){
@@ -302,7 +317,7 @@ function showArt(){
     );
 
     TweenMax.to([PARTS.MoustacheLeft.node, PARTS.MoustacheRight.node], 1,
-        {strokeDashoffset: 0, ease: Power2.easeOut, delay: 0.5}
+        {strokeDashoffset: 0, opacity: 1,ease: Power2.easeOut, delay: 0.5}
     );
     if(!isArtClicked){
         TweenMax.fromTo(PARTS.ArtAcc.node, 0.8, 
@@ -312,7 +327,7 @@ function showArt(){
     }
     isArtClicked = true; 
     redirectLink.attr('href',   linkStr.art);
-    TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Red, ease: Power4.easeInOut});
+    TweenMax.to(redirectLinkButton, 1, {opacity: 1, display: 'block', backgroundColor: COLOR.Red, ease: Power4.easeInOut});
     animateMsg(msgTitle, TEXT.Title.art);
     animateMsg(msgBody, TEXT.body.art);
 }
@@ -325,11 +340,11 @@ function hideArt(){
         );
     
         TweenMax.to(PARTS.MoustacheLeft.node, 0.5,
-            {strokeDashoffset: DIMENSION.MoustacheLeftLength, ease: Power2.easeOut}
+            {strokeDashoffset: DIMENSION.MoustacheLeftLength,opacity: 0, ease: Power2.easeOut}
         );
 
         TweenMax.to(PARTS.MoustacheRight.node, 0.5,
-            {strokeDashoffset: DIMENSION.MoustacheRightLength, ease: Power2.easeOut}
+            {strokeDashoffset: DIMENSION.MoustacheRightLength, opacity: 0, ease: Power2.easeOut}
         );
 
         TweenMax.to(PARTS.ArtAcc.node, 0.5, 
@@ -357,8 +372,8 @@ function showCoding(){
         {fill: COLOR.Green, stroke:COLOR.Green, ease:Power4.easeInOut}
     );
 
-    TweenMax.to([PARTS.LeftGlass.node, PARTS.RightGlass.node, PARTS.GlassHinge.node], 1, 
-        {strokeDashoffset: 0, ease: Power2.easeOut, delay: 0.5}
+    TweenMax.fromTo([PARTS.LeftGlass.node, PARTS.RightGlass.node, PARTS.GlassHinge.node], 1, 
+        {opacity: 0, scale: 0}, {opacity: 1, scale: 1, ease: Back.easeInOut}
     );
     if(!isCodingClicked){
         TweenMax.fromTo(PARTS.CodingAcc.node, 0.8, {y:DIMENSION.SquareLength/6, scaleX: 0.8, scaleY: 1.2}, 
@@ -367,7 +382,7 @@ function showCoding(){
     }
     isCodingClicked = true;
     redirectLink.attr('href',   linkStr.programming);
-    TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Yellow, ease: Power4.easeInOut});
+    TweenMax.to(redirectLinkButton, 1, {opacity: 1, display: 'block', backgroundColor: COLOR.Yellow, ease: Power4.easeInOut});
     animateMsg(msgTitle, TEXT.Title.coding);
     animateMsg(msgBody, TEXT.body.coding);
 }
@@ -379,15 +394,10 @@ function hideCoding(){
             {stroke: COLOR.BlackStroke, fill: 'none', ease: Back.easeInOut}
         );
         
-        TweenMax.to(PARTS.LeftGlass.node, 0.5, 
-            {strokeDashoffset: DIMENSION.LeftGlassLength, ease: Power2.easeOut}
+        TweenMax.fromTo([PARTS.LeftGlass.node, PARTS.RightGlass.node, PARTS.GlassHinge.node] , 0.5, 
+            {opacity: 1, scale: 1}, {opacity: 0, scale: 0, ease: Back.easeInOut}
         );
-        TweenMax.to(PARTS.RightGlass.node, 0.5, 
-            {strokeDashoffset: DIMENSION.RightGlassLength, ease: Power2.easeOut}
-        );
-        TweenMax.to(PARTS.GlassHinge.node, 0.5, 
-            {strokeDashoffset: DIMENSION.GlassHingeLength, ease: Power2.easeOut}
-        );
+
         TweenMax.to(PARTS.CodingAcc.node, 0.5, 
             {y:DIMENSION.SquareLength/6, scaleX: 0.8, opacity: 0, scaleY: 1.2, ease: Back.easeInOut}
         )
@@ -412,7 +422,7 @@ function showExperience(){
         {fill: COLOR.Red, stroke:COLOR.Red, ease:Power4.easeInOut}
     );
     TweenMax.to(PARTS.Tie.node,1, 
-        {strokeDashoffset: 0, ease: Power2.easeOut, delay: 0.5}
+        {strokeDashoffset: 0, opacity: 1, ease: Power2.easeOut, delay: 0.5}
     );
     if(!isResumeClicked){
         TweenMax.fromTo(PARTS.ExperienceAcc.node, 0.8, 
@@ -422,7 +432,7 @@ function showExperience(){
     }
     isResumeClicked = true;
     redirectLink.attr('href',   linkStr.resume);
-    TweenMax.to(redirectLinkButton, 1, {opacity: 1, backgroundColor: COLOR.Green, ease: Power4.easeInOut});
+    TweenMax.to(redirectLinkButton, 1, {opacity: 1, display: 'block', backgroundColor: COLOR.Green, ease: Power4.easeInOut});
     animateMsg(msgTitle, TEXT.Title.resume);
     animateMsg(msgBody, TEXT.body.resume);
 }
@@ -435,7 +445,7 @@ function hideExperience(){
         );
     
         TweenMax.to(PARTS.Tie.node, 0.5, 
-            {strokeDashoffset: DIMENSION.TieLength, ease: Power2.easeOut}
+            {strokeDashoffset: DIMENSION.TieLength, opacity: 0, ease: Power2.easeOut}
         );
     
         TweenMax.to(PARTS.ExperienceAcc.node, 0.5, 

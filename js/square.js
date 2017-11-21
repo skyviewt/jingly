@@ -74,7 +74,8 @@ function makeMoustaches(s){
             stroke:COLOR.Moustache, 
             strokeWidth: DIMENSION.EyeSize / 1.25, 
             strokeLinecap:'round', 
-            strokeMiterlimit:DIMENSION.EyeSize / 1.25
+            strokeMiterlimit:DIMENSION.EyeSize / 1.25,
+            opacity: 0
         });
     DIMENSION.MoustacheLeftLength = PARTS.MoustacheLeft.getTotalLength();
     setStrokeAttributes('MoustacheLeft', true);
@@ -86,7 +87,8 @@ function makeMoustaches(s){
         stroke:COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 1.25, 
         strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 1.25
+        strokeMiterlimit:DIMENSION.EyeSize / 1.25,
+        opacity: 0
     });
     DIMENSION.MoustacheRightLength = PARTS.MoustacheRight.getTotalLength();
     setStrokeAttributes('MoustacheRight', true);
@@ -115,7 +117,8 @@ function makeTie(s,heightScale, color){
         stroke:color? color : COLOR.Moustache, 
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
-        strokeMiterlimit:DIMENSION.EyeSize / 2
+        strokeMiterlimit:DIMENSION.EyeSize / 2,
+        opacity: 0
     });
 
     DIMENSION.TieLength = PARTS.Tie.getTotalLength();
@@ -131,12 +134,8 @@ function makeGlasses(s, color){
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2,
-        opacity: color? 0: 1
+        opacity: 0
     });
-    if(color === undefined){
-        DIMENSION.LeftGlassLength = Math.ceil(PARTS.LeftGlass.getTotalLength());
-        setStrokeAttributes('LeftGlass', true);
-    }
 
     PARTS.RightGlass=s.circle(DIMENSION.RightEyeX, DIMENSION.EyeY, DIMENSION.EyeSize*3.5
     ).attr({
@@ -145,12 +144,8 @@ function makeGlasses(s, color){
         strokeWidth: DIMENSION.EyeSize / 2, 
         strokeLinecap:'round', 
         strokeMiterlimit:DIMENSION.EyeSize / 2,
-        opacity: color? 0: 1
+        opacity: 0,
     });
-    if(color === undefined){
-        DIMENSION.RightGlassLength = Math.ceil(PARTS.RightGlass.getTotalLength());
-        setStrokeAttributes('RightGlass', true);
-    }
 
     PARTS.GlassHinge = s.path('M'+(DIMENSION.LeftEyeX+DIMENSION.EyeSize*4)+','+DIMENSION.EyeY+'Q'+
         DIMENSION.MiddleX+','+(DIMENSION.EyeY-DIMENSION.EyeSize)+' '+
@@ -161,12 +156,8 @@ function makeGlasses(s, color){
         strokeWidth: DIMENSION.EyeSize / 2,
         strokeLinecap:'round',
         strokeMiterlimit:DIMENSION.EyeSize / 2,
-        opacity: color? 0: 1
+        opacity: 0
     });
-    if(color === undefined){
-        DIMENSION.GlassHingeLength = Math.ceil(PARTS.GlassHinge.getTotalLength());
-        setStrokeAttributes('GlassHinge', true);
-    }
 }
 
 function makeWorkerHat(s, heightScale, color) {

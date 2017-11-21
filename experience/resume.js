@@ -15,6 +15,8 @@ let timelineMcgill = new TimelineMax({pause: true});
 let timelineLaronde = new TimelineMax({pause: true});
 let timelineMileEnd = new TimelineMax({pause: true});
 
+let isAnimating = false;
+
 let sliderActiveTag = {
     1: '',
     2: '-ubisoft-club',
@@ -65,41 +67,55 @@ function readyFn( jQuery ) {
     changeTimelinePosition();
 
     PARTS.dot1.click(function(event){
-        TweenMax.to(PARTS.timelineInside, 1, {width: '100%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 1;
-        animateDotChange();
-        animateAccesories();
+        if(!isAnimating){
+            TweenMax.to(PARTS.timelineInside, 1, {width: '100%', ease: Back.easeInOut, delay: 0.3});
+            TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
+                isAnimating = true;
+            }});
+            prevDot = currentDot;
+            currentDot = 1;
+            animateDotChange();
+            animateAccesories();
+        }
     });
 
     PARTS.dot2.click(function(event){
-        TweenMax.to(PARTS.timelineInside, 1, {width: '60%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to(PARTS.SquareGroup.node, 1, {x:event.pageX - DIMENSION.SquareLength, transformOrigin:'center center', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 2;
-        animateDotChange();
-        animateAccesories();
+        if(!isAnimating){
+            TweenMax.to(PARTS.timelineInside, 1, {width: '60%', ease: Back.easeInOut, delay: 0.3});
+            TweenMax.to(PARTS.SquareGroup.node, 1, {x:event.pageX - DIMENSION.SquareLength, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
+                isAnimating = true;
+            }});
+            prevDot = currentDot;
+            currentDot = 2;
+            animateDotChange();
+            animateAccesories();
+        }
     });
 
     PARTS.dot3.click(function(event){
-        
-        TweenMax.to(PARTS.timelineInside, 1, {width: '40%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to( PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 3;
-        animateDotChange();
-        animateAccesories();
+        if(!isAnimating){
+            TweenMax.to(PARTS.timelineInside, 1, {width: '40%', ease: Back.easeInOut, delay: 0.3});
+            TweenMax.to( PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
+                isAnimating = true;
+            }});
+            prevDot = currentDot;
+            currentDot = 3;
+            animateDotChange();
+            animateAccesories();
+        }
     });
 
     PARTS.dot4.click(function(event){
-        
-        TweenMax.to(PARTS.timelineInside, 1, {width: '0%', ease: Back.easeInOut, delay: 0.3});
-        TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut});
-        prevDot = currentDot;
-        currentDot = 4;
-        animateDotChange();
-        animateAccesories(); 
+        if(!isAnimating){
+            TweenMax.to(PARTS.timelineInside, 1, {width: '0%', ease: Back.easeInOut, delay: 0.3});
+            TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
+                isAnimating = true;
+            }});
+            prevDot = currentDot;
+            currentDot = 4;
+            animateDotChange();
+            animateAccesories(); 
+        }
     });
 
     window.addEventListener("orientationchange", function() {
@@ -177,7 +193,7 @@ function hidePrevAccesory() {
         timelineMileEnd.pause(0);
         //experience
         TweenMax.to([PARTS.Tie.node],0.5, 
-            {strokeDashoffset: DIMENSION.TieLength, fill: 'none', ease: Power2.easeOut, onComplete:()=>{
+            {strokeDashoffset: DIMENSION.TieLength, opacity: 0, fill: 'none', ease: Power2.easeOut, onComplete:()=>{
                 showCurrentSlideAndAcc();
             }}
         );
@@ -193,7 +209,7 @@ function changeTimelinePosition(){
         'margin-top': (1.5*DIMENSION.SquareLength)+'px'
     });
 
-    $('.sliders').css({
+    $('.navs').css({
         'margin-top': (-1*DIMENSION.SquareLength)+'px'
     });
 }
@@ -241,7 +257,7 @@ function showCurrentSlideAndAcc() {
         }
         timelineMileEnd.play(0);
         TweenMax.to([PARTS.Tie.node],0.8, 
-            {strokeDashoffset: 0, fill: COLOR.Blue, ease: Power2.easeOut}
+            {strokeDashoffset: 0, opacity: 1, fill: COLOR.Blue, ease: Power2.easeOut}
         );
         toggleSlide();
     }
@@ -269,6 +285,7 @@ function toggleSlide() {
             if(currentDot !== 1) {
                 $('#slider-nav-'+currentDot).toggleClass('hide');
             }
+            isAnimating = false;
         }},0);
         
     }}, 0);
@@ -276,18 +293,19 @@ function toggleSlide() {
 
 function showSection(sectionName){
     // hide previous slide and active nav
-    
-    TweenMax.fromTo('#slider-'+currentDot+sliderActiveTag[currentDot], 0.4, {y: 0, opacity: 1}, {y:100, opacity: 0, ease: Back.easeIn, onComplete: ()=>{
-        
-        toggleSliderNav();
-        // show current slide and active nav
-        TweenMax.fromTo('#slider-'+currentDot+'-'+sectionName, 0.4, {y: -100, opacity: 0}, {y:0, opacity: 1, ease: Back.easeOut, onStart: ()=>{
-            toggleSliderNav(sectionName);
-        } },0); 
-    }},0);
-    
-
-   
+    if(!isAnimating){
+        TweenMax.fromTo('#slider-'+currentDot+sliderActiveTag[currentDot], 0.4, {y: 0, opacity: 1}, {y:100, opacity: 0, ease: Back.easeIn,onStart: ()=>{
+            isAnimating = true;
+        }, onComplete: ()=>{
+            
+            toggleSliderNav();
+            // show current slide and active nav
+            TweenMax.fromTo('#slider-'+currentDot+'-'+sectionName, 0.4, {y: -100, opacity: 0}, {y:0, opacity: 1, ease: Back.easeOut, onStart: ()=>{
+                toggleSliderNav(sectionName);
+                isAnimating = false;
+            } },0); 
+        }},0);
+    }
 }
 
 function toggleSliderNav(sectionName){

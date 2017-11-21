@@ -113,25 +113,14 @@ textarea {
     font-family: "Varela Round", sans-serif;
     text-transform: uppercase;
     font-weight: 700;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-direction: row;
+    align-items: center;
     margin-top: auto;
     margin-bottom: auto;
     margin-left: 20px;
-    -webkit-box-flex: 1;
-        -ms-flex-positive: 1;
-            flex-grow: 1;
-    -webkit-box-pack: space-evenly;
-        -ms-flex-pack: space-evenly;
-            justify-content: space-evenly;
+    flex-grow: 1;
+    justify-content: space-around;
 }
 
 .header-nav.minimized{
@@ -144,15 +133,8 @@ textarea {
     padding: 1vm;
     padding: 1vmin;
     margin-bottom: 20px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
-            justify-content: space-between;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     width: 50px;
     -webkit-transform-origin: center right;
             transform-origin: center right;
@@ -184,16 +166,9 @@ textarea {
     background: transparent;
     -webkit-transition: fill 0.8s;
     transition: fill 0.8s;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    flex-direction: column;
+    align-items: center;
     margin: 0 auto;
     opacity: 0;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -204,8 +179,7 @@ textarea {
 
 .header-btn.logo{
     width: 50px;
-    -ms-flex-negative: 0;
-        flex-shrink: 0;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
@@ -218,12 +192,8 @@ textarea {
 /* ----------used by more than one pages---------- */
 .icon-title{
     text-transform: uppercase;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    align-items: center;
     font-family: 'Ubuntu', sans-serif;
     margin: 1vm;
     margin: 1vmin;
