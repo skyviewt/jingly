@@ -22,7 +22,14 @@ let sliderActiveTag = {
     2: '-ubisoft-club',
     3: '-programming',
     4: '-education'
-}
+};
+
+let sliderNames = {
+    1: [],
+    2: ['-ubisoft-club', '-ubisoft-watchdogs2', '-autodesk', '-intel', '-mcgill'],
+    3: ['-programming', '-art'],
+    4: ['-education','-achievement']
+};
 let s;
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
@@ -67,55 +74,19 @@ function readyFn( jQuery ) {
     changeTimelinePosition();
 
     PARTS.dot1.click(function(event){
-        if(!isAnimating){
-            TweenMax.to(PARTS.timelineInside, 1, {width: '100%', ease: Back.easeInOut, delay: 0.3});
-            TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
-                isAnimating = true;
-            }});
-            prevDot = currentDot;
-            currentDot = 1;
-            animateDotChange();
-            animateAccesories();
-        }
+        changeSlide(1, event);
     });
 
     PARTS.dot2.click(function(event){
-        if(!isAnimating){
-            TweenMax.to(PARTS.timelineInside, 1, {width: '60%', ease: Back.easeInOut, delay: 0.3});
-            TweenMax.to(PARTS.SquareGroup.node, 1, {x:event.pageX - DIMENSION.SquareLength, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
-                isAnimating = true;
-            }});
-            prevDot = currentDot;
-            currentDot = 2;
-            animateDotChange();
-            animateAccesories();
-        }
+        changeSlide(2, event);
     });
 
     PARTS.dot3.click(function(event){
-        if(!isAnimating){
-            TweenMax.to(PARTS.timelineInside, 1, {width: '40%', ease: Back.easeInOut, delay: 0.3});
-            TweenMax.to( PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
-                isAnimating = true;
-            }});
-            prevDot = currentDot;
-            currentDot = 3;
-            animateDotChange();
-            animateAccesories();
-        }
+        changeSlide(3, event);
     });
 
     PARTS.dot4.click(function(event){
-        if(!isAnimating){
-            TweenMax.to(PARTS.timelineInside, 1, {width: '0%', ease: Back.easeInOut, delay: 0.3});
-            TweenMax.to(PARTS.SquareGroup.node, 1, {x: event.pageX - DIMENSION.SquareLength/2, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
-                isAnimating = true;
-            }});
-            prevDot = currentDot;
-            currentDot = 4;
-            animateDotChange();
-            animateAccesories(); 
-        }
+        changeSlide(4, event);
     });
 
     window.addEventListener("orientationchange", function() {
@@ -125,8 +96,73 @@ function readyFn( jQuery ) {
         TweenMax.to( PARTS.SquareGroup.node, 0.5, {x: $(window).height()/5*currentDot - DIMENSION.SquareLength/2});
     }, false);
 
+    $('.article').on('swipeleft', ()=>{
+        if(currentDot !== 1){
+            let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
+            if(currenSectiontIndex !== -1){
+                if( currenSectiontIndex < sliderNames[currentDot].length - 1){
+                    showSection(sliderNames[currentDot][currenSectiontIndex + 1].substr(1));
+                }else{
+                    if(currentDot < 4){
+                        changeSlide(currentDot + 1);
+                    }
+                }
+            }
+        }else {
+            changeSlide(currentDot + 1);
+        }
+    });
+
+    $('.article').on('swiperight', ()=>{
+        if(currentDot !== 1){
+            let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
+            if(currenSectiontIndex !== -1) {
+                if(currenSectiontIndex > 0){
+                    showSection(sliderNames[currentDot][currenSectiontIndex - 1].substr(1));
+                }else{
+                    if(currentDot > 1){
+                        changeSlide(currentDot - 1);
+                    }
+
+                }
+            }
+        }
+    });
 
 }// end of readyFn
+
+function changeSlide(index, event){
+    let timelineWidth = '100%';
+    if(index === 1) {
+        timelineWidth = '100%';
+    }
+    else if(index === 2){
+        timelineWidth = '60%';
+    }
+    else if(index === 3){
+        timelineWidth = '40%';
+    }
+    else {
+        timelineWidth = '0%';
+    }
+    let squarePosition = 0;
+    if(event === undefined){
+        squarePosition = $(window).width() / 5 * index - DIMENSION.SquareLength/2;
+    }else{
+        squarePosition = event.pageX - DIMENSION.SquareLength/2;
+    }
+    
+    if(!isAnimating){
+        TweenMax.to(PARTS.timelineInside, 1, {width: timelineWidth, ease: Back.easeInOut, delay: 0.3});
+        TweenMax.to(PARTS.SquareGroup.node, 1, {x: squarePosition, transformOrigin:'center center', ease: Back.easeInOut, onStart: ()=>{
+            isAnimating = true;
+        }});
+        prevDot = currentDot;
+        currentDot = index;
+        animateDotChange();
+        animateAccesories();
+    }
+}
 
 function makeSquare(isInit){
     

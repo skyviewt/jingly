@@ -124,6 +124,14 @@
         this.ctrlNext.addEventListener( 'click', function() { self._navigate( 'next' ); } );
         this.ctrlClose.addEventListener( 'click', function() { self._closeSlideshow(); } );
 
+        $(this.el.children[1]).on('swiperight', function(){
+            self._navigate( 'prev' );
+        });
+
+        $(this.el.children[1]).on('swipeleft', function(){
+            self._navigate( 'next' );
+        });
+
         // window resize
         window.addEventListener( 'resize', function() { self._resizeHandler(); } );
 

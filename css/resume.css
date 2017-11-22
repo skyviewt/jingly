@@ -321,4 +321,16 @@
         font-size: 12px;
     }
 }
+
+@media(device-width: 768px) and (device-height: 1024px){
+    ::-webkit-scrollbar {
+        -webkit-appearance: none;
+        width: 7px;
+    }
+    ::-webkit-scrollbar-thumb {
+        border-radius: 4px;
+        background-color: #1f2c39;
+        -webkit-box-shadow: 0 0 1px rgb(236, 240, 241);
+    }
+}
     

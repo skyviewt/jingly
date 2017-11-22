@@ -61,6 +61,18 @@ function readyFn( jQuery ) {
             }
         }
     });
+
+    $('.tab-content').on('swipeleft', ()=>{
+        if(currentTab < 4){
+            toggleTab(currentTab + 1);
+        }
+    });
+
+    $('.tab-content').on('swiperight', ()=>{
+        if(currentTab > 1){
+            toggleTab(currentTab - 1);
+        }
+    });
    
 }// end readyFn
 

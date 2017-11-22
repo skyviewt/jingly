@@ -20,7 +20,7 @@ let TEXT = {
         resume: 'Professional'
     },
     body: {
-        afterClick:'I\'m Jing, a programmer with a passion for design, illustration and video games. My past work experiences include Autodesk, McAfee and McGill, currently I am a Generalist Programmer II at Ubisoft Montreal.',
+        afterClick:'I\'m Jing, a programmer passionate about coding, design and video games. My past work experience includes Autodesk, McAfee and McGill, currently I am a Generalist Programmer II at Ubisoft Montreal.',
         art: 'View my artwork collection',
         coding: 'Check out my coding project',
         resume: 'Learn about my experiences'
@@ -92,7 +92,7 @@ function readyFn( jQuery ) {
     });
 
     $('.links').css({
-        'margin-top': (DIMENSION.StartingPnt*1.85 - DIMENSION.SquareLength/1.5)/2 + $('.animsition-overlay button').height() + 'px'
+        'padding-top': DIMENSION.SquareLength/4 - $('.animsition-overlay button').height()/2 + 'px'
     });
     
     //making parts
