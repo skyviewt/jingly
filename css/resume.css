@@ -157,6 +157,7 @@
     display: flex;
     flex-shrink: 0;
     justify-content: space-between;
+    align-items: center;
 }
 
 .project-info .date{
@@ -164,12 +165,20 @@
     font-weight: 300;
     font-style: italic;
     font-size: medium;
+    width: 33%;
+    text-align: right;
 }
 
 .project-info .project-position{
     color: #77818C;
     font-size: larger;
     font-weight: 500;
+    width: 33%;
+}
+
+.project-info .project-name{
+    width: 34%;
+    text-align: center;
 }
 
 .article .experience-bullets{
@@ -222,25 +231,26 @@
 
 #timeline-text {
     width: 100%;
+    display: flex;
+    justify-content: flex-start;
 }
 #timeline-text .timeline-title:nth-child(1){
-    left: 20%;
+    margin-left: 15%;
 }
 
 #timeline-text .timeline-title:nth-child(2){
-    left: 40%;
+    margin-left: calc(10% + 10px);
 }
 
 #timeline-text .timeline-title:nth-child(3){
-    left: 60%;
+    margin-left: 10%;
 }
 
 #timeline-text .timeline-title:nth-child(4){
-    left: 80%;
+    margin-left: 10%;
 }
 
 .timeline-title {
-    position: absolute;
     top: 2vm;
     top: 2vmin;
     line-height: 1;
@@ -249,9 +259,7 @@
     color: #77818C;
     font-weight: 700;
     text-align: center;
-    -webkit-transform:translateX(-50%);
-    transform:translateX(-50%);
-    padding-left: 22px;
+    width: 10%;
 }
 #background-container {
     flex-grow: 0;
@@ -300,6 +308,10 @@
         height: 14px;
     }
 
+    #timeline-text .timeline-title:nth-child(2){
+        margin-left: calc(10% + 7px);
+    }
+
     #timeline .inside{
         height: 4px;
     }
@@ -322,15 +334,9 @@
     }
 }
 
-@media(device-width: 768px) and (device-height: 1024px){
-    ::-webkit-scrollbar {
-        -webkit-appearance: none;
-        width: 7px;
-    }
-    ::-webkit-scrollbar-thumb {
-        border-radius: 4px;
-        background-color: #1f2c39;
-        -webkit-box-shadow: 0 0 1px rgb(236, 240, 241);
+@media only screen and (max-device-width : 320px) {
+    .timeline-title{
+        font-size: 10px;
     }
 }
     

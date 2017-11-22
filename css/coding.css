@@ -6,20 +6,26 @@
 }
 #main-container {
     overflow: hidden;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 #browser-container {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    flex-grow: 2;
+    flex-shrink: 2;
 }
 
 .browser {
     width: 75%;
     border-style: solid;
     border-width: 4px;
-    border-color: #77818C;
+    border-color: #1f2c39;
     background: #FDFFFC;
-    right: 0;
     border-radius: 10px;
     overflow-y: unset;
     margin: 0 auto;
@@ -28,15 +34,15 @@
             transform: scale(1);
     -webkit-transition: all 0.5s;
     transition: all 0.5s;
-
-    position: absolute;
     top: 10%;
-    max-height: calc(95vh - 10%);
+    display: flex;
+    flex-direction: column;
+    height: inherit;
 }
 
 .browser.maximized{
-    width:98%;
-    height: 95%;
+    width:calc(100% - 8px);
+    height: calc(95% - 8px);
     max-height: unset;
     position: absolute;
     top: 0;
@@ -61,16 +67,19 @@
 .dot {
     position: relative;
     display: inline-block;
-    padding: 6px;
+    padding: 1.25vm;
+    padding: 1.25vmin;
     border-radius: 100%;
-    margin-left: 10px;
+    margin-left: 1.5vm;
+    margin-left: 1.5vmin;
     -webkit-transition: padding 0.5s;
     transition: padding 0.5s;
     cursor: pointer;
 }
 
 .dot:hover, .dot:active{
-    padding: 8px;
+    padding: 1.5vm;
+    padding: 1.5vmin;
 }
 
 .dot:nth-child(1){
@@ -92,11 +101,10 @@
 [id^='tabs-content'] {
     padding: 0 2vm 2vm 2vm;
     padding: 0 2vmin 2vmin 2vmin;
-    height: inherit;
     background: #FDFFFC;
     border-radius: 0 0 8px 8px;
-    height: 65vh;
     overflow-y: auto;
+    height: inherit;
 }
 
 .tab-content.maximized {
@@ -118,7 +126,6 @@
 }
 
 .browser-tabs {
-    position: absolute;
     padding-top: 10px;
     text-align: center;
     list-style: none;
@@ -130,14 +137,13 @@
     overflow-x: auto;
     background: #FDFFFC;
     z-index: 1;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
 .browser-tabs:after {
-    position: absolute;
     content: "";
     width: 100%;
-    bottom: 0;
-    left: 0;
     border-bottom: 2px solid #77818C;
     z-index: 1;
 }
@@ -152,6 +158,7 @@
     border-top: 2px solid #77818C;
     border-left: 2px solid #77818C;
     border-right: 2px solid #77818C;
+    border-bottom: 2px solid #77818C;
     margin-right: -2px;
     background: rgb(236, 240, 241);
     border-top-left-radius: 5px;
@@ -166,14 +173,10 @@
 .browser-tabs li.active {
     z-index: 2;
     border-bottom-color: #FDFFFC;
+    border-bottom: 0;
     background: #FDFFFC;
     font-weight: bolder;
     color: #1f2c39;
-}
-
-.cover{
-    width: 100%;
-    height: 40px;
 }
 
 .square {
@@ -509,8 +512,6 @@
 .task-bar{
     width: 100%;
     height: 5%;
-    position: absolute;
-    bottom: 0;
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -558,6 +559,7 @@
 }
 
 #window-name{
+    margin: 0 auto;
     font-family: 'Ubuntu', sans-serif;
     font-weight: lighter;
 }
@@ -727,5 +729,15 @@
     }
     .grid-wrap{
         font-size: 11px;
+    }
+    .dot {
+        padding: 2vm;
+        padding: 2vmin;
+        margin-left: 1.5vm;
+        margin-left: 1.5vmin;
+    }
+    .dot:hover, .dot:active{
+        padding: 2.25vm;
+        padding: 2.25vmin;
     }
 }

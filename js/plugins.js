@@ -19,9 +19,7 @@
         if (!console[method]) {
             console[method] = noop;
         }
-    }
-
-    
+    } 
     
     var docElem = window.document.documentElement,
         transEndEventNames = {

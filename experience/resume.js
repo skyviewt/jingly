@@ -33,7 +33,7 @@ let sliderNames = {
 let s;
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
-
+    $.mobile.loading().hide();
     // get background svg
     let svgUrl = "../experience/experience.svg";
     
@@ -96,40 +96,82 @@ function readyFn( jQuery ) {
         TweenMax.to( PARTS.SquareGroup.node, 0.5, {x: $(window).height()/5*currentDot - DIMENSION.SquareLength/2});
     }, false);
 
-    $('.article').on('swipeleft', ()=>{
-        if(currentDot !== 1){
-            let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
-            if(currenSectiontIndex !== -1){
-                if( currenSectiontIndex < sliderNames[currentDot].length - 1){
-                    showSection(sliderNames[currentDot][currenSectiontIndex + 1].substr(1));
-                }else{
-                    if(currentDot < 4){
-                        changeSlide(currentDot + 1);
-                    }
+    $( document ).on( 'keydown', function( event ) {
+
+        let keyCode = event.keyCode || event.which;
+
+        switch (keyCode) {
+            case 37:
+                if(currentDot > 1){
+                    changeSlide(currentDot - 1);
                 }
-            }
-        }else {
-            changeSlide(currentDot + 1);
+                break;
+            case 39:
+                if(currentDot < 4){
+                    changeSlide(currentDot + 1);
+                }
+                break;
+            case 38:
+            // up
+                let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
+                if(currenSectiontIndex !== -1 && currenSectiontIndex > 0){
+                    showSection(sliderNames[currentDot][currenSectiontIndex - 1].substr(1));
+                }
+                break;
+            case 40:
+            //down
+                let currenSectiontIndex1 = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
+                if(currenSectiontIndex1 !== -1 && currenSectiontIndex1 < sliderNames[currentDot].length - 1){
+                    showSection(sliderNames[currentDot][currenSectiontIndex1 + 1].substr(1));
+                }
+                break;
+
         }
+        
+    } );
+
+    $('.article').on('swipeleft', ()=>{
+        fowardMotion();
     });
 
     $('.article').on('swiperight', ()=>{
-        if(currentDot !== 1){
-            let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
-            if(currenSectiontIndex !== -1) {
-                if(currenSectiontIndex > 0){
-                    showSection(sliderNames[currentDot][currenSectiontIndex - 1].substr(1));
-                }else{
-                    if(currentDot > 1){
-                        changeSlide(currentDot - 1);
-                    }
-
-                }
-            }
-        }
+        previousMotion();
     });
 
 }// end of readyFn
+
+function previousMotion(){
+    if(currentDot !== 1){
+        let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
+        if(currenSectiontIndex !== -1) {
+            if(currenSectiontIndex > 0){
+                showSection(sliderNames[currentDot][currenSectiontIndex - 1].substr(1));
+            }else{
+                if(currentDot > 1){
+                    changeSlide(currentDot - 1);
+                }
+
+            }
+        }
+    }
+}
+
+function fowardMotion(){
+    if(currentDot !== 1){
+        let currenSectiontIndex = $.inArray(sliderActiveTag[currentDot], sliderNames[currentDot]);
+        if(currenSectiontIndex !== -1){
+            if( currenSectiontIndex < sliderNames[currentDot].length - 1){
+                showSection(sliderNames[currentDot][currenSectiontIndex + 1].substr(1));
+            }else{
+                if(currentDot < 4){
+                    changeSlide(currentDot + 1);
+                }
+            }
+        }
+    }else {
+        changeSlide(currentDot + 1);
+    }
+}
 
 function changeSlide(index, event){
     let timelineWidth = '100%';
@@ -147,7 +189,7 @@ function changeSlide(index, event){
     }
     let squarePosition = 0;
     if(event === undefined){
-        squarePosition = $(window).width() / 5 * index - DIMENSION.SquareLength/2;
+        squarePosition = $(window).width() / 5 * index - DIMENSION.SquareLength/2 + ($(window).width() < 760 ? 7 : 10);
     }else{
         squarePosition = event.pageX - DIMENSION.SquareLength/2;
     }
@@ -242,7 +284,8 @@ function hidePrevAccesory() {
 
 function changeTimelinePosition(){
     $('#timeline-text').css({
-        'margin-top': (1.5*DIMENSION.SquareLength)+'px'
+        'margin-top': (1.25*DIMENSION.SquareLength)+'px',
+        'margin-bottom': (0.45*DIMENSION.SquareLength)+'px'
     });
 
     $('.navs').css({

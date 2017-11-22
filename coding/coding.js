@@ -5,6 +5,7 @@ let isMaximized = false;
 let windowNameArray = ['Professional', 'Internships', 'Academic', 'Personal'];
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
+    $.mobile.loading().hide();
     $('.animsition-overlay').animsition({
         inClass: 'overlay-slide-in-top',
         outClass: 'overlay-slide-out-top',
@@ -115,7 +116,7 @@ function minimize(){
 
 function restore(){
     TweenMax.to('.browser', 0.2, {y: '0%', skewX: 0, scale: 1, opacity: 1, ease: Power2.easeInOut, onStart: ()=>{
-        $('.browser').css({display: 'block'});
+        $('.browser').css({display: 'flex'});
     }});
     TweenMax.to('#minimized-window', 0.2, {width: '0%', opacity: 0, ease: Power2.easeInOut});   
 }

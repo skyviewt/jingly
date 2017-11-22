@@ -1,6 +1,7 @@
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
     
+    $.mobile.loading().hide();
     $(".animsition-overlay").animsition({
         inClass: 'overlay-slide-in-top',
         outClass: 'overlay-slide-out-top',
@@ -25,6 +26,7 @@ function readyFn( jQuery ) {
     });
 
     new CBPGridGallery( document.getElementById( 'grid-gallery' ),  {isShowThumb: true} );
+
 }
 
 $( document ).ready( readyFn );
