@@ -6,6 +6,10 @@ let windowNameArray = ['Professional', 'Internships', 'Academic', 'Personal'];
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn( jQuery ) {
     $.mobile.loading().hide();
+    $('.lazy').Lazy({
+        scrollDirection: 'vertical',
+        effect: 'fadeIn',
+    });
     $('.animsition-overlay').animsition({
         inClass: 'overlay-slide-in-top',
         outClass: 'overlay-slide-out-top',
