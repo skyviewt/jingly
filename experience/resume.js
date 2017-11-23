@@ -128,7 +128,7 @@ function readyFn( jQuery ) {
 
         }
         
-    } );
+    });
 
     $('.article').on('swipeleft', ()=>{
         fowardMotion();

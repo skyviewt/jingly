@@ -74,6 +74,27 @@ function readyFn( jQuery ) {
             toggleTab(currentTab - 1);
         }
     });
+
+    $( document ).on( 'keydown', function( event ) {
+        
+        let keyCode = event.keyCode || event.which;
+
+        switch (keyCode) {
+            case 37:
+            //left
+            if(currentTab > 1){
+                toggleTab(currentTab - 1);
+            }
+             break;
+            case 39:
+            //right
+            if(currentTab < 4){
+                toggleTab(currentTab + 1);
+            }
+            break;
+        }
+        
+    });
    
 }// end readyFn
 
@@ -93,6 +114,7 @@ function toggleTab(index){
             $('#tabs-content-'+currentTab+', #tabs-content-'+index).toggleClass('maximized');
         }
         currentTab = index;
+        $(".browser-tabs").animate({scrollLeft: $('#tab-'+index).offset().left - $('.browser-tabs').offset().left}, 500);
     }
 }
 

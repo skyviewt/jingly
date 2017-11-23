@@ -5,8 +5,8 @@ function readyFn( jQuery ) {
     $(".animsition-overlay").animsition({
         inClass: 'overlay-slide-in-top',
         outClass: 'overlay-slide-out-top',
-        inDuration: 1000,
-        outDuration: 500,
+        inDuration: 100,
+        outDuration: 100,
         linkElement: '.animsition-link',
         // e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
         loading: true,
