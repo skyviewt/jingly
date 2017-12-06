@@ -3,14 +3,15 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
-        <meta name="description" content="">
+        <title>Jingly.me</title>
+        <meta name="description" content="Jingly, a programmer/illustrator/creator's personal website">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/animsition.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/resume.css">
         <script src="../js/vendor/modernizr-2.8.3.min.js"></script>
@@ -28,7 +29,7 @@
             <div class="timeline-container">
                 <div id="timeline-text">
                     <div class="timeline-title"></div>
-                    <div class="timeline-title">Work Experiences</div>
+                    <div class="timeline-title">Work Experience</div>
                     <div class="timeline-title">Skill Sets</div>
                     <div class="timeline-title">Education & Achievements</div>
                 </div>
@@ -74,7 +75,11 @@
                     <h3 class="icon-title">Let's go!</h3>
                     <div class="info-content">
                         <p>Follow my journey of gaining education, work experiences and skill by a ride through my hometown - the city of Montréal.</p>
-                        <p><i>Naviagte with your keyboard, mouse click or swipe!</i></p>
+                        <p><i>Navigate with your keyboard &nbsp;
+                            <i class="fa fa-arrows" aria-hidden="true"></i> &nbsp; mouse click &nbsp; 
+                            <i class="fa fa-mouse-pointer" aria-hidden="true"></i> &nbsp; or swipe &nbsp;
+                            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                            <i class="fa fa-chevron-right" aria-hidden="true"></i>!</i></p>
                     </div>
                 </div>
 
@@ -91,15 +96,12 @@
                             <div class="short-description">
                                 Ubisoft Club is a centralized reward system for all Ubisoft titles to manage in-game rewards, challenges and actions, as well as tracking personal and friends’ activities and news.
                             </div>
-                            <ul class="experience-bullets no-overflow">
-                                <li>Front-end app development with Angular1.5, Ionic and Cordova stack</li>
-                                <li>Implemented a Gaming AI Assistant <i>SAM</i></li>
-                                <li>Implemented user profile, in-game challenges, stats and ranking systems</li>
-                                <li>Designed and implemented error handling and data refresh architecture, offline experience and session renewal</li>
-                                <li>Worked on iOS native project with Objective-C and Xcode 8</li>
-                                <li>Wrote build machine automation scripts and various helper scripts in Python</li>
-                                <li>Implemented various tools such as challenge tracking and progression with React+Flux, game economy and config management with angular in TypeScript</li>
-                                <li>Implemented prototypes of project in different frameworks such as angular2 and React + Flux to analyse performance gain and new technologies</li>
+                            <ul class="experience-bullets">
+                                <li>Led major client side feature architecture and implementations for Ubisoft Club mobile app launch and updates. 2 million+ downloads, 2400+ daily active users, 4.3 and 4.1 ratings on App Store and Google Play.</li>
+                                <li>Features included: AI Personal Gaming Assistant with native text to speech; user profile, in-game challenges, player leaderboard; error handling and data refresh. Built with AngularJS, Ionic and Cordova stack.</li>
+                                <li>Worked on iOS and android hybrid components with Objective-C in Xcode and Java in Android Studio.</li>
+                                <li> Facilitated internal and testing processes by automating common tasks in game design and testing pipelines with React + Flux and Angular.</li>
+                                <li>Demonstrated with functional prototype of the mobile app project that migrating framework to Angular2 or React + Flux will result in 93% and 43% performance increase.</li>
                             </ul>
                         </div>
                     </div>
@@ -113,11 +115,12 @@
                             <a class="project-name" target="_blank" href="https://www.ubisoft.com/en-us/game/watch-dogs-2/">Watch Dogs 2</a>
                             <div class="date">May 2015 - Aug 2015</div>
                         </div>
-
-                        <ul class="experience-bullets">
-                            <li>Worked on In-game online backend components and web services with C++, Python and MySQL</li>
-                            <li>Implemented web tools for in game geo-location tracking, session-matching and in game configuration commands, client side with OpenLayers 3 map APIs, Jinja2 for Python, backend in Python</li>
-                        </ul>
+                        <div class="overflow">
+                            <ul class="experience-bullets">
+                                <li>Worked on In-game online back-end components and web services with C++, Python and MySQL.</li>
+                                <li>Implemented web tools for in game geo-location tracking, session-matching and configuration commands, client side with OpenLayers 3 map APIs, Jinja2, backend in Python.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -129,12 +132,11 @@
                             <a class="project-name" target="_blank" href="https://www.autodesk.com/products/flame/overview">Flame Utility</a>
                             <div class="date">Jan 2015 – April 2015</div>
                         </div>
-                        
-                        <ul class="experience-bullets">
-                            <li>Worked on C/C++, FLEX and QT programming and fixed defects under Linux environment on a large-scale system with custom tree data structure for video processing and compositing</li>
-                            <li>Implemented additional new features from consumer requests</li>
-                            <li>Improved usability with 20 bug fixes and 3 feature implementations</li>
-                        </ul>
+                        <div class="overflow">
+                            <ul class="experience-bullets">
+                                <li>Improved usability of a video processing and compositing software with 20 bug fixes and 3 features in C/C++, FLEX and QT programming under Linux environment.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -146,15 +148,13 @@
                             <a class="project-name" target="_blank" href="https://home.mcafee.com/Secure/CloudAV/HowItWorks.html">Cloud AV</a>
                             <div class="date">May 2014 – Aug 2014</div>
                         </div>
-                        
-                        <ul class="experience-bullets">
-                            <li>Worked on C++ programming with Visual Studio for Windows Session Manager and Alert Manager</li>
-                            <li>Implemented UI components and functionalities such as Tray Icon and Alert with WIN32 and MFC programming</li>
-                            <li>Integrated Alert and Message Bus connection</li>
-                            <li>Designed and implemented cross-platform web/mobile prototype UI with Cordova, Ionic and Angularjs, as well as the Alpha Release Site</li>
-                            <li>Wrote Installer scripts with NSIS</li>
-                            <li>Wrote unit tests for all relevant functions with Google Mocks</li>
-                        </ul>
+                        <div class="overflow">
+                            <ul class="experience-bullets">
+                                <li>Implemented alert, message bus and tray icon of the prototype's Windows application with WIN32 and MFC.
+                                <li>Designed and implemented cross-platform web/mobile prototype UI with Cordova, Ionic and Angularjs, as well as the Alpha Release Site.</li>
+                                <li>Wrote Installer scripts with NSIS.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -166,34 +166,39 @@
                             <a class="project-name" target="_blank" href="http://www.cs.mcgill.ca/">cs.mcgill.ca</a>
                             <div class="date">2013 – 2014</div>
                         </div>
-                        
-                        <ul class="experience-bullets">
-                            <li>Reconstructed McGill University’s CS Website, Back-end in Django + Python, front-end with HTML5, CSS3, JS+JQuery, Bootstrap3</li>
-                            <li>Designed and illustrated all illustrations and logo using Photoshop and Illustrator</li>
-                            <li>Performed IT tasks & system troubleshooting, website maintenance, etc.</li>
-                        </ul>
+                        <div class="overflow">
+                            <ul class="experience-bullets">
+                                <li>Reconstructed McGill University’s CS Website using maintainable and up-to-date stack, back-end in Django, front-end with HTML5, CSS3, JS+JQuery, Bootstrap3.</li>
+                                <li>Designed and illustrated all illustrations and logo using Photoshop and Illustrator.</li>
+                                <li>Performed IT tasks & system troubleshooting, website maintenance, etc.</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
                 <div class="article hide" id="slider-3-programming">
                     <h3 class="icon-title programming">Programming</h3>
                     <div class="info-content">
-                        <ul class="experience-bullets">
-                            <li>Proficient: C, C++, Python, Java, HTML5+CSS3+JavaScript & Popular frameworks and libraries (Angular, React, JQuery)</li>
-                            <li>Intermediate: C#, SML, PHP</li>
-                            <li>Concepts and paradigms: Object Oriented Programming, Functional Programming, UML, programming design patterns, Database relational languages</li>
-                            <li>Excellent debugging skills and ability to learn quickly validated by managers and team members</li>
-                        </ul>
+                        <div class="overflow">
+                            <ul class="experience-bullets">
+                                <li>Proficient: C, C++, Python, Java, HTML5+CSS3+JavaScript & Popular frameworks and libraries (Angular, React, JQuery)</li>
+                                <li>Intermediate: C#, SML, PHP</li>
+                                <li>Concepts and paradigms: Object Oriented Programming, Functional Programming, UML, programming design patterns, Database relational languages</li>
+                                <li>Excellent debugging skills and ability to learn quickly validated by managers and team members</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="article hide" id="slider-3-art">
                     <h3 class="icon-title art">art</h3>
                     <div class="info-content">
-                        <ul class="experience-bullets">
-                            <li>Adobe Illustrator & Photoshop, Paint Tool SAI, Autodesk 3Ds max & AutoCAD, Unity3D</li>
-                            <li>UX/UI design</li>
-                            <li>Concept art and digital portrait</li>
-                        </ul>
+                        <div class=" overflow">
+                            <ul class="experience-bullets">
+                                <li>Adobe Illustrator & Photoshop, Paint Tool SAI, Autodesk 3Ds max & AutoCAD, Unity3D</li>
+                                <li>UX/UI design</li>
+                                <li>Concept art and digital portrait</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -206,10 +211,12 @@
                             <div class="date">Jan 2012 – Dec 2015</div>
                         </div>
                         
-                        <ul class="experience-bullets">
-                            <li>Computer Science – Internship Program, Bachelor of Science</li>
-                            <li>CGPA: 3.54/4.0</li>
-                        </ul>
+                        <div class=" overflow">
+                            <ul class="experience-bullets">
+                                <li>Computer Science – Internship Program, Bachelor of Science</li>
+                                <li>CGPA: 3.54/4.0</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="article hide" id="slider-4-achievement">
@@ -220,7 +227,7 @@
                             <a class="project-name" target="_blank" href="https://montreal.ubisoft.com/en/game-lab-competition/">Ubisoft Game Lab Academia Competition</a>
                             <div class="date">April 2014</div>
                         </div>
-                        <ul class="experience-bullets no-overflow">
+                        <ul class="experience-bullets">
                             <li>Nominated for: Best prototype, Best Marketing, Best Presentation & Best Artistic Direction</li>
                             <li>UI+HUD design & logic using Unity3D C# scripting</li>
                         </ul>
@@ -237,7 +244,7 @@
                         <div class="project-info">
                             <div class="project-position">Tutor & TA</div>
                         </div>
-                        <ul class="experience-bullets no-overflow">
+                        <ul class="experience-bullets">
                             <li>Private and drop-in tutoring for Math & Science Centre in mathematics, physics and chemistry</li>
                             <li>In-class tutoring and TA for Physics mechanics class</li>
                         </ul>
@@ -245,14 +252,14 @@
                         <div class="project-info">
                             <div class="project-position">Tutor & TA</div>
                         </div>
-                        <ul class="experience-bullets no-overflow">
+                        <ul class="experience-bullets">
                             <li>Private and drop-in tutoring for Math & Science Centre in mathematics, physics and chemistry</li>
                             <li>In-class tutoring and TA for Physics mechanics class</li>
                         </ul>
                         <div class="project-info">
                             <div class="project-position">Honour Roll</div>
                         </div>
-                        <ul class="experience-bullets no-overflow">
+                        <ul class="experience-bullets">
                             <li>Honour Roll for Winter 2010, Fall 2010, Winter 2011</li>
                         </ul>
                         <hr>
@@ -261,7 +268,7 @@
                             <a class="project-name" target="_blank">CEGEP Dawson College</a>
                             <div class="date">2006 - 2009</div>
                         </div>
-                        <ul class="experience-bullets no-overflow">
+                        <ul class="experience-bullets">
                             <li>Graduation Honours List 2008-2009</li>
                             <li>Honour List for Fall 2006, Winter 2006, Fall 2007, Winter 2007</li>
                         </ul>

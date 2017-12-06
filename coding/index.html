@@ -11,6 +11,7 @@
         <!-- Place favicon.ico in the root directory -->
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/animsition.min.css">
+        <link rel="stylesheet" href="../css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/gallery.css">
         <link rel="stylesheet" href="../css/coding.css">
@@ -23,7 +24,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <svg xmlns="http://www.w3.org/2000/svg" class="animsition-overlay" data-animsition-overlay="true" id="desktop-background" viewBox="0 0 366 187.62">
+        <svg xmlns="http://www.w3.org/2000/svg" id="desktop-background" viewBox="0 0 366 187.62">
             <defs>
                 <style>
                     .cls-1{fill:url(#linear-gradient);}.cls-2{fill:#fff;}.cls-3{fill:#ffd39a;}.cls-4{fill:#e25220;}.cls-5{fill:#1f2c39;}.cls-6{fill:#ff9f1c;}.cls-7{fill:#e25220;}
@@ -82,15 +83,15 @@
 
         </svg>
         <div id="main-container">
-            <div class="header yellow small animsition-overlay" data-animsition-overlay="true">
+            <div class="header yellow small">
             </div>
 
             <div id="browser-container">
-                <div class="browser animsition-overlay" data-animsition-overlay="true">
+                <div class="browser">
                     <div class="top-bar">
-                        <div class="dot" onclick="closeBrowser()"></div>
-                        <div class="dot" onclick="minimize()"></div>
-                        <div class="dot" onclick="maximize()" ></div>
+                        <div class="dot" onclick="closeBrowser()"><i class="fa fa-times" aria-hidden="true"></i></div>
+                        <div class="dot" onclick="minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></div>
+                        <div class="dot" onclick="maximize()" ><i class="fa fa-window-maximize" aria-hidden="true"></i></div>
                     </div>
                     <ul class="browser-tabs">
                         <li class="tab-link active" id="tab-1" onclick="toggleTab(1)">Professional</li>
@@ -104,11 +105,11 @@
                         <div class="icon-title ubisoft">Ubisoft</div>
                         <div class="project-group">
                             <div class="app-icon-container">
-                                <span class="project-title">Ubisoft Club</span>
                                 <img class="app-icon lazy" data-src="../img/coding/ubisoft-club.jpg"/>
                             </div>
                             <div class="short-description">
-                                Front-end app development with AngularJS, Ionic, Grunt and Cordova stack. Implemented and designed archtecture for major UI features.
+                                <p class="tag">Ubisoft Club</p>
+                                <p>Front-end app development with AngularJS, Ionic, Grunt and Cordova stack. Implemented and designed archtecture for major UI features.</p>
                             </div>
                         </div>
                         <div class="links-container">
@@ -125,7 +126,8 @@
                             <div class="project-preview watch-dogs2" onclick="togglePreview('watch-dogs2')"></div>
                         
                             <div class="short-description">
-                                Webtool to track in game stats, positions and configurations, sending commands and configs back in game. front-end using Jinja2 in Python, back-end in Python and C# and UbiAdmin REST APIs. Map API using OpenLayers 3. In game developement in C++
+                                <p>Webtool to track in game stats, positions and configurations, sending commands and configs back in game.</p>
+                                <p>front-end using Jinja2 in Python, back-end in Python and C# and UbiAdmin REST APIs. Map API using OpenLayers 3. In game developement in C++.</p>
                             </div>
                         </div>
                         <br>
@@ -135,7 +137,7 @@
                             <div class="video-container">
                                 <a class="project-name" target="_blank" href="https://www.autodesk.com/products/flame/overview">Flame Utility</a>
                                 <video width="100%" height="100%" controls>
-                                    <source class="lazy" data-src="autodesk.mp4" type="video/mp4">
+                                    <source src="autodesk.mp4" type="video/mp4">
                                     Your browser does not support HTML5 video.
                                 </video>
                             </div>
@@ -153,8 +155,7 @@
                             <div class="project-preview mcafee" onclick="togglePreview('mcafee')"></div>
 
                             <div class="short-description">
-                                    A new Light-weight Anti-malware product under development from Intel Security. Worked on Cross-platform Prototype UI with ANgularjs and Cordova webstack.
-                                    Also worked on Windows Session Manager and Alert Manager, other UI components such as Tray Icon and Alert Window's components
+                                <p>A new Light-weight Anti-malware product under development from Intel Security. Worked on Cross-platform Prototype UI with ANgularjs and Cordova webstack.</p>
                             </div>
                         </div>
                     </div>
@@ -163,13 +164,14 @@
                         <div class="icon-title mcgill">McGill</div>
                         <div class="project-group">
                             <a target="_blank" href="http://www.cs.mcgill.ca/" class="app-icon-container large">
-                                <span class="project-title">McGIll CS Department Website</span>
+                                <span class="project-title">View Website</span>
                                 <img class="app-icon lazy" data-src="../img/coding/mcgill-cs-logo.png"/>
                             </a>
                             
                             <div class="short-description">
-                                Web Developement for revamping McGill University Computer Science Website, Providing Information regarding Students, Courses, Research Area, Faculty & Lab, etc. Constructed various forms & infomation registration for falculty administrative purposes.
-                                Framework Using Django + Boostrap 3. Logo and all illustrations with Adobe Illustrator.
+                                <p class="tag">McGIll CS Department Website</p>
+                                <p>Web Developement for revamping McGill University Computer Science Website, Providing Information regarding Students, Courses, Research Area, Faculty & Lab, etc. Constructed various forms & infomation registration for falculty administrative purposes.</p>
+                                <p>Framework Using Django + Boostrap 3. Logo and all illustrations with Adobe Illustrator.</p>
                             </div>
                         </div>
                         <div id="grid-gallery" class="grid-gallery">
@@ -254,7 +256,7 @@
                             <div class="video-container">
                                 <div class="project-name">Unity3D Game project: Medieval Warfare</div>
                                 <video width="100%" height="100%" controls>
-                                    <source class="lazy" data-src="game.mp4" type="video/mp4">
+                                    <source src="game.mp4" type="video/mp4">
                                     Your browser does not support HTML5 video.
                                 </video>
                             </div>
@@ -269,17 +271,33 @@
                         <div class="icon-title ubisoft">Ubisoft Academia Game Lab Competition 2014</div>
                         <div class="project-group">
                             <a class="app-icon-container large" target="_blank" href="../gooms">
-                                <span class="project-title">GOOMS! (Get Out Of My Space!) website</span>
+                                <span class="project-title">View Website</span>
                                 <img class="app-icon lazy" data-src="../img/coding/gooms.png"/>
                             </a>
                             <div class="short-description">
+                                <p class="tag">GOOMS! (Get Out Of My Space!)</p>
                                 <strong>Nominated for: Best Presentation, Best Artistic Direction, Best Marketing and Best Prototype</strong>
                                 <br/>
                                 Colorful Interplanetary battle, explosive and desorienting, show your agility, sense of strategy and decision! UI+HUD design & logic using C# and JavaScript With Unity. Click <a target="_blank" href="https://montreal.ubisoft.com/en/game-lab-competition/">here</a> to see the details about this competition.
                             </div>
                         </div>
+                        <br>
+                        <div class="icon-title programming">Personal Project</div>
+                        <div class="project-group">
+
+                            <a class="app-icon-container large" target="_blank" href="http://hearthbuilder.shaohanghe.com">
+                            <span class="project-title">View Website</span>
+                            <img class="app-icon lazy" data-src="../img/coding/hearthbuilder.png"/>
+                            </a>
+                            <div class="short-description">
+                                <p class="tag">HearthBuilder - 2014</p>
+                                <p>HearthBuilder is an helper app intended to help players of the popular online card game Hearthstone: Heroes of Warcraft towards the Arena Mode.</p>
+                                <p>It allows users to make guided choice on deck building with help of the AI. The scores of cards are calculated based on mana curve, card statistics and a preselected tier list. Supports URL perssistance that could allow sharing and modifying of the current deck at any point. Registered user can also save their Arena deck and track its stats.</p>
+                                <p>Frontend using Angular.js, backend PHP with CodeIgniter, MySQL with PHPMyAdmin.</p>
+                            </div>
+
+                        </div>
                     </div>
-                    
                 </div>
 
 
@@ -313,12 +331,13 @@
 
             </div>
 
-            <div class="task-bar animsition-overlay" data-animsition-overlay="true">
+            <div class="task-bar">
                 <div class="start-button" onclick="toggleMenu()">
-                    START 
+                    <i class="fa fa-windows" aria-hidden="true"></i>
                 </div>
 
                 <div id="minimized-window" onclick="restore()">
+                    <i class="fa fa-window-restore" aria-hidden="true"></i>
                     <div id="window-name">Professional</div>
                 </div>
             </div>

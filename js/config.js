@@ -1,4 +1,4 @@
-let COLOR = {
+var COLOR = {
     'BlackStroke': '#1f2c39',
     'BlobFill': 'rgb(236, 240, 241)',
     'Red': '#E71D36',

@@ -10,19 +10,40 @@
    Base styles: opinionated defaults
    ========================================================================== */
 
-   html {
+html {
     color: #222;
     font-size: 1em;
     line-height: 1.4;
     background-color: #FDFFFC;
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 html.touch body {
-    overflow:hidden;
-}
-
-body{
     overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
 }
 
 a:visited{
@@ -225,7 +246,6 @@ textarea {
     align-items: center;
     margin: 0 auto;
     opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 }
 .header-btn:not(.logo) svg{
     width: 40px;
@@ -338,7 +358,7 @@ textarea {
 .project-name{
     color: #005499;
     font-weight: 500;
-    font-size: large;
+    font-size: larger;
 }
 
 /* Smartphones (portrait and landscape) ----------- */

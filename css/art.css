@@ -1,7 +1,9 @@
 
 html.touch body {
 	overflow: auto;
+	position: relative;
 }
-body{
+html, body{
 	overflow: auto;
+	position: relative;
 }

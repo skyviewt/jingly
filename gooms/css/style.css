@@ -1,13 +1,13 @@
 @charset 'UTF-8';
 @import url('http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300italic,400,600');
-@import url('font-awesome.min.css');
+
 /*********************************************************************************/
 /* Basic                                                                         */
 /*********************************************************************************/
 
 	body
 	{
-		background-image:		url('images/Stardust1.png');
+		background-image:		url('./images/Stardust1.png');
 		background-repeat:		repeat,								no-repeat;
 		background-size:		auto,								cover;
 		background-position: 	top left,							center 0;
@@ -583,9 +583,11 @@
 				position: absolute;
 				left: 50%;
 				top: -4.5em;
-				margin-left: -45px;
 				margin-top: -33px;
-				background: url('images/orbits.svg') no-repeat;
+				margin-left: -45px;
+				margin-bottom: -33px;
+				background: url('./images/orbits.svg') no-repeat;
+				background-size: contain;
 			}
 		
 			.box :last-child
@@ -858,7 +860,7 @@
 				bottom: -4.5em;
 				margin-left: -45px;
 				margin-bottom: -33px;
-				background: url('images/orbits.svg') no-repeat;
+				background: url('./images/orbits.svg') no-repeat;
 			}
 	
 /*********************************************************************************/
@@ -871,7 +873,7 @@
 		color: #fff;
 		text-shadow: 0 0 0.5px rgba(255,255,255,0.25);
 		text-align: center;
-		background: white url('images/MenuCharacter.png') bottom center no-repeat;
+		background: white url('./images/MenuCharacter.png') bottom center no-repeat;
 		padding: 20em 0 0em 0;
 		margin: 0;
 		background-size: 100% auto;
@@ -879,7 +881,7 @@
 		#banner #bannertext
 		{
 			background-color: rgba(31, 29, 23, 0.36);
-			padding-bottom: 1.25em;
+			padding: 1.25em;
 		}
 
 		#bannertext span
@@ -995,7 +997,7 @@
 		{
 			width: 48px;
 			height: 48px;
-			background: url('images/loader.gif');
+			background: url('./images/loader.gif');
 			position: absolute;
 			top: 50%;
 			left: 50%;
@@ -1041,7 +1043,7 @@
 				position: absolute;
 				width: 96px;
 				height: 64px;
-				background: url('images/poptrox-nav.svg');
+				background: url('./images/poptrox-nav.svg');
 				top: -moz-calc(50% - 1.5em);
 				top: -webkit-calc(50% - 1.5em);
 				top: -o-calc(50% - 1.5em);
@@ -1122,7 +1124,7 @@
 				height: 40px;
 				border-radius: 100%;
 				box-shadow: inset 0 0 0 1px #fff;
-				background: rgba(255,255,255,0.1) url('images/poptrox-closer.svg') center center;
+				background: rgba(255,255,255,0.1) url('./images/poptrox-closer.svg') center center;
 				color: #fff !important;
 				-moz-transition: background-color 0.5s ease-in-out;
 				-webkit-transition: background-color 0.5s ease-in-out;
