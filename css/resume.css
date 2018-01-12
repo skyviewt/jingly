@@ -42,7 +42,8 @@
  #timeline .inside {
     position: absolute;
     height: 10px;
-    background-color: #FDFFFC;
+    background-color: #eff2f3;
+    border-radius: 5vmin 0 0 5vmin;
     width: 100%;
     top: 2px;
     right: 0;
@@ -218,7 +219,7 @@
     transition: all 0.2s;
 }
 .slider-nav .icon-title.active {
-    background:#c6c7cb;
+    background:#2EC4B6;
     color: #FDFFFC;
     border-radius: 10px;
     font-weight: 500;

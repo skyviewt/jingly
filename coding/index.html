@@ -24,10 +24,10 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <svg xmlns="http://www.w3.org/2000/svg" id="desktop-background" viewBox="0 0 366 187.62">
+        <svg xmlns="http://www.w3.org/2000/svg" class="animsition-overlay" data-animsition-overlay="true" id="desktop-background" viewBox="0 0 366 187.62">
             <defs>
                 <style>
-                    .cls-1{fill:url(#linear-gradient);}.cls-2{fill:#fff;}.cls-3{fill:#ffd39a;}.cls-4{fill:#e25220;}.cls-5{fill:#1f2c39;}.cls-6{fill:#ff9f1c;}.cls-7{fill:#e25220;}
+                    .cls-1{fill:url(#linear-gradient);}.cls-2{fill:#fff;}.cls-3{fill:#ffd39a;}.cls-4{fill:#e25220;}.cls-5{fill:rgb(236, 240, 241);}.cls-6{fill:#ff9f1c;}.cls-7{fill:#e25220;}
                 </style>
                 <linearGradient id="linear-gradient" x1="183" x2="183" y1="121.73" y2="-66.34" gradientTransform="matrix(1 0 0 -1 0 121.24)" gradientUnits="userSpaceOnUse">
                     <stop offset="0" stop-color="#fff" stop-opacity="0"/>
@@ -83,11 +83,11 @@
 
         </svg>
         <div id="main-container">
-            <div class="header yellow small">
+            <div class="header yellow small animsition-overlay" data-animsition-overlay="true">
             </div>
 
             <div id="browser-container">
-                <div class="browser">
+                <div class="browser animsition-overlay" data-animsition-overlay="true">
                     <div class="top-bar">
                         <div class="dot" onclick="closeBrowser()"><i class="fa fa-times" aria-hidden="true"></i></div>
                         <div class="dot" onclick="minimize()"><i class="fa fa-window-minimize" aria-hidden="true"></i></div>
@@ -123,11 +123,11 @@
                         <div class="icon-title ubisoft">Ubisoft</div>
                         <div class="project-group vertical">
                             <a class="project-name" target="_blank" href="https://www.ubisoft.com/en-us/game/watch-dogs-2/">Watch Dogs 2</a>
-                            <div class="project-preview watch-dogs2" onclick="togglePreview('watch-dogs2')"></div>
+                            <div class="project-preview watch-dogs2 lazy" data-src="../img/coding/ubisoft-watchdogs2.jpg" onclick="togglePreview('watch-dogs2')"></div>
                         
                             <div class="short-description">
-                                <p>Webtool to track in game stats, positions and configurations, sending commands and configs back in game.</p>
-                                <p>front-end using Jinja2 in Python, back-end in Python and C# and UbiAdmin REST APIs. Map API using OpenLayers 3. In game developement in C++.</p>
+                                <p>Webtool to track in game session matchmaking info and geo locations, sending commands and configs back in game.</p>
+                                <p>front-end using Jinja2 for Python, back-end in Python and C# and UbiAdmin REST APIs. Map API using OpenLayers 3. In game developement in C++.</p>
                             </div>
                         </div>
                         <br>
@@ -136,7 +136,7 @@
                                 
                             <div class="video-container">
                                 <a class="project-name" target="_blank" href="https://www.autodesk.com/products/flame/overview">Flame Utility</a>
-                                <video width="100%" height="100%" controls>
+                                <video id="autodeskVideo" width="100%" height="100%" controls>
                                     <source src="autodesk.mp4" type="video/mp4">
                                     Your browser does not support HTML5 video.
                                 </video>
@@ -152,7 +152,7 @@
                         <div class="project-group vertical">
                             
                             <a class="project-name" href="https://home.mcafee.com/Secure/CloudAV/HowItWorks.html" target="_blank">Cloud AV</a>
-                            <div class="project-preview mcafee" onclick="togglePreview('mcafee')"></div>
+                            <div class="project-preview mcafee lazy" data-src="../img/coding/mcafee-ui.png" onclick="togglePreview('mcafee')"></div>
 
                             <div class="short-description">
                                 <p>A new Light-weight Anti-malware product under development from Intel Security. Worked on Cross-platform Prototype UI with ANgularjs and Cordova webstack.</p>
@@ -170,7 +170,7 @@
                             
                             <div class="short-description">
                                 <p class="tag">McGIll CS Department Website</p>
-                                <p>Web Developement for revamping McGill University Computer Science Website, Providing Information regarding Students, Courses, Research Area, Faculty & Lab, etc. Constructed various forms & infomation registration for falculty administrative purposes.</p>
+                                <p>Web Developement for revamping McGill University Computer Science Website, Providing Information regarding students, courses, research area, faculty & labs, etc. Constructed various forms & information registration for administrative purposes.</p>
                                 <p>Framework Using Django + Boostrap 3. Logo and all illustrations with Adobe Illustrator.</p>
                             </div>
                         </div>
@@ -255,7 +255,7 @@
                                 
                             <div class="video-container">
                                 <div class="project-name">Unity3D Game project: Medieval Warfare</div>
-                                <video width="100%" height="100%" controls>
+                                <video id="gameVideo" width="100%" height="100%" controls>
                                     <source src="game.mp4" type="video/mp4">
                                     Your browser does not support HTML5 video.
                                 </video>
@@ -283,6 +283,19 @@
                         </div>
                         <br>
                         <div class="icon-title programming">Personal Project</div>
+                        <div class="project-group">
+
+                            <a class="app-icon-container large" target="_blank" href="http://spaceaur.jingly.me">
+                            <span class="project-title">View Website</span>
+                            <img class="app-icon lazy" data-src="../img/coding/spaceaur.jpg"/>
+                            </a>
+                            <div class="short-description">
+                                <p class="tag">Spaceaur - 2017</p>
+                                <p>This is a Flikr-like app that fetches NASA images and lets you view, sort and search through them. Used as a personal project to learn and build something in React under 5 days.</p>
+                                <a target="_blank" href="https://github.com/skyviewt/spaceaur">View on Github</a>
+                            </div>
+
+                        </div>
                         <div class="project-group">
 
                             <a class="app-icon-container large" target="_blank" href="http://hearthbuilder.shaohanghe.com">
@@ -331,7 +344,7 @@
 
             </div>
 
-            <div class="task-bar">
+            <div class="task-bar animsition-overlay" data-animsition-overlay="true">
                 <div class="start-button" onclick="toggleMenu()">
                     <i class="fa fa-windows" aria-hidden="true"></i>
                 </div>

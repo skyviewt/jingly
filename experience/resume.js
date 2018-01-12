@@ -42,12 +42,9 @@ function readyFn(jQuery) {
   $("#background-container").load(svgUrl, function() {
     timelineHome.add(
       [
-        TweenMax.to("#home", 0.8, {
-          scale: 1.05,
-          transformOrigin: "center bottom",
-          yoyo: true,
-          repeat: -1,
-          ease: Sine.easeInOut
+        TweenMax.to("#cross", 2, {
+          fill: COLOR.Yellow,
+          ease: Circ.easeInOut
         }),
         TweenMax.to("#tree", 0.8, {
           skewX: -5,
@@ -57,7 +54,7 @@ function readyFn(jQuery) {
           ease: Sine.easeInOut
         }),
         TweenMax.to("#house-bush", 0.8, {
-          skewX: 5,
+          skewX: -5,
           transformOrigin: "center bottom",
           yoyo: true,
           repeat: -1,
@@ -80,7 +77,7 @@ function readyFn(jQuery) {
     loadingParentElement: "body", //animsition wrapper element
     loadingClass: "animsition-loading",
     loadingInner: "",
-    timeout: false,
+    timeout: true,
     timeoutCountdown: 5000,
     onLoadEvent: true,
     browser: ["animation-duration", "-webkit-animation-duration"],
@@ -451,11 +448,88 @@ function showCurrentSlideAndAcc() {
               scale: 1.15,
               transformOrigin: "center bottom",
               yoyo: true,
-              repeat: -1,
-              ease: Back.easeInOut
+              repeat: 3,
+              ease: Back.easeInOut,
+
             }
           ),
-          TweenMax.to("#bridge-light", 0.8, {
+          TweenMax.to('#cart1', 2,
+            {
+              bezier: {
+                type: "soft",
+                values: [
+                {
+                  x:3,
+                  y:1
+                },
+                {
+                  x:6,
+                  y:0
+                },
+                {
+                  x:20,
+                  y:2
+                },
+                {
+                  x:50,
+                  y:63
+                },
+                {
+                  x: 57,
+                  y: 32
+                }],
+                autoRotate: true
+              },
+              ease: Circ.easeInOut,
+              delay: 1.7
+            }),
+            TweenMax.to('#cart4', 2,
+            {
+              bezier: {
+                type: "soft",
+                values: [{
+                  x:26,
+                  y:7
+                },
+                {
+                  x:38,
+                  y:63
+                },
+                {
+                  x: 52,
+                  y: 22
+                }],
+                autoRotate: true
+              },
+              ease: Circ.easeInOut,
+              delay: 1.6
+            }),
+            TweenMax.to('#cart5', 2,
+            {
+              bezier: {
+                type: "soft",
+                values: [{
+                  x:5,
+                  y:0
+                },
+                {
+                  x:18,
+                  y:8
+                },
+                {
+                  x:28,
+                  y:58
+                },
+                {
+                  x: 46,
+                  y: 11
+                }],
+                autoRotate: true
+              },
+              ease: Circ.easeInOut,
+              delay: 1.5
+            }),
+            TweenMax.to("#bridge-light", 0.8, {
             stroke: COLOR.Red,
             yoyo: true,
             repeat: -1,
@@ -496,8 +570,6 @@ function showCurrentSlideAndAcc() {
               opacity: 1,
               rotation: 0,
               scale: 1,
-              repeatDelay: 0.8,
-              repeat: -1,
               yoyo: true,
               ease: Back.easeInOut
             },

@@ -5,14 +5,41 @@ var currentTab = 1;
 var backgroundTimeline = new TimelineMax({ pause: true });
 var isMaximized = false;
 var windowNameArray = ["Professional", "Internships", "Academic", "Personal"];
+var gameVideo = document.getElementById('gameVideo');
+var autodeskVideo = document.getElementById('autodeskVideo');
 /*-----------------------------READY FUNCTION-------------------------------------*/
 function readyFn(jQuery) {
   var _this = this;
 
   $.mobile.loading().hide();
   $(".lazy").Lazy({
-    scrollDirection: "vertical",
-    effect: "fadeIn"
+    effect: "fadeIn",
+    placeholder: '../img/default.jpg',
+    defaultImage: '../img/default.jpg'
+  });
+  $(".animsition-overlay").animsition({
+    inClass: "overlay-slide-in-top",
+    outClass: "overlay-slide-out-top",
+    inDuration: 1000,
+    outDuration: 500,
+    linkElement: ".animsition-link",
+    // e.g. linkElement: 'a:not([target='_blank']):not([href^='#'])'
+    loading: true,
+    loadingParentElement: "body", //animsition wrapper element
+    loadingClass: "animsition-loading",
+    loadingInner: "",
+    timeout: true,
+    timeoutCountdown: 5000,
+    onLoadEvent: true,
+    browser: ["animation-duration", "-webkit-animation-duration"],
+    // 'browser' option allows you to disable the 'animsition' in case the css property in the array is not supported by your browser.
+    // The default setting is to disable the 'animsition' in a browser that does not support 'animation-duration'.
+    overlay: true,
+    overlayClass: "animsition-overlay-slide",
+    overlayParentElement: "body",
+    transition: function transition(url) {
+      window.location.href = url;
+    }
   });
 
   new CBPGridGallery(document.getElementById("grid-gallery"), {
@@ -23,7 +50,6 @@ function readyFn(jQuery) {
   allMenuItems.forEach(function(item) {
     $("." + item + "-dude").hover(
       function() {
-        console.log(_this);
         $("." + item).toggleClass("animated");
       },
       function() {
@@ -194,6 +220,11 @@ function toggleTab(index) {
         "maximized"
       );
     }
+    if(currentTab === 2) {
+      closeVideo(autodeskVideo);
+    }else if(currentTab === 3){
+      closeVideo(gameVideo);
+    }
     currentTab = index;
     $(".browser-tabs").animate(
       {
@@ -210,13 +241,23 @@ function maximize() {
   isMaximized = !isMaximized;
 }
 
+function closeVideo(video){
+  if(video !== undefined){
+    video.pause();
+  }else{
+    autodeskVideo.pause();
+    gameVideo.pause();
+  }
+  }
+
 function closeBrowser() {
   TweenMax.to(".browser", 0.15, {
     scale: 0.1,
     opacity: 0,
     transformOrigin: "top left",
     display: "none",
-    ease: Power4.easeInOut
+    ease: Power4.easeInOut,
+    onStart: closeVideo()
   });
 }
 
@@ -227,7 +268,8 @@ function minimize() {
     scale: 0.1,
     opacity: 0,
     transformOrigin: "top left",
-    ease: Power2.easeInOut
+    ease: Power2.easeInOut,
+    onStart: closeVideo()
   });
   TweenMax.to("#minimized-window", 0.2, {
     width: "25%",

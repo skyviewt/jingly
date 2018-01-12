@@ -228,117 +228,130 @@ function makeMenu() {
 /*-----------------------------ANIMATIONS-------------------------------------*/
 
 function animateMouthBig(delay) {
-  setTimeout(function() {
-    PARTS.Mouth.animate(
-      {
-        d:
-          "M" +
-          (DIMENSION.MouthLeftX - DIMENSION.EyeSize * 2) +
-          "," +
-          DIMENSION.MouthY +
-          " C" +
-          DIMENSION.MouthLeftX +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
-          " " +
-          DIMENSION.MouthRightX +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
-          " " +
-          (DIMENSION.MouthRightX + DIMENSION.EyeSize * 2) +
-          "," +
-          DIMENSION.MouthY +
-          " " +
-          "Q" +
-          DIMENSION.MiddleX +
-          "," +
-          (DIMENSION.EyeY + DIMENSION.EyeSize * 2) +
-          " " +
-          (DIMENSION.MouthLeftX - DIMENSION.EyeSize) +
-          "," +
-          DIMENSION.MouthY
-      },
-      1000,
-      mina.easeinout,
-      animateMouthRound(Math.random() * 5000 + 0.7)
-    );
-  }, delay);
+  var delayRound = function(){
+    setTimeout(function(){
+      animateMouthRound(Math.random() * 6000 + 0.7);
+    },
+    delay);
+  };
+  
+  PARTS.Mouth.animate(
+    {
+      d:
+        "M" +
+        (DIMENSION.MouthLeftX - DIMENSION.EyeSize * 2) +
+        "," +
+        DIMENSION.MouthY +
+        " C" +
+        DIMENSION.MouthLeftX +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
+        " " +
+        DIMENSION.MouthRightX +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
+        " " +
+        (DIMENSION.MouthRightX + DIMENSION.EyeSize * 2) +
+        "," +
+        DIMENSION.MouthY +
+        " " +
+        "Q" +
+        DIMENSION.MiddleX +
+        "," +
+        (DIMENSION.EyeY + DIMENSION.EyeSize * 2) +
+        " " +
+        (DIMENSION.MouthLeftX - DIMENSION.EyeSize) +
+        "," +
+        DIMENSION.MouthY
+    },
+    1000,
+    mina.easeinout,
+    delayRound
+  );
 }
 
 function animateMouthRound(delay) {
-  setTimeout(function() {
-    PARTS.Mouth.animate(
-      {
-        d:
-          "M" +
-          (DIMENSION.MiddleX - DIMENSION.EyeSize) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize) +
-          " C" +
-          (DIMENSION.MiddleX - DIMENSION.EyeSize) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
-          " " +
-          (DIMENSION.MiddleX + DIMENSION.EyeSize) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
-          " " +
-          (DIMENSION.MiddleX + DIMENSION.EyeSize) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize) +
-          " " +
-          "Q" +
-          DIMENSION.MiddleX +
-          "," +
-          (DIMENSION.EyeY - DIMENSION.EyeSize) +
-          " " +
-          (DIMENSION.MiddleX - DIMENSION.EyeSize) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize)
-      },
-      1000,
-      mina.easeinout,
-      animateMouthSmall(Math.random() * 6000 + 0.7)
-    );
-  }, delay);
+  var delaySmall = function(){
+    setTimeout(function(){
+      animateMouthSmall(Math.random() * 6000 + 0.7);
+    },
+    delay);
+  }
+  
+  PARTS.Mouth.animate(
+    {
+      d:
+        "M" +
+        (DIMENSION.MiddleX - DIMENSION.EyeSize) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize) +
+        " C" +
+        (DIMENSION.MiddleX - DIMENSION.EyeSize) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
+        " " +
+        (DIMENSION.MiddleX + DIMENSION.EyeSize) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize * 5) +
+        " " +
+        (DIMENSION.MiddleX + DIMENSION.EyeSize) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize) +
+        " " +
+        "Q" +
+        DIMENSION.MiddleX +
+        "," +
+        (DIMENSION.EyeY - DIMENSION.EyeSize) +
+        " " +
+        (DIMENSION.MiddleX - DIMENSION.EyeSize) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize)
+    },
+    1000,
+    mina.easeinout,
+    delaySmall
+  );
 }
 
 function animateMouthSmall(delay) {
-  setTimeout(function() {
-    PARTS.Mouth.animate(
-      {
-        d:
-          "M" +
-          DIMENSION.MouthLeftX +
-          "," +
-          DIMENSION.MouthY +
-          " C" +
-          (DIMENSION.MouthLeftX + DIMENSION.EyeSize * 2) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize * 3) +
-          " " +
-          (DIMENSION.MouthRightX - DIMENSION.EyeSize * 2) +
-          "," +
-          (DIMENSION.MouthY + DIMENSION.EyeSize * 3) +
-          " " +
-          DIMENSION.MouthRightX +
-          "," +
-          DIMENSION.MouthY +
-          " " +
-          "Q" +
-          DIMENSION.MiddleX +
-          "," +
-          (DIMENSION.EyeY + DIMENSION.EyeSize * 2) +
-          " " +
-          DIMENSION.MouthLeftX +
-          "," +
-          DIMENSION.MouthY
-      },
-      1000,
-      mina.easeinout,
+  var delayBig = function(){
+    setTimeout(function(){
       animateMouthBig(Math.random() * 6000 + 0.7)
-    );
-  }, delay);
+    },
+    delay);
+  }
+  PARTS.Mouth.animate(
+    {
+      d:
+        "M" +
+        DIMENSION.MouthLeftX +
+        "," +
+        DIMENSION.MouthY +
+        " C" +
+        (DIMENSION.MouthLeftX + DIMENSION.EyeSize * 2) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize * 3) +
+        " " +
+        (DIMENSION.MouthRightX - DIMENSION.EyeSize * 2) +
+        "," +
+        (DIMENSION.MouthY + DIMENSION.EyeSize * 3) +
+        " " +
+        DIMENSION.MouthRightX +
+        "," +
+        DIMENSION.MouthY +
+        " " +
+        "Q" +
+        DIMENSION.MiddleX +
+        "," +
+        (DIMENSION.EyeY + DIMENSION.EyeSize * 2) +
+        " " +
+        DIMENSION.MouthLeftX +
+        "," +
+        DIMENSION.MouthY
+    },
+    1000,
+    delayBig
+  );
 }
 
 function animateJump() {

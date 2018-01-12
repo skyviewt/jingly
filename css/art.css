@@ -2,8 +2,10 @@
 html.touch body {
 	overflow: auto;
 	position: relative;
+	-webkit-overflow-scrolling: touch;
 }
 html, body{
 	overflow: auto;
 	position: relative;
+	-webkit-overflow-scrolling: touch;
 }

@@ -20,7 +20,7 @@ function readyFn( jQuery ) {
         loadingParentElement: 'body', //animsition wrapper element
         loadingClass: 'animsition-loading',
         loadingInner: '',
-        timeout: false,
+        timeout: true,
         timeoutCountdown: 5000,
         onLoadEvent: true,
         browser: [ 'animation-duration', '-webkit-animation-duration'],
